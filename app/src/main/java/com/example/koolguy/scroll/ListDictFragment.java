@@ -46,9 +46,6 @@ public class ListDictFragment extends ListFragment {
             ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
             setListAdapter(dictAdapter);
         }
-
-
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

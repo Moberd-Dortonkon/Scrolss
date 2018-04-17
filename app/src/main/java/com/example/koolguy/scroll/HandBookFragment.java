@@ -33,4 +33,12 @@ public class HandBookFragment extends ListFragment {
         return super.onCreateView(inflater, container, savedInstanceState); //ListFragment должен это возвращать
          }
 
+
+
+
+
+
+
+
+
 }

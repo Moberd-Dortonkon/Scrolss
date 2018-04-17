@@ -6,6 +6,13 @@
         <item>Первая помощь</item>
     </string-array>
 
-
+    <string-array name="FirstHelp">
+        <item>Перелом</item>
+        <item>Инсульт</item>
+        <item>Ножевое ранение</item>
+        <item>Огнестрельное ранение</item>
+        <item>Побои</item>
+        <item>Судороги</item>
+    </string-array>
 
 </resources>
