@@ -38,5 +38,8 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        Intent intent=new Intent(view.getContext(),ListDictActivity.class);
+        intent.putExtra("bbb",position);
+        startActivityForResult(intent, 0);
     }
 }
