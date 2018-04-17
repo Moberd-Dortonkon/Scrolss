@@ -28,7 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements Check.Listener{
+public class MainActivity extends AppCompatActivity implements Check.Listener, DictionaryFragment.Listener {
     HorizontalScrollMenuView menu;
     TextView textView;
     MyMap map;

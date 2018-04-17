@@ -27,6 +27,7 @@ public class Check extends Fragment {
         void click();
     }
     private Listener list;
+
     public Check() {
         // Required empty public constructor
     }
