@@ -27,6 +27,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.internal.IGoogleMapDelegate;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -50,17 +51,21 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     MapFragment gmap;
     LatLng lng;
     boolean firstEnable;
+    ArrayList<LatLng> list;
 
     public MyMap(Activity activity, Context context) {
         this.activity = activity;
         this.context = context;
-
+        MapsInitializer.initialize(context);
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999);
 
     }
 
     public void makeMap(ArrayList<LatLng> list) { //
         if (googleServicesAvaliable()) {
+
+            if(!list.isEmpty())this.list=list;
+            if(list.isEmpty())this.list = null;
              gmap = new MapFragment();
             firstEnable=true;
             ft = activity.getFragmentManager().beginTransaction();
@@ -68,7 +73,6 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
             ft.addToBackStack(null);
             ft.commit();
             gmap.getMapAsync(this);
-            if(!list.isEmpty())doFlags(list);
         }
     }
 
@@ -77,8 +81,11 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     {
      for(LatLng lng:list)
      {
-         MarkerOptions mp = new MarkerOptions().draggable(false).position(lng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag));
-         googleMap.addMarker(mp);
+
+         googleMap.addMarker(new MarkerOptions()
+         .draggable(false)
+         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag))
+         .position(lng));
 
      }
 
@@ -113,6 +120,8 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
         buildGoogleApiClient();
 
         googleMap.setMyLocationEnabled(true);
+        if(list!=null)doFlags(list);
+
 
 
 

@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements Check.Listener{
                         anotherFragment(); // для сервера
                         break;
                     case 3:
-                        anotherFragment(); //Создать метод который вызывыет словарь
+                        dictionaryFragment(); //Создать метод который вызывыет словарь
                         break;
                 }
 
@@ -91,10 +91,16 @@ public class MainActivity extends AppCompatActivity implements Check.Listener{
 
     }
 
-
+    private void dictionaryFragment() //создание
+    {
+        DictionaryFragment mapFragment = new DictionaryFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frames, mapFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     @Override
     public void click() {
-        Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
         ArrayList<LatLng>latLngs = new ArrayList<LatLng>();
         latLngs.add(new LatLng(47.277424, 39.707281));
         latLngs.add(new LatLng(47.213866, 39.711912));
