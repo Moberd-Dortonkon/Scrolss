@@ -4,6 +4,7 @@
     <string-array name="HandBook">
         <item>Места</item>
         <item>Первая помощь</item>
+        <item>Расписание матчей</item>
     </string-array>
 
     <string-array name="FirstHelp">
