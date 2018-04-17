@@ -30,15 +30,15 @@ public class ListDictFragment extends Fragment {
         if (i==0){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.Hello);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dict);
-            ListView listView = (ListView) findViewById(R.id.ListDict);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, dict);
+            ListView listView = (ListView) view.findViewById(R.id.ListDict);
             listView.setAdapter(dictAdapter);
         }
         if (i==1){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.How);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dict);
-            ListView listView = (ListView) findViewById(R.id.ListDict);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, dict);
+            ListView listView = (ListView) view.findViewById(R.id.ListDict);
             listView.setAdapter(dictAdapter);
         }
         if (i==2){

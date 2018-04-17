@@ -117,5 +117,9 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
     public void DictionaryClick(int position) {
         ListDictFragment dict = new ListDictFragment();
         dict.setI(position);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frames, dict); //если
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
