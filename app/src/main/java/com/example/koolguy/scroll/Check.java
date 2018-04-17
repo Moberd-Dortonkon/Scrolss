@@ -60,7 +60,7 @@ public class Check extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(view.getContext(),"I wor",Toast.LENGTH_SHORT).show();
                 textView.setText("Works");
-                //list.click(); не работает(
+                //list.click(); не работает(....................
             }
         });
     }
