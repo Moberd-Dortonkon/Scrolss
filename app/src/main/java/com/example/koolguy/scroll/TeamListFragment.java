@@ -29,7 +29,7 @@ public class TeamListFragment extends ListFragment {
         matches[0]= new MyMatch("Бразилия","Швейцария", "17 Июня 21:00");
         MyMatchAdapter adapter=new MyMatchAdapter(inflater.getContext(), R.layout.adapter_item, matches);
         setListAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_team_list, container, false);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
 }
