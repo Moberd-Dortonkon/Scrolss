@@ -111,4 +111,10 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
         map.makeMap(latLngs);
 
     }
+
+
+    @Override
+    public void DictionaryClick(int position) {
+
+    }
 }

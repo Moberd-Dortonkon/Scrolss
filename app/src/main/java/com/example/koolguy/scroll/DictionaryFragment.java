@@ -22,7 +22,7 @@ import android.widget.ListView;
 public class DictionaryFragment extends ListFragment { //Есть встроенные лист фрагмент.Я добавил метод нажатия
 
     public static interface Listener{
-        void click();
+        void DictionaryClick(int position);
     }
 
     private DictionaryFragment.Listener list;
@@ -38,7 +38,6 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     }
 
     View view;
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Resources res=getResources();
         String[] dict = res.getStringArray(R.array.dictionary);

@@ -59,8 +59,6 @@ public class Check extends Fragment {
         butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                textView.setText("Works");
                 list.click();
             }
         });
