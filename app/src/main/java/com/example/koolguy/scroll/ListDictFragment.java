@@ -1,18 +1,32 @@
 package com.example.koolguy.scroll;
 
+
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class ListDictActivity extends AppCompatActivity {
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ListDictFragment extends Fragment {
+
+
+    public ListDictFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_dict);
-        int i=getIntent().getIntExtra("bbb",0);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        int i;
+
         if (i==0){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.Hello);
@@ -35,5 +49,9 @@ public class ListDictActivity extends AppCompatActivity {
             listView.setAdapter(dictAdapter);
         }
 
+
+
+        return inflater.inflate(R.layout.fragment_list_dict, container, false);
     }
+
 }
