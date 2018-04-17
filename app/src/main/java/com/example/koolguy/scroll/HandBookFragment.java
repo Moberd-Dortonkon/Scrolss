@@ -30,7 +30,7 @@ public class HandBookFragment extends ListFragment {
         String[] HandBook = res.getStringArray(R.array.HandBook);
         ArrayAdapter<String> BookAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,HandBook);
         setListAdapter(BookAdapter);
-        return inflater.inflate(R.layout.fragment_hand_book, container, false);
-    }
+        return super.onCreateView(inflater, container, savedInstanceState); //ListFragment должен это возвращать
+         }
 
 }
