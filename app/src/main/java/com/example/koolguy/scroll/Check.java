@@ -43,17 +43,25 @@ public class Check extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_check, container, false);
-        butt = view.findViewById(R.id.button2);
-        textView = view.findViewById(R.id.text);
+
+        return inflater.inflate(R.layout.fragment_check, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        View view = getView();
+        butt = (Button)view.findViewById(R.id.button2);
+        textView = (TextView)view.findViewById(R.id.text);
+        textView.setText("NotWork");
         butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(),"I wor",Toast.LENGTH_SHORT).show();
-                list.click();
+                textView.setText("Works");
+                //list.click(); не работает(
             }
         });
-        return inflater.inflate(R.layout.fragment_check, container, false);
     }
-
-
 }
