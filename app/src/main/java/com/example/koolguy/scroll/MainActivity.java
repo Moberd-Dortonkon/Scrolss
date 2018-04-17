@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
 
     private void dictionaryFragment() //создание
     {
-        ListDictFragment mapFragment = new ListDictFragment();
+       DictionaryFragment mapFragment = new DictionaryFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);

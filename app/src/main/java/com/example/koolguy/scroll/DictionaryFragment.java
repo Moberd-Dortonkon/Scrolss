@@ -52,18 +52,10 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        listDictFragment();
+        list.DictionaryClick(position);
 
     }
 
-    private void listDictFragment() //создание
-    {
-        DictionaryFragment mapFragment = new DictionaryFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frames, mapFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
 
 }

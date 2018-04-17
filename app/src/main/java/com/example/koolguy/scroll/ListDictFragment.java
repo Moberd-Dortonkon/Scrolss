@@ -1,6 +1,7 @@
 package com.example.koolguy.scroll;
 
 
+import android.app.ListFragment;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -14,7 +15,7 @@ import android.widget.ListView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListDictFragment extends Fragment {
+public class ListDictFragment extends ListFragment {
 
 
     public ListDictFragment() {
@@ -30,28 +31,25 @@ public class ListDictFragment extends Fragment {
         if (i==0){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.Hello);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, dict);
-            ListView listView = (ListView) view.findViewById(R.id.ListDict);
-            listView.setAdapter(dictAdapter);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);
+            setListAdapter(dictAdapter);
         }
         if (i==1){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.How);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, dict);
-            ListView listView = (ListView) view.findViewById(R.id.ListDict);;
-            listView.setAdapter(dictAdapter);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);
+            setListAdapter(dictAdapter);
         }
         if (i==2){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.Help);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
-            ListView listView = (ListView) view.findViewById(R.id.ListDict);//тут поменял
-            listView.setAdapter(dictAdapter);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
+            setListAdapter(dictAdapter);
         }
 
 
 
-        return view;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
 }
