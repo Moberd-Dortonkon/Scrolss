@@ -3,7 +3,7 @@ package com.example.koolguy.scroll;
 
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +20,12 @@ public class ListDictFragment extends Fragment {
     public ListDictFragment() {
         // Required empty public constructor
     }
-
-
+   int i;
+    public void setI(int position){this.i =position;}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        int i;
+
 
         if (i==0){
             Resources res=getResources();
