@@ -21,12 +21,12 @@ public class ListDictFragment extends Fragment {
         // Required empty public constructor
     }
    int i;
+    View view;
     public void setI(int position){this.i =position;}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
+        view = inflater.inflate(R.layout.fragment_list_dict, container, false);
         if (i==0){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.Hello);
@@ -44,14 +44,14 @@ public class ListDictFragment extends Fragment {
         if (i==2){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.Help);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dict);
-            ListView listView = (ListView) findViewById(R.id.ListDict);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
+            ListView listView = (ListView) view.findViewById(R.id.ListDict);//тут поменял
             listView.setAdapter(dictAdapter);
         }
 
 
 
-        return inflater.inflate(R.layout.fragment_list_dict, container, false);
+        return view;
     }
 
 }
