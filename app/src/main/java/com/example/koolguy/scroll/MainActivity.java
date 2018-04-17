@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
     }
 
 
-
     private void mateToast(int position) {
         Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
     }
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
             public void onHSMClick(MenuItem menuItem, int position) {
                 switch (position) {
                     case 0:
-                        anotherFragment(); //создать метод который вызывает справочник
+                        handBookFragment(); //создать метод который вызывает справочник
                         break;
                     case 1:
                          map.makeMap(new ArrayList<LatLng>());break;
@@ -100,6 +99,14 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
         transaction.commit();
     }
 
+    private void handBookFragment() //создание
+    {
+        HandBookFragment mapFragment = new HandBookFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frames, mapFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     @Override
 
     public void click() {
