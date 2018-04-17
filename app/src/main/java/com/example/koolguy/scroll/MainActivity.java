@@ -2,6 +2,7 @@ package com.example.koolguy.scroll;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -28,12 +29,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements Check.Listener, DictionaryFragment.Listener {
+public class MainActivity extends AppCompatActivity implements Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener {
     HorizontalScrollMenuView menu;
     TextView textView;
     MyMap map;
     CameraPosition saveCamera;
-
+    FragmentAll fragmentAll;
 
 
     @Override
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
 
 
     }
+
+
 
 
     private void mateToast(int position) {
@@ -122,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
     }
 
 
-    @Override
     public void DictionaryClick(int position) {
         ListDictFragment dict = new ListDictFragment();
         dict.setI(position);
@@ -130,5 +132,18 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
         transaction.replace(R.id.frames, dict); //если
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void handBookClick(int position) {
+        if(position==0){}
+        if (position==1)
+        {
+            FirstHelpFragment mapFragment = new FirstHelpFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.frames, mapFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 }

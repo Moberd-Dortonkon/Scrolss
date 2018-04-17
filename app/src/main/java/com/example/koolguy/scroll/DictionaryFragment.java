@@ -22,16 +22,16 @@ import android.widget.ListView;
  */
 public class DictionaryFragment extends ListFragment { //Есть встроенные лист фрагмент.Я добавил метод нажатия
 
-    public static interface Listener{
+    public static interface DictionaryListener{
         void DictionaryClick(int position);
     }
 
-    private DictionaryFragment.Listener list;
-
+    private DictionaryFragment.DictionaryListener list;
+    Clickable clickable;
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.list = (DictionaryFragment.Listener) activity;
+        list = (DictionaryListener) activity;
     }
 
     public DictionaryFragment() {
