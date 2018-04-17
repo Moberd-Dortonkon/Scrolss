@@ -2,6 +2,7 @@ package com.example.koolguy.scroll;
 
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.app.ListFragment;
 import android.content.Intent;
@@ -51,6 +52,18 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        listDictFragment();
 
     }
+
+    private void listDictFragment() //создание
+    {
+        DictionaryFragment mapFragment = new DictionaryFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frames, mapFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
 }

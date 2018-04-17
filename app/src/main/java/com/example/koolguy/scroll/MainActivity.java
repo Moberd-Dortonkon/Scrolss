@@ -93,13 +93,15 @@ public class MainActivity extends AppCompatActivity implements Check.Listener, D
 
     private void dictionaryFragment() //создание
     {
-        DictionaryFragment mapFragment = new DictionaryFragment();
+        ListDictFragment mapFragment = new ListDictFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
     @Override
+
     public void click() {
         ArrayList<LatLng>latLngs = new ArrayList<LatLng>();
         latLngs.add(new LatLng(47.277424, 39.707281));
