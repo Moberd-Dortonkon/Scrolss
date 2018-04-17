@@ -37,6 +37,9 @@ public class DictionaryFragment extends Fragment {
                 Intent intent=new Intent(view.getContext(),ListActivity.class);
                 intent.putExtra("bbb",position);
                 startActivityForResult(intent, 0);
+
+
+
             }
         });
 
