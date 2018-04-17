@@ -47,6 +47,8 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
     MapFragment gmap;
+    LatLng lng;
+    boolean firstEnable;
 
     public MyMap(Activity activity, Context context) {
         this.activity = activity;
@@ -56,9 +58,10 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
 
     }
 
-    public void makeMap(ArrayList<LatLng> list) {
+    public void makeMap(ArrayList<LatLng> list) { //
         if (googleServicesAvaliable()) {
              gmap = new MapFragment();
+            firstEnable=true;
             ft = activity.getFragmentManager().beginTransaction();
             ft.replace(R.id.frames, gmap); //Единственное что не могу автоматизировать так это framelayout,его надо вручную ставить(((
             ft.addToBackStack(null);
@@ -105,8 +108,11 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+        googleMap. moveCamera(CameraUpdateFactory.zoomTo(12));
         buildGoogleApiClient();
+
         googleMap.setMyLocationEnabled(true);
+
 
 
     }
@@ -125,10 +131,10 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     @Override
     public void onLocationChanged(Location location) {
 
-            LatLng lng = new LatLng(location.getLatitude(), location.getLongitude());
+            lng = new LatLng(location.getLatitude(), location.getLongitude());
+            if(firstEnable){googleMap.moveCamera(CameraUpdateFactory.newLatLng(lng));firstEnable=false;}
 
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(lng));
-            googleMap. moveCamera(CameraUpdateFactory.zoomTo(12));
+
 
         }
 

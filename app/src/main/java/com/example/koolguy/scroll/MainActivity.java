@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements Check.Listener{
                          map.makeMap(new ArrayList<LatLng>());break;
                     case 2:
 
-                        anotherFragment();
+                        anotherFragment(); // для сервера
                         break;
                     case 3:
 
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements Check.Listener{
 
     @Override
     public void click() {
-       Log.e("is it","work");
+        Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
         ArrayList<LatLng>latLngs = new ArrayList<LatLng>();
         latLngs.add(new LatLng(47.277424, 39.707281));
         latLngs.add(new LatLng(47.213866, 39.711912));
@@ -105,6 +105,6 @@ public class MainActivity extends AppCompatActivity implements Check.Listener{
         latLngs.add(new LatLng(47.225965, 39.746229));
         latLngs.add(new LatLng(47.226343, 39.739019));
         map.makeMap(latLngs);
-       Toast.makeText(this,"Hello",Toast.LENGTH_SHORT).show();
+
     }
 }
