@@ -38,7 +38,7 @@ public class ListDictFragment extends Fragment {
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.How);
             ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, dict);
-            ListView listView = (ListView) view.findViewById(R.id.ListDict);
+            ListView listView = (ListView) view.findViewById(R.id.ListDict);;
             listView.setAdapter(dictAdapter);
         }
         if (i==2){
