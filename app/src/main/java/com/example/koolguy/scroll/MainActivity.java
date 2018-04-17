@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
     TextView textView;
     MyMap map;
     CameraPosition saveCamera;
-    FragmentAll fragmentAll;
 
 
     @Override
@@ -136,10 +135,19 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
 
     @Override
     public void handBookClick(int position) {
-        if(position==0){}
+        if(position==0){
+
+        }
         if (position==1)
         {
             FirstHelpFragment mapFragment = new FirstHelpFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.frames, mapFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        if (position==2){
+            TeamListFragment mapFragment=new TeamListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
             transaction.addToBackStack(null);

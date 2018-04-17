@@ -21,7 +21,7 @@ View view;
         // Required empty public constructor
     }
 
-    Clickable clickable;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

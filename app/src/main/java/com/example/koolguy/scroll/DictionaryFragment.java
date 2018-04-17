@@ -27,7 +27,6 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     }
 
     private DictionaryFragment.DictionaryListener list;
-    Clickable clickable;
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
