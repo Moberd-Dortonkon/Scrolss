@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="dictionary">
+        <item>Здравствуйте</item>
+        <item>Как у вас дела?</item>
+        <item>Вам нужна помощь?</item>
+    </string-array>
+
+
+    <string-array name="Hello">
+        <item>Здравствуйте</item>
+        <item>Англ: Hello</item>
+        <item>Нем: Hallo</item>
+    </string-array>
+
+    <string-array name="How">
+        <item>Как у вас дела?</item>
+        <item>Англ: How are you? </item>
+        <item>Нем: Wie geht es Ihnen?</item>
+    </string-array>
+
+    <string-array name="Help">
+        <item>Вам нужна помощь?</item>
+        <item>Англ: Do you need a help?</item>
+        <item>Нем: Brauchts du hilfe??</item>
+    </string-array>
+
+
+
+</resources>
