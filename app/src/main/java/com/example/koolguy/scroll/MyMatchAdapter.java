@@ -33,14 +33,40 @@ public View getView(int position, View convertView, ViewGroup parent){
     ((TextView) convertView.findViewById(R.id.text_team_1)).setText(String.valueOf(match.team1));
     ((TextView) convertView.findViewById(R.id.text_team_2)).setText(String.valueOf(match.team2));
 
-    if (match.team1=="Бразилия")
+    if (match.team1=="  Бразилия  ")
         ((ImageView) convertView.findViewById(R.id.image_team_1)).setImageResource(R.drawable.brazil);
-    if (match.team2=="Бразилия")
+    if (match.team2=="  Бразилия  ")
         ((ImageView) convertView.findViewById(R.id.image_team_2)).setImageResource(R.drawable.brazil);
-    if (match.team1=="Швейцария")
+    if (match.team1=="     Швейцария  ")
         ((ImageView) convertView.findViewById(R.id.image_team_1)).setImageResource(R.drawable.switzerland);
-    if (match.team2=="Швейцария")
+    if (match.team2=="     Швейцария  ")
         ((ImageView) convertView.findViewById(R.id.image_team_2)).setImageResource(R.drawable.switzerland);
+    if (match.team1=="Уругвай")
+        ((ImageView) convertView.findViewById(R.id.image_team_1)).setImageResource(R.drawable.uruguay);
+    if (match.team2=="Уругвай")
+        ((ImageView) convertView.findViewById(R.id.image_team_2)).setImageResource(R.drawable.uruguay);
+    if (match.team1=="Саудовская Аравия")
+        ((ImageView) convertView.findViewById(R.id.image_team_1)).setImageResource(R.drawable.saudi_arabia);
+    if (match.team2=="Саудовская Аравия")
+        ((ImageView) convertView.findViewById(R.id.image_team_2)).setImageResource(R.drawable.saudi_arabia);
+    if (match.team1=="Республика Корея")
+        ((ImageView) convertView.findViewById(R.id.image_team_1)).setImageResource(R.drawable.south_korea);
+    if (match.team2=="Республика Корея")
+        ((ImageView) convertView.findViewById(R.id.image_team_2)).setImageResource(R.drawable.south_korea);
+    if (match.team1=="Мексика")
+        ((ImageView) convertView.findViewById(R.id.image_team_1)).setImageResource(R.drawable.mexico);
+    if (match.team2=="Мексика")
+        ((ImageView) convertView.findViewById(R.id.image_team_2)).setImageResource(R.drawable.mexico);
+    if (match.team1=="  Исландия    ")
+        ((ImageView) convertView.findViewById(R.id.image_team_1)).setImageResource(R.drawable.iceland);
+    if (match.team2=="  Исландия    ")
+        ((ImageView) convertView.findViewById(R.id.image_team_2)).setImageResource(R.drawable.iceland);
+    if (match.team1=="          Хорватия")
+        ((ImageView) convertView.findViewById(R.id.image_team_1)).setImageResource(R.drawable.croatia);
+    if (match.team2=="          Хорватия")
+        ((ImageView) convertView.findViewById(R.id.image_team_2)).setImageResource(R.drawable.croatia);
+
+
 
     return  convertView;
 }

@@ -3,28 +3,33 @@
     android:layout_height="wrap_content" android:orientation="horizontal"
     android:layout_width="fill_parent">
 
-    <LinearLayout android:layout_height="36dp"
-        android:layout_width="match_parent">
+    <LinearLayout android:layout_height="60dp"
+        android:layout_width="match_parent"
+        >
 
         <ImageView
             android:id="@+id/image_team_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:paddingTop="15dp"/>
 
         <TextView
             android:id="@+id/text_team_1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingTop="20dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
             android:layout_weight="1"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:paddingTop="20dp"/>
 
 
         <TextView
@@ -32,20 +37,24 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingTop="20dp"/>
 
         <ImageView
             android:id="@+id/image_team_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:paddingTop="15dp"/>
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingTop="20dp" />
 
     </LinearLayout>
 

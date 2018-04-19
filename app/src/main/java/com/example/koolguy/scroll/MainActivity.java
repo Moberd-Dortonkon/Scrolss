@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
     }
 
 
-
-
     private void mateToast(int position) {
         Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
     }
