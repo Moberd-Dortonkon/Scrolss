@@ -131,6 +131,13 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
         transaction.commit();
     }
 
+    public void extraNumbersClick(){
+        ExtraNumbersFragment mapFragment = new ExtraNumbersFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frames, mapFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     @Override
     public void handBookClick(int position) {
         if(position==0){

@@ -8,6 +8,7 @@
     </string-array>
 
     <string-array name="FirstHelp">
+        <item>Экстренные службы помощи</item>
         <item>Перелом</item>
         <item>Инсульт</item>
         <item>Ножевое ранение</item>
@@ -16,5 +17,15 @@
         <item>Судороги</item>
         <item>Приступ Эпилепсии</item>
     </string-array>
+
+    <string-array name="ExtraNumbers">
+        <item>112 "Экстренная служба помощи"</item>
+        <item>010 Пожарные</item>
+        <item>020 Скорая помощ</item>
+        <item>030 Полиция</item>
+
+    </string-array>
+
+
 
 </resources>
