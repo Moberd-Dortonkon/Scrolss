@@ -50,7 +50,7 @@ public class FirstHelpFragment extends ListFragment {
             Resources res = getResources();
             String[] FirstHelp = res.getStringArray(R.array.FirstHelp);
             String s = FirstHelp[position];
-            Uri address = Uri.parse("https://www.google.ru/search?q=" + s);
+            Uri address = Uri.parse("https://www.google.ru/search?q=первая+помощь+при+" + s);
             Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
             startActivity(openlinkIntent);
         }
