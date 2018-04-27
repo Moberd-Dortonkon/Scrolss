@@ -26,13 +26,15 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener {
+public class MainActivity extends AppCompatActivity implements Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext{
     HorizontalScrollMenuView menu;
     TextView textView;
     MyMap map;
+    public static final String SERVER= "https://immense-wave-82247.herokuapp.com";
     CameraPosition saveCamera;
 
 
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
     }
     private void anotherFragment()
     {
-        Check mapFragment = new Check();
+       LeaderCreateGroup mapFragment = new LeaderCreateGroup();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);
@@ -158,5 +160,15 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
             transaction.addToBackStack(null);
             transaction.commit();
         }
+    }
+
+
+    @Override
+    public void leaderCreateClick() {
+        FirstHelpFragment mapFragment = new FirstHelpFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frames, mapFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
