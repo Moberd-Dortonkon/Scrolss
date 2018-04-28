@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.darwindeveloper.horizontalscrollmenulibrary.custom_views.HorizontalScrollMenuView;
 import com.darwindeveloper.horizontalscrollmenulibrary.extras.MenuItem;
+import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,7 +31,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext{
+public class MainActivity extends AppCompatActivity implements Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext,ChooseStatus.ChooseStatusClick{
     HorizontalScrollMenuView menu;
     TextView textView;
     MyMap map;
@@ -165,10 +166,34 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
 
     @Override
     public void leaderCreateClick() {
-        FirstHelpFragment mapFragment = new FirstHelpFragment();
+        LeaderGroup mapFragment = new LeaderGroup();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void chooseStatusClick(int id) {
+        switch (id)
+        {
+            case 1:   
+                LeaderCreateGroup mapFragment = new LeaderCreateGroup();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frames, mapFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+
+
+            case 2:
+                VolonteerStatus volonteerStatus = new VolonteerStatus();
+                FragmentTransaction trans = getFragmentManager().beginTransaction();
+                trans.replace(R.id.frames, volonteerStatus);
+                trans.addToBackStack(null);
+                trans.commit();
+                break;
+            
+        }
     }
 }

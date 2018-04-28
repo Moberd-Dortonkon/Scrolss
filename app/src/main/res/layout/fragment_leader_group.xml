@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".LeaderGroup">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/groupInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:text="TextView" />
+
+    <EditText
+        android:id="@+id/refreshGroupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="YourName" />
+
+    <Button
+        android:id="@+id/refreshGroup"
+        android:layout_width="126dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:text="refresh" />
+</LinearLayout>
