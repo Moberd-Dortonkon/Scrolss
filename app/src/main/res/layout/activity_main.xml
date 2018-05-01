@@ -11,26 +11,22 @@
         android:id="@+id/frames"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2" />
+        android:layout_weight="1">
 
-        <com.darwindeveloper.horizontalscrollmenulibrary.custom_views.HorizontalScrollMenuView
-            android:id="@+id/menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:backgroundMenuColor="#d2d2d2"
-            app:backgroundNotifications="@color/colorAccent"
-            app:icon_height="50dp"
-            app:icon_width="50dp"
-            app:item_backgroundColor="#A2f0ff"
-            app:item_colorSelected="@color/colorAccent"
-            app:item_marginBottom="4dp"
-            app:item_marginLeft="4dp"
-            app:item_marginRight="4dp"
-            app:item_marginTop="4dp"
-            app:item_textColor="#fff"
-            app:item_textSize="3sp" />
+    </FrameLayout>
 
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/colorPrimary"
+        android:layout_margin="0dp"
+        app:itemIconTint="#ffff"
+        app:itemTextColor="#ffff"
+
+        app:menu="@menu/botton_navigation" />
 
 
 </LinearLayout>

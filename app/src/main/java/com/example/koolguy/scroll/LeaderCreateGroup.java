@@ -29,7 +29,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LeaderCreateGroup extends Fragment {
 
     View v;
-    EditText volonteers;
     EditText leaderName;
     Button createGroup;
     TextView test;
@@ -52,7 +51,6 @@ public class LeaderCreateGroup extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_leader_create_group, container, false);
-        volonteers =(EditText)v.findViewById(R.id.volonteers);
         leaderName =(EditText)v.findViewById(R.id.leadername);
         test =(TextView)v.findViewById(R.id.test);
         createGroup=(Button)v.findViewById(R.id.createGroup);
@@ -84,8 +82,7 @@ public class LeaderCreateGroup extends Fragment {
             Retrofit retrofit =new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
             ServerCreateGroup group =retrofit.create(ServerCreateGroup.class);
             String lName =leaderName.getText().toString();
-            String names=volonteers.getText().toString();
-            Call<String>call=group.createGroup(lName,names);
+            Call<String>call=group.createGroup(lName);
             try {
               Response<String> response = call.execute();
             } catch (IOException e) {
@@ -98,7 +95,7 @@ public class LeaderCreateGroup extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            
+            //save name
             listener.leaderCreateClick();
             
         }

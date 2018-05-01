@@ -84,14 +84,15 @@ public class LeaderGroup extends Fragment {
         protected void onPostExecute(String s) {
             Volonteer v;
             String info ="";
-            for (String name:vGroup.keySet())
-            {
-                v=vGroup.get(name);
-                info=info+v.getName()+":     "+("пришел:"+(v.isCome()?"да":"нет"))+"      "+("поел:"+(v.isEat()?"да":"нет"))+"\n";
+            if(vGroup!=null) {
+                for (String name : vGroup.keySet()) {
+                    v = vGroup.get(name);
+                    info = info + v.getName() + ":     " + ("пришел:" + (v.isCome() ? "да" : "нет")) + "      " + ("поел:" + (v.isEat() ? "да" : "нет")) + "\n";
 
+                }
+                textView.setText(info);
             }
-            textView.setText(info);
-
+            else textView.setText("Да у вас пустая группа!!");
 
         }
     }

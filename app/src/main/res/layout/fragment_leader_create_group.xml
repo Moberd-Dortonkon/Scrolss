@@ -13,30 +13,17 @@
         android:layout_height="73dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="165dp"
         android:ems="10"
         android:hint="YourName"
-        android:inputType="textPersonName"
-         />
-
-    <EditText
-        android:id="@+id/volonteers"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:hint="Volonters that you conrtrol (use ,)"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="132dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-         />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/createGroup"
-        android:layout_width="185dp"
-        android:layout_height="140dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_width="175dp"
+        android:layout_height="67dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/leadername"
         android:text="CreateGroup" />
 
     <TextView
@@ -44,8 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="241dp"
-        android:layout_marginStart="142dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="64dp"
         android:text="TextView" />
 </RelativeLayout>

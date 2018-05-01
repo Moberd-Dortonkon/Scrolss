@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,8 +34,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext,ChooseStatus.ChooseStatusClick{
-    HorizontalScrollMenuView menu;
+public class MainActivity extends AppCompatActivity implements
+        Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext
+        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer{
+    BottomNavigationView menu;
     TextView textView;
     MyMap map;
     public static final String SERVER= "https://immense-wave-82247.herokuapp.com";
@@ -43,11 +48,12 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        menu = (HorizontalScrollMenuView) findViewById(R.id.menu);
+        menu=(BottomNavigationView)findViewById(R.id.menu);
         textView = (TextView) findViewById(R.id.text);
         int i = 0;
          map = new MyMap(this,this);
         initMenu();
+
 
 
 
@@ -59,23 +65,15 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
     }
     private void anotherFragment()
     {
-       LeaderCreateGroup mapFragment = new LeaderCreateGroup();
+       ChooseStatus mapFragment = new ChooseStatus();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);
         transaction.commit();
 
     }
-    private void initMenu() {
-        menu.addItem("Transcation", R.drawable.ic_book);
-        menu.addItem("Map", R.drawable.ic_map);
-        menu.addItem("Account", R.drawable.ic_account);
-        menu.addItem("Support", R.drawable.ic_dictionary);
-        menu.setOnHSMenuClickListener(new HorizontalScrollMenuView.OnHSMenuClickListener() {
-            @Override
-            public void onHSMClick(MenuItem menuItem, int position) {
-                switch (position) {
-                    case 0:
+    /*
+     case 0:
                         handBookFragment(); //создать метод который вызывает справочник
                         break;
                     case 1:
@@ -86,10 +84,33 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
                     case 3:
                         dictionaryFragment(); //Создать метод который вызывыет словарь
                         break;
-                }
+     */
+    private void initMenu() {
 
-            }
-        });
+        handBookFragment();
+        menu.setSelectedItemId(R.id.book);
+       menu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+           @Override
+           public boolean onNavigationItemSelected(@NonNull android.view.MenuItem item) {
+               switch (item.getItemId())
+               {
+                   case R.id.book:
+                       handBookFragment(); //создать метод который вызывает справочник
+                       break;
+                   case R.id.map:
+                       map.makeMap(new ArrayList<LatLng>());break;
+                   case R.id.account:
+                       anotherFragment(); // для сервера
+                       break;
+                  case R.id.dictionary:
+                      dictionaryFragment(); //Создать метод который вызывыет словарь
+                     break;
+                   }
+
+
+               return true;
+           }
+       });
 
     }
 
@@ -187,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
 
 
             case 2:
-                VolonteerStatus volonteerStatus = new VolonteerStatus();
+                CreateVolonteer volonteerStatus = new CreateVolonteer();
                 FragmentTransaction trans = getFragmentManager().beginTransaction();
                 trans.replace(R.id.frames, volonteerStatus);
                 trans.addToBackStack(null);
@@ -195,5 +216,17 @@ public class MainActivity extends AppCompatActivity implements Check.Listener,Di
                 break;
             
         }
+    }
+
+    @Override
+    public void createVolonteerCLick(String lName,String name) {
+        VolonteerStatus volonteerStatus =new VolonteerStatus();
+        Toast.makeText(this,""+lName+name,Toast.LENGTH_LONG).show();
+        volonteerStatus.setlName(lName);
+        volonteerStatus.setName(name);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frames, volonteerStatus);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

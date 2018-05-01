@@ -7,6 +7,6 @@ import retrofit2.http.Query;
 
 public interface ServerCreateGroup {
     @GET("/createGroup")
-    Call <String> createGroup(@Query("lName")String lName, @Query("names")String names);
+    Call <String> createGroup(@Query("lName")String lName);
 
 }
