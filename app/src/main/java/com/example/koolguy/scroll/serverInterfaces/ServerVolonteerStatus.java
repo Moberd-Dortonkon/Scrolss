@@ -6,6 +6,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ServerVolonteerStatus {
-    @GET("/come")
-    Call<String>volonteerStatus(@Query("lName")String lName,@Query("name")String name);
+    @GET("/{path}")
+    Call<String>volonteerStatus(@Path("path")String path,@Query("lName")String lName,@Query("name")String name);
 }

@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
@@ -28,8 +31,9 @@ public class VolonteerStatus extends Fragment {
     View v;
     String lName;
     String name;
-    Switch come;
-    Switch eat;
+    Button come;
+    Button eat;
+
     public VolonteerStatus() {
         // Required empty public constructor
     }
@@ -46,42 +50,65 @@ public class VolonteerStatus extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v=inflater.inflate(R.layout.fragment_volonteer_status, container, false);
-        come = (Switch)v.findViewById(R.id.come);
-        eat = (Switch)v.findViewById(R.id.eat);
-        come.setOnTouchListener(new View.OnTouchListener() {
+        v = inflater.inflate(R.layout.fragment_volonteer_status, container, false);
+        come = (Button) v.findViewById(R.id.come);
+        eat = (Button) v.findViewById(R.id.eat);
+        come.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                 new ComeMyAsyncTask().execute("") ;
+            public void onClick(View view) {
+                new ComeMyAsyncTask().execute("");
+            }
+        });
+        eat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new EatMyAsyncTask().execute("");
+            }
+        });
 
-                return true;
-            }
-        });
-        eat.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-               // new EatMyAsyncTask().execute("") ;
-                return true;
-            }
-        });
         return v;
+
     }
 
-    class ComeMyAsyncTask extends AsyncTask<String,String,String>
-    {
+    class ComeMyAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... strings) {
 
 
-            Retrofit retrofit =new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
-            ServerVolonteerStatus group =retrofit.create(ServerVolonteerStatus.class);
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
+            ServerVolonteerStatus status = retrofit.create(ServerVolonteerStatus.class);
+            String servName = name;
+            String servlName = lName;
 
-            Call<String> call=group.volonteerStatus(lName,name);
+            Call<String> call = status.volonteerStatus("come", servlName, servName);
             try {
-               Response<String>response = call.execute();
+                Response<String> response = call.execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
+            return null;
+        }
+
+    }
+    class EatMyAsyncTask extends AsyncTask<String, String, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+
+
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
+            ServerVolonteerStatus status = retrofit.create(ServerVolonteerStatus.class);
+            String servName = name;
+            String servlName = lName;
+
+            Call<String> call = status.volonteerStatus("eat", servlName, servName);
+            try {
+                Response<String> response = call.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
             return null;
         }
@@ -93,32 +120,4 @@ public class VolonteerStatus extends Fragment {
 
         }
     }
-   /* class EatMyAsyncTask extends AsyncTask<String,String,String>
-    {
-        @Override
-        protected String doInBackground(String... strings) {
-
-
-            Retrofit retrofit =new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
-            ServerVolonteerStatus group =retrofit.create(ServerVolonteerStatus.class);
-
-            Call<String> call=group.volonteerStatus("eat",lName,name);
-            try {
-                call.execute();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //save name
-
-        }
-    }
-    */
-
 }

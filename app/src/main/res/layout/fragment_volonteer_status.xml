@@ -8,22 +8,21 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <Switch
+    <Button
         android:id="@+id/come"
-        android:layout_width="191dp"
-        android:layout_height="72dp"
-        android:layout_above="@+id/eat"
-        android:layout_alignStart="@+id/eat"
-        android:layout_marginBottom="-148dp"
-        android:text="I came" />
-
-    <Switch
-        android:id="@+id/eat"
-        android:layout_width="191dp"
-        android:layout_height="72dp"
+        android:layout_width="180dp"
+        android:layout_height="98dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="81dp"
+        android:text="I came" />
+
+    <Button
+        android:id="@+id/eat"
+        android:layout_width="180dp"
+        android:layout_height="97dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/come"
+        android:layout_marginEnd="0dp"
         android:text="I ate" />
 </RelativeLayout>
