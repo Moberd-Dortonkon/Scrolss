@@ -75,10 +75,15 @@ public class MainActivity extends AppCompatActivity implements
         if(preferences.getString("role","").equals("leader"))
         {
             CreateGroup createGroup=new CreateGroup();
-            createGroup.setlName(preferences.getString("leaderName",""));
+            createGroup.setlName(preferences.getString("lName",""));
             createGroup.execute("");
         }//здесь идем к сервер
-        if(preferences.getString("role","").equals("volonteer")){}
+        if(preferences.getString("role","").equals("volonteer"))
+        {
+            CreateGroup createGroup=new CreateGroup();
+            createGroup.setlName(preferences.getString("lName",""));
+            createGroup.execute("");
+        }
     }
 
 
@@ -260,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements
 
             case 2:
                 CreateVolonteer volonteerStatus = new CreateVolonteer();
+                editor=preferences.edit();
                 editor.putString("role","volonteer");
                 editor.commit();
                 FragmentTransaction trans = getFragmentManager().beginTransaction();
