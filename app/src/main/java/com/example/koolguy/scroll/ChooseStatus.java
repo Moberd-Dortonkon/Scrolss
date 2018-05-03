@@ -50,8 +50,6 @@ public class ChooseStatus extends Fragment {
                 click.chooseStatusClick(1);
             }
         });
-
-
         return v;
     }
 

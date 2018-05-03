@@ -15,15 +15,6 @@
         android:layout_weight="4"
         android:text="TextView" />
 
-    <EditText
-        android:id="@+id/refreshGroupName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="YourName" />
-
     <Button
         android:id="@+id/refreshGroup"
         android:layout_width="126dp"

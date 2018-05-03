@@ -4,8 +4,11 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import com.darwindeveloper.horizontalscrollmenulibrary.custom_views.HorizontalScrollMenuView;
 import com.darwindeveloper.horizontalscrollmenulibrary.extras.MenuItem;
+import com.example.koolguy.scroll.ServerRequest.CreateGroup;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -32,6 +36,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity implements
@@ -40,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements
     BottomNavigationView menu;
     TextView textView;
     MyMap map;
+    SharedPreferences.Editor editor;
+    public static final String APP_PREFERENCES = "mysettings";
+    SharedPreferences preferences;
     public static final String SERVER= "https://immense-wave-82247.herokuapp.com";
     CameraPosition saveCamera;
 
@@ -52,11 +61,24 @@ public class MainActivity extends AppCompatActivity implements
         textView = (TextView) findViewById(R.id.text);
         int i = 0;
          map = new MyMap(this,this);
+         initSharedPreferences();
         initMenu();
 
 
 
 
+    }
+
+    private void initSharedPreferences() {
+
+        preferences=getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        if(preferences.getString("role","").equals("leader"))
+        {
+            CreateGroup createGroup=new CreateGroup();
+            createGroup.setlName(preferences.getString("leaderName",""));
+            createGroup.execute("");
+        }//здесь идем к сервер
+        if(preferences.getString("role","").equals("volonteer")){}
     }
 
 
@@ -65,12 +87,35 @@ public class MainActivity extends AppCompatActivity implements
     }
     private void anotherFragment()
     {
-       ChooseStatus mapFragment = new ChooseStatus();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frames, mapFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        if(!preferences.contains("role")) {
+            ChooseStatus mapFragment = new ChooseStatus();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.frames, mapFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        if(preferences.getString("role","").equals("leader"))
+        {
 
+            LeaderGroup mapFragment = new LeaderGroup();
+            mapFragment.setlName(preferences.getString("lName",""));
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.frames, mapFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        }
+        if(preferences.getString("role","").equals("volonteer"))
+        {
+            VolonteerStatus mapFragment = new VolonteerStatus();
+            mapFragment.setlName(preferences.getString("lName",""));
+            mapFragment.setName(preferences.getString("name",""));
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.frames, mapFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        }
     }
     /*
      case 0:
@@ -186,8 +231,11 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public void leaderCreateClick() {
+    public void leaderCreateClick(String lName) {
         LeaderGroup mapFragment = new LeaderGroup();
+        editor.putString("lName",lName);
+        editor.commit();
+        mapFragment.setlName(preferences.getString("lName",""));
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);
@@ -200,6 +248,9 @@ public class MainActivity extends AppCompatActivity implements
         {
             case 1:   
                 LeaderCreateGroup mapFragment = new LeaderCreateGroup();
+                editor=preferences.edit();
+                editor.putString("role","leader");
+                editor.commit();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frames, mapFragment);
                 transaction.addToBackStack(null);
@@ -209,6 +260,8 @@ public class MainActivity extends AppCompatActivity implements
 
             case 2:
                 CreateVolonteer volonteerStatus = new CreateVolonteer();
+                editor.putString("role","volonteer");
+                editor.commit();
                 FragmentTransaction trans = getFragmentManager().beginTransaction();
                 trans.replace(R.id.frames, volonteerStatus);
                 trans.addToBackStack(null);
@@ -221,6 +274,9 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void createVolonteerCLick(String lName,String name) {
         VolonteerStatus volonteerStatus =new VolonteerStatus();
+        editor.putString("lName",lName);
+        editor.putString("name",name);
+        editor.commit();
         Toast.makeText(this,""+lName+name,Toast.LENGTH_LONG).show();
         volonteerStatus.setlName(lName);
         volonteerStatus.setName(name);

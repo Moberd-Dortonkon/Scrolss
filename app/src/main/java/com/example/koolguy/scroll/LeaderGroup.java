@@ -32,6 +32,12 @@ public class LeaderGroup extends Fragment {
     Button button;
     EditText editText;
     View v;
+
+    public void setlName(String lName) {
+        this.lName = lName;
+    }
+
+    String lName;
     HashMap<String,Volonteer> vGroup;
 
     public LeaderGroup() {
@@ -45,7 +51,6 @@ public class LeaderGroup extends Fragment {
         v= inflater.inflate(R.layout.fragment_leader_group, container, false);
         textView=(TextView)v.findViewById(R.id.groupInfo);
         button =(Button)v.findViewById(R.id.refreshGroup);
-        editText = (EditText)v.findViewById(R.id.refreshGroupName);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +72,7 @@ public class LeaderGroup extends Fragment {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             ServerDisplayGroup group = retrofit.create(ServerDisplayGroup.class);
-            String lName=editText.getText().toString();
+
             Call<DisplayVolonteers> call = group.getVolonteers(lName);
             try {
                 Response<DisplayVolonteers> response = call.execute();

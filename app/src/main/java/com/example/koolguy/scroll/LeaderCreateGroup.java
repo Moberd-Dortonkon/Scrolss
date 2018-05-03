@@ -35,7 +35,7 @@ public class LeaderCreateGroup extends Fragment {
     LeaderCreateGroupNext listener;
     public interface LeaderCreateGroupNext
     {
-        void leaderCreateClick();
+        void leaderCreateClick(String lName);
     }
     public LeaderCreateGroup() {
         // Required empty public constructor
@@ -96,7 +96,7 @@ public class LeaderCreateGroup extends Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             //save name
-            listener.leaderCreateClick();
+            listener.leaderCreateClick(leaderName.getText().toString());
             
         }
     }
