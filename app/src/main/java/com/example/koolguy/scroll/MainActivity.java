@@ -42,7 +42,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements
         Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext
-        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer{
+        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer,RefreshStatus{
     BottomNavigationView menu;
     TextView textView;
     MyMap map;
@@ -83,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements
             CreateGroup createGroup=new CreateGroup();
             createGroup.setlName(preferences.getString("lName",""));
             createGroup.execute("");
+            com.example.koolguy.scroll.ServerRequest.CreateVolonteer createVolonteer = new com.example.koolguy.scroll.ServerRequest.CreateVolonteer();
+            createVolonteer.setlNam(preferences.getString("lName",""));
+            createVolonteer.setName2(preferences.getString("name",""));
+            createVolonteer.execute("");
+
         }
     }
 
@@ -288,6 +293,15 @@ public class MainActivity extends AppCompatActivity implements
         volonteerStatus.setName(name);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, volonteerStatus);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void refrsh() {
+        ChooseStatus dict = new ChooseStatus();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frames, dict); //если
         transaction.addToBackStack(null);
         transaction.commit();
     }

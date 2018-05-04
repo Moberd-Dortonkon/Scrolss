@@ -1,6 +1,7 @@
 package com.example.koolguy.scroll;
 
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -32,7 +33,13 @@ public class LeaderGroup extends Fragment {
     Button button;
     EditText editText;
     View v;
-
+    RefreshStatus ref;
+    Button refresh;
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ref=(RefreshStatus)activity;
+    }
     public void setlName(String lName) {
         this.lName = lName;
     }
@@ -58,8 +65,13 @@ public class LeaderGroup extends Fragment {
 
             }
         });
-
-
+        refresh=(Button)v.findViewById(R.id.reset);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ref.refrsh();
+            }
+        });
         return v;
     }
     class MyAsyncTask extends AsyncTask<String,String,String>

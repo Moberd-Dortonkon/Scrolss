@@ -1,6 +1,8 @@
 package com.example.koolguy.scroll;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -46,6 +48,14 @@ public class VolonteerStatus extends Fragment {
     public void setName(String name) {
         this.name = name;
     }
+    Button refresh;
+    RefreshStatus ref;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ref=(RefreshStatus)activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +73,13 @@ public class VolonteerStatus extends Fragment {
             @Override
             public void onClick(View view) {
                 new EatMyAsyncTask().execute("");
+            }
+        });
+        refresh=(Button)v.findViewById(R.id.refrsh);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ref.refrsh();
             }
         });
 
