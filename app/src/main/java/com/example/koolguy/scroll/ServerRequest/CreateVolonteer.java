@@ -3,6 +3,7 @@ package com.example.koolguy.scroll.ServerRequest;
 
 import android.os.AsyncTask;
 
+import com.example.koolguy.scroll.MainActivity;
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateVolonteer;
 
 import java.io.IOException;
@@ -27,11 +28,11 @@ public class CreateVolonteer extends AsyncTask {
     }
     @Override
     protected Object doInBackground(Object[] objects) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
         ServerCreateVolonteer group = retrofit.create(ServerCreateVolonteer.class);
         Call<ResponseBody> call = group.createVolonteer(name2,lNam);
         try {
-            Response<ResponseBody> response=call.execute();
+          call.execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -79,7 +79,7 @@ public class LeaderCreateGroup extends Fragment {
         protected String doInBackground(String... strings) {
 
 
-            Retrofit retrofit =new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
+            Retrofit retrofit =new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             ServerCreateGroup group =retrofit.create(ServerCreateGroup.class);
             String lName =leaderName.getText().toString();
             Call<String>call=group.createGroup(lName);

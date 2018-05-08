@@ -80,7 +80,7 @@ public class LeaderGroup extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://immense-wave-82247.herokuapp.com")
+                    .baseUrl(MainActivity.SERVER)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             ServerDisplayGroup group = retrofit.create(ServerDisplayGroup.class);

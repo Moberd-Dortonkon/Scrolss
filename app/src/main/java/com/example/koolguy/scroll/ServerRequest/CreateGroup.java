@@ -3,6 +3,7 @@ package com.example.koolguy.scroll.ServerRequest;
 
 import android.os.AsyncTask;
 
+import com.example.koolguy.scroll.MainActivity;
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
 
 import java.io.IOException;
@@ -27,12 +28,12 @@ public class CreateGroup extends AsyncTask<String,String,String>
     protected String doInBackground(String... strings) {
 
 
-        Retrofit retrofit =new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit =new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
 
         ServerCreateGroup group =retrofit.create(ServerCreateGroup.class);
         Call<String> call=group.createGroup(lName);
         try {
-            Response<String> response = call.execute();
+          call.execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

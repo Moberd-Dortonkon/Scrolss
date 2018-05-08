@@ -76,7 +76,7 @@ public class CreateVolonteer extends Fragment {
         @Override
         protected Object doInBackground(Object[] objects) {
 
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             ServerCreateVolonteer group = retrofit.create(ServerCreateVolonteer.class);
             String lNam = lName.getText().toString();
             String name2 = name1.getText().toString();

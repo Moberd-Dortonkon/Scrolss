@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
     SharedPreferences preferences;
-    public static final String SERVER= "https://immense-wave-82247.herokuapp.com";
+    public static final String SERVER= "http://192.168.1.33";
     CameraPosition saveCamera;
 
 
@@ -72,23 +72,24 @@ public class MainActivity extends AppCompatActivity implements
     private void initSharedPreferences() {
 
         preferences=getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        if(preferences.getString("role","").equals("leader"))
+        editor=preferences.edit();
+       /* if(preferences.getString("role","").equals("leader"))
         {
             CreateGroup createGroup=new CreateGroup();
             createGroup.setlName(preferences.getString("lName",""));
-            createGroup.execute("");
+            //createGroup.execute("");
         }//здесь идем к сервер
         if(preferences.getString("role","").equals("volonteer"))
         {
             CreateGroup createGroup=new CreateGroup();
             createGroup.setlName(preferences.getString("lName",""));
-            createGroup.execute("");
+          //  createGroup.execute("");
             com.example.koolguy.scroll.ServerRequest.CreateVolonteer createVolonteer = new com.example.koolguy.scroll.ServerRequest.CreateVolonteer();
             createVolonteer.setlNam(preferences.getString("lName",""));
             createVolonteer.setName2(preferences.getString("name",""));
-            createVolonteer.execute("");
+            //createVolonteer.execute("");
 
-        }
+        }*/
     }
 
 
@@ -243,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void leaderCreateClick(String lName) {
         LeaderGroup mapFragment = new LeaderGroup();
+        editor.putString("role","leader");
         editor.putString("lName",lName);
         editor.commit();
         mapFragment.setlName(preferences.getString("lName",""));
@@ -258,9 +260,6 @@ public class MainActivity extends AppCompatActivity implements
         {
             case 1:   
                 LeaderCreateGroup mapFragment = new LeaderCreateGroup();
-                editor=preferences.edit();
-                editor.putString("role","leader");
-                editor.commit();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frames, mapFragment);
                 transaction.addToBackStack(null);
@@ -270,9 +269,6 @@ public class MainActivity extends AppCompatActivity implements
 
             case 2:
                 CreateVolonteer volonteerStatus = new CreateVolonteer();
-                editor=preferences.edit();
-                editor.putString("role","volonteer");
-                editor.commit();
                 FragmentTransaction trans = getFragmentManager().beginTransaction();
                 trans.replace(R.id.frames, volonteerStatus);
                 trans.addToBackStack(null);
@@ -285,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void createVolonteerCLick(String lName,String name) {
         VolonteerStatus volonteerStatus =new VolonteerStatus();
+        editor.putString("role","volonteer");
         editor.putString("lName",lName);
         editor.putString("name",name);
         editor.commit();
@@ -300,6 +297,10 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void refrsh() {
         ChooseStatus dict = new ChooseStatus();
+        editor.remove("lName");
+        editor.remove("name");
+        editor.remove("role");
+        editor.commit();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, dict); //если
         transaction.addToBackStack(null);

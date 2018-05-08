@@ -92,7 +92,7 @@ public class VolonteerStatus extends Fragment {
         protected String doInBackground(String... strings) {
 
 
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://immense-wave-82247.herokuapp.com").addConverterFactory(GsonConverterFactory.create()).build();
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             ServerVolonteerStatus status = retrofit.create(ServerVolonteerStatus.class);
             String servName = name;
             String servlName = lName;
