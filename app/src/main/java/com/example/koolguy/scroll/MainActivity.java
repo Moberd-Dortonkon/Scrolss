@@ -153,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements
                    case R.id.book:
                        handBookFragment(); //создать метод который вызывает справочник
                        break;
-                   case R.id.map:
-                       map.makeMap(new ArrayList<LatLng>());break;
+                  // case R.id.map:
+                     //  map.makeMap(new ArrayList<LatLng>());break;
                    case R.id.account:
                        anotherFragment(); // для сервера
                        break;
@@ -221,6 +221,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void handBookClick(int position) {
         if(position==0){
+            map.makeMap(new ArrayList<LatLng>());
+
 
         }
         if (position==1)

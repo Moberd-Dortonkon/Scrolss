@@ -2,12 +2,15 @@ package com.example.koolguy.scroll;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Location;
 
 import android.os.Bundle;
@@ -15,7 +18,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -36,6 +44,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
 
@@ -50,12 +60,14 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     LocationRequest mLocationRequest;
     MapFragment gmap;
     LatLng lng;
+    Resources res;
     boolean firstEnable;
     ArrayList<LatLng> list;
 
     public MyMap(Activity activity, Context context) {
         this.activity = activity;
         this.context = context;
+        res=context.getResources();
         MapsInitializer.initialize(context);
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999);
 
@@ -91,6 +103,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
 
     }
 
+
     public boolean googleServicesAvaliable() {
         GoogleApiAvailability api = GoogleApiAvailability.getInstance();
         int isAvailable = api.isGooglePlayServicesAvailable(context);
@@ -121,6 +134,48 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
 
         googleMap.setMyLocationEnabled(true);
         if(list!=null)doFlags(list);
+        googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                LayoutInflater inflater = LayoutInflater.from(context);
+                String[] places = res.getStringArray(R.array.Places);
+                List<String> p= Arrays.asList(places);
+                ArrayAdapter<String>placesAdapter=new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,places);
+                View dialogView=inflater.inflate(R.layout.gmap_diaolg_icon,null);
+                ListView listView = (ListView) dialogView.findViewById(R.id.mapsPlaces);
+                listView.setAdapter(placesAdapter);
+                final AlertDialog dialog=builder.setView(dialogView).setTitle("Hi").setCancelable(true).create();
+                dialog.show();
+
+               listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        switch (i)
+                        {
+                            case 0:
+
+                                dialog.dismiss();
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                        }
+                    }
+                });
+
+
+
+
+                //builder.setView(dialogView)
+            }
+        });
 
 
 
@@ -151,7 +206,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
+        mLocationRequest.setInterval(500);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(context,

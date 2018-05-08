@@ -23,7 +23,13 @@
         <item>010 Пожарные</item>
         <item>020 Скорая помощ</item>
         <item>030 Полиция</item>
-
+    </string-array>
+    <string-array name="Places">
+        <item>Кафе</item>
+        <item>Памятники</item>
+        <item>Больницы</item>
+        <item>Аэропорт</item>
+        <item>Вокзал</item>
     </string-array>
 
 
