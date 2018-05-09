@@ -23,9 +23,13 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.koolguy.scroll.Tools.ExpandableAdpter;
+import com.example.koolguy.scroll.Tools.ExpandableListListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -47,7 +51,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
+public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,ExpandableListListener {
 
     GoogleMap googleMap;
     FragmentTransaction ft;
@@ -61,6 +65,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     MapFragment gmap;
     LatLng lng;
     Resources res;
+    AlertDialog dialog;
     boolean firstEnable;
     ArrayList<LatLng> list;
 
@@ -91,6 +96,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
 
     public void doFlags(ArrayList<LatLng> list)
     {
+        googleMap.clear();
      for(LatLng lng:list)
      {
 
@@ -144,34 +150,10 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
                 List<String> p= Arrays.asList(places);
                 ArrayAdapter<String>placesAdapter=new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,places);
                 View dialogView=inflater.inflate(R.layout.gmap_diaolg_icon,null);
-                ListView listView = (ListView) dialogView.findViewById(R.id.mapsPlaces);
-                listView.setAdapter(placesAdapter);
-                final AlertDialog dialog=builder.setView(dialogView).setTitle("Hi").setCancelable(true).create();
+                ExpandableListView listView = (ExpandableListView) dialogView.findViewById(R.id.mapsPlaces);
+                listView.setAdapter(new ExpandableAdpter(context,MyMap.this));
+                dialog=builder.setView(dialogView).setTitle("Hi").setCancelable(true).create();
                 dialog.show();
-
-               listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        switch (i)
-                        {
-                            case 0:
-
-                                dialog.dismiss();
-                                break;
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                break;
-                        }
-                    }
-                });
-
-
-
 
                 //builder.setView(dialogView)
             }
@@ -225,6 +207,12 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void returnLatlngs(ArrayList<LatLng> latLngs) {
+        dialog.dismiss();
+        doFlags(latLngs);
     }
 }
 

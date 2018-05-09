@@ -25,13 +25,37 @@
         <item>030 Полиция</item>
     </string-array>
     <string-array name="Places">
-        <item>Кафе</item>
-        <item>Памятники</item>
-        <item>Больницы</item>
-        <item>Аэропорт</item>
-        <item>Вокзал</item>
+        <item>Cafe</item>
+        <item>Monuments</item>
+        <item>"Hospitals</item>
+        <item>AirPorts</item>
+        <item>TrainStation</item>
     </string-array>
+    <string-array name="Cafe">
+        <item>McDonalds</item>
+        <item>Kfc</item>
+        <item>BurgerKing</item>
+    </string-array>
+    <string-array name="Monuments">
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="Hospitals">
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="AirPorts">
+        <item></item>
+        <item></item>
+        <item></item>
 
+    </string-array>
+    <string-array name="TrainStation">
+        <item></item>
+        <item></item>
+        <item></item>
 
-
+    </string-array>
 </resources>
