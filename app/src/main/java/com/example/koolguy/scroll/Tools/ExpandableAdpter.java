@@ -32,8 +32,8 @@ public class ExpandableAdpter extends BaseExpandableListAdapter {
         this.listListener = listListener;
         Resources res = context.getResources();
         map = new HashMap<>();
-        listData=Arrays.asList(res.getStringArray(R.array.Places));
-        /*ArrayList<String>list2=new ArrayList<>();
+            listData=Arrays.asList(res.getStringArray(R.array.Places));
+            /*ArrayList<String>list2=new ArrayList<>();
         list2.add("poka");
         list2.add("sorry no poka");
         listData=new ArrayList<String>();

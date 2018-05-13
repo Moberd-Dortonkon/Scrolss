@@ -36,6 +36,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -49,6 +50,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,ExpandableListListener {
@@ -78,11 +80,8 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
 
     }
 
-    public void makeMap(ArrayList<LatLng> list) { //
+    public void makeMap() { //
         if (googleServicesAvaliable()) {
-
-            if(!list.isEmpty())this.list=list;
-            if(list.isEmpty())this.list = null;
              gmap = new MapFragment();
             firstEnable=true;
             ft = activity.getFragmentManager().beginTransaction();
@@ -94,22 +93,51 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     }
 
 
-    public void doFlags(ArrayList<LatLng> list)
+    public void doFlags()
     {
-        googleMap.clear();
-     for(LatLng lng:list)
-     {
+     String[]places=res.getStringArray(
+             R.array.places);
+     for(String place:places) {
 
-         googleMap.addMarker(new MarkerOptions()
-         .draggable(false)
-         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag))
-         .position(lng));
-
+         ArrayList<LatLng>list=coordinate(place);
+         if(place.equals("center"))
+         for (LatLng lng : list)
+         {
+             googleMap.addMarker(new MarkerOptions()
+                      .title("Your Home,Master")
+                     .draggable(false)
+                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_home_black))
+                     .position(lng));
+         }
+         if(place.equals("eatPlace"))
+             for (LatLng lng : list)
+             {
+                 googleMap.addMarker(new MarkerOptions()
+                         .title("There you can eat,Master")
+                         .draggable(false)
+                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_restaurant_black))
+                         .position(lng));
+             }
      }
+
 
     }
 
+    private ArrayList<LatLng> coordinate(String name)
+    {
+        int id =res.getIdentifier(name,"array",context.getPackageName());
 
+        String[] strlatlng = context.getResources().getStringArray(id);
+        ArrayList<LatLng> latLngs= new ArrayList<>();
+        for(String coord:strlatlng)
+        {
+            String[]base =coord.split("!4d");
+            latLngs.add(new LatLng(Double.parseDouble(base[0]),Double.parseDouble(base[1])));
+
+        }
+        return latLngs;
+
+    }
     public boolean googleServicesAvaliable() {
         GoogleApiAvailability api = GoogleApiAvailability.getInstance();
         int isAvailable = api.isGooglePlayServicesAvailable(context);
@@ -139,8 +167,8 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
         buildGoogleApiClient();
 
         googleMap.setMyLocationEnabled(true);
-        if(list!=null)doFlags(list);
-        googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        doFlags();
+      /*  googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -157,7 +185,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
 
                 //builder.setView(dialogView)
             }
-        });
+        });*/
 
 
 
@@ -171,6 +199,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
                 .build();
         mGoogleApiClient.connect();
     }
@@ -212,7 +241,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     @Override
     public void returnLatlngs(ArrayList<LatLng> latLngs) {
         dialog.dismiss();
-        doFlags(latLngs);
+        doFlags();
     }
 }
 

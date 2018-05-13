@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string-array name="McDonalds">
-    <item>47.2845497!4d39.7167823</item>
-    <item>47.2592399!4d39.7221043</item>
-    <item>47.2415682!4d39.7614448</item>
-    <item>47.2415701!4d39.7614419</item>
-    <item>47.2255694!4d39.7177531</item>
-    <item>47.2288759!4d39.7426722</item>
-    <item>47.2198468!4d39.7082028</item>
-    <item>47.213966!4d39.7157291</item>
-    <item>47.2039536!4d39.721536</item>
+<string-array name="places">
+    <item>center</item>
+    <item>eatPlace</item>
 </string-array>
-    <string-array name="Kfc">
-      <item>47.222552!4d39.7180116</item>
-        <item>47.2195973!4d39.7074491</item>
-        <item>47.2054187!4d39.7287405</item>
-        <item>47.2578107!4d39.7202861</item>
-        <item>47.2421819!4d39.7652185</item>
-        <item>47.2087095!4d39.631505</item>
+    <string-array name="center">
+        <item>47.2219436!4d39.7151738</item>
+        <item>47.2373015!4d39.7121322</item>
+
     </string-array>
-    <string-array name="BurgerKing">
-       <item>47.2811979!4d39.717738</item>
-        <item>47.2604502!4d39.7205865</item>
+    <string-array name="eatPlace">
+        <item>47.2288759!4d39.7426722</item>
+        <item>47.2054187!4d39.7287405</item>
         <item>47.2222751!4d39.7165793</item>
-        <item>47.2183147!4d39.7081357</item>
-        <item>47.2040666!4d39.7217131</item>
     </string-array>
 </resources>

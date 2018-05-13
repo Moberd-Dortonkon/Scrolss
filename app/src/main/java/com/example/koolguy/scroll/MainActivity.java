@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 import com.darwindeveloper.horizontalscrollmenulibrary.custom_views.HorizontalScrollMenuView;
 import com.darwindeveloper.horizontalscrollmenulibrary.extras.MenuItem;
 import com.example.koolguy.scroll.ServerRequest.CreateGroup;
+import com.example.koolguy.scroll.Tools.Json.JsonData;
+import com.example.koolguy.scroll.Tools.Json.Place;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -33,6 +36,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -61,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements
         textView = (TextView) findViewById(R.id.text);
         int i = 0;
          map = new MyMap(this,this);
+         Gson gson =new Gson();
+        //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
+         Toast.makeText(this," ",Toast.LENGTH_LONG).show();
          initSharedPreferences();
         initMenu();
 
@@ -197,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements
         latLngs.add(new LatLng(47.221792, 39.723543));
         latLngs.add(new LatLng(47.225965, 39.746229));
         latLngs.add(new LatLng(47.226343, 39.739019));
-        map.makeMap(latLngs);
+        map.makeMap();
 
     }
 
@@ -221,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void handBookClick(int position) {
         if(position==0){
-            map.makeMap(new ArrayList<LatLng>());
+            map.makeMap();
 
 
         }
