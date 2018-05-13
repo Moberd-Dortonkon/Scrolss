@@ -27,9 +27,9 @@
     <string-array name="Places">
         <item>Cafe</item>
         <item>Monuments</item>
-        <item>"Hospitals</item>
-        <item>AirPorts</item>
-        <item>TrainStation</item>
+        <item>Hospitals</item>
+        <item>AirPort</item>
+        <item>TrainStations</item>
     </string-array>
     <string-array name="Cafe">
         <item>McDonalds</item>

@@ -40,9 +40,9 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     View view;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Resources res=getResources();
-        String[] dict = res.getStringArray(R.array.dictionary);
-        ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,dict);
-        //ListView listView = (ListView)view.findViewById(R.id.ListDict);
+        String[] phrases = res.getStringArray(R.array.dictionary);
+        ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,phrases);
+
         setListAdapter(dictAdapter);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
