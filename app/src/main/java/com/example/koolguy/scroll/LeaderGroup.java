@@ -40,16 +40,17 @@ public class LeaderGroup extends Fragment {
         super.onAttach(activity);
         ref=(RefreshStatus)activity;
     }
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setlName(String key) {
+        this.key = key;
     }
 
-    String lName;
+    String key;
     HashMap<String,Volonteer> vGroup;
 
     public LeaderGroup() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -85,7 +86,7 @@ public class LeaderGroup extends Fragment {
                     .build();
             ServerDisplayGroup group = retrofit.create(ServerDisplayGroup.class);
 
-            Call<DisplayVolonteers> call = group.getVolonteers(lName);
+            Call<DisplayVolonteers> call = group.getVolonteers(key);
             try {
                 Response<DisplayVolonteers> response = call.execute();
                 DisplayVolonteers d =response.body();

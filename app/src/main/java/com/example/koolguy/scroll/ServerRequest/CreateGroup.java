@@ -31,12 +31,12 @@ public class CreateGroup extends AsyncTask<String,String,String>
         Retrofit retrofit =new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
 
         ServerCreateGroup group =retrofit.create(ServerCreateGroup.class);
-        Call<String> call=group.createGroup(lName);
-        try {
-          call.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       // Call<String> call=group.createGroup(lName);
+     //   try {
+         // call.execute();
+      //  } catch (IOException e) {
+           // e.printStackTrace();
+    //    }
 
         return null;
     }

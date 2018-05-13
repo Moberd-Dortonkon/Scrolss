@@ -41,6 +41,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -48,14 +49,14 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements
         Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext
-        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer,RefreshStatus{
+        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer,RefreshStatus {
     BottomNavigationView menu;
     TextView textView;
     MyMap map;
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
     SharedPreferences preferences;
-    public static final String SERVER= "http://192.168.1.33";
+    public static final String SERVER = "http://192.168.1.33";
     CameraPosition saveCamera;
 
 
@@ -63,25 +64,23 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        menu=(BottomNavigationView)findViewById(R.id.menu);
+        menu = (BottomNavigationView) findViewById(R.id.menu);
         textView = (TextView) findViewById(R.id.text);
         int i = 0;
-         map = new MyMap(this,this);
-         Gson gson =new Gson();
+        map = new MyMap(this, this);
+        Gson gson = new Gson();
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
-         Toast.makeText(this," ",Toast.LENGTH_LONG).show();
-         initSharedPreferences();
+        Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
+        initSharedPreferences();
         initMenu();
-
-
 
 
     }
 
     private void initSharedPreferences() {
 
-        preferences=getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        editor=preferences.edit();
+        preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        editor = preferences.edit();
        /* if(preferences.getString("role","").equals("leader"))
         {
             CreateGroup createGroup=new CreateGroup();
@@ -102,34 +101,32 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    private void mateToast(int position) {
+    private void mateToast(String position) {
         Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
     }
-    private void anotherFragment()
-    {
-        if(!preferences.contains("role")) {
+
+    private void anotherFragment() {
+        if (!preferences.contains("role")) {
             ChooseStatus mapFragment = new ChooseStatus();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }
-        if(preferences.getString("role","").equals("leader"))
-        {
+        if (preferences.getString("role", "").equals("leader")) {
 
             LeaderGroup mapFragment = new LeaderGroup();
-            mapFragment.setlName(preferences.getString("lName",""));
+            mapFragment.setlName(preferences.getString("lName", ""));
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
             transaction.addToBackStack(null);
             transaction.commit();
 
         }
-        if(preferences.getString("role","").equals("volonteer"))
-        {
+        if (preferences.getString("role", "").equals("volonteer")) {
             VolonteerStatus mapFragment = new VolonteerStatus();
-            mapFragment.setlName(preferences.getString("lName",""));
-            mapFragment.setName(preferences.getString("name",""));
+            mapFragment.setlName(preferences.getString("lName", ""));
+            mapFragment.setName(preferences.getString("name", ""));
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
             transaction.addToBackStack(null);
@@ -137,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements
 
         }
     }
+
     /*
      case 0:
                         handBookFragment(); //создать метод который вызывает справочник
@@ -154,34 +152,33 @@ public class MainActivity extends AppCompatActivity implements
 
         handBookFragment();
         menu.setSelectedItemId(R.id.book);
-       menu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-           @Override
-           public boolean onNavigationItemSelected(@NonNull android.view.MenuItem item) {
-               switch (item.getItemId())
-               {
-                   case R.id.book:
-                       handBookFragment(); //создать метод который вызывает справочник
-                       break;
-                  // case R.id.map:
-                     //  map.makeMap(new ArrayList<LatLng>());break;
-                   case R.id.account:
-                       anotherFragment(); // для сервера
-                       break;
-                  case R.id.dictionary:
-                      dictionaryFragment(); //Создать метод который вызывыет словарь
-                     break;
-                   }
+        menu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull android.view.MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.book:
+                        handBookFragment(); //создать метод который вызывает справочник
+                        break;
+                    // case R.id.map:
+                    //  map.makeMap(new ArrayList<LatLng>());break;
+                    case R.id.account:
+                        anotherFragment(); // для сервера
+                        break;
+                    case R.id.dictionary:
+                        dictionaryFragment(); //Создать метод который вызывыет словарь
+                        break;
+                }
 
 
-               return true;
-           }
-       });
+                return true;
+            }
+        });
 
     }
 
     private void dictionaryFragment() //создание
     {
-       DictionaryFragment mapFragment = new DictionaryFragment();
+        DictionaryFragment mapFragment = new DictionaryFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);
@@ -196,10 +193,11 @@ public class MainActivity extends AppCompatActivity implements
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
     @Override
 
     public void click() {
-        ArrayList<LatLng>latLngs = new ArrayList<LatLng>();
+        ArrayList<LatLng> latLngs = new ArrayList<LatLng>();
         latLngs.add(new LatLng(47.277424, 39.707281));
         latLngs.add(new LatLng(47.213866, 39.711912));
         latLngs.add(new LatLng(47.219229, 39.704359));
@@ -220,30 +218,30 @@ public class MainActivity extends AppCompatActivity implements
         transaction.commit();
     }
 
-    public void extraNumbersClick(){
+    public void extraNumbersClick() {
         ExtraNumbersFragment mapFragment = new ExtraNumbersFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
     @Override
     public void handBookClick(int position) {
-        if(position==0){
+        if (position == 0) {
             map.makeMap();
 
 
         }
-        if (position==1)
-        {
+        if (position == 1) {
             FirstHelpFragment mapFragment = new FirstHelpFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }
-        if (position==2){
-            TeamListFragment mapFragment=new TeamListFragment();
+        if (position == 2) {
+            TeamListFragment mapFragment = new TeamListFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
             transaction.addToBackStack(null);
@@ -253,12 +251,14 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public void leaderCreateClick(String lName) {
+    public void leaderCreateClick(String lName, String pass) {
         LeaderGroup mapFragment = new LeaderGroup();
-        editor.putString("role","leader");
-        editor.putString("lName",lName);
+        editor.putString("role", "leader");
+        editor.putString("lName", lName);
+        editor.putString("groupPassword", pass);
         editor.commit();
-        mapFragment.setlName(preferences.getString("lName",""));
+        mateToast(pass);
+        mapFragment.setlName(preferences.getString("groupPassword", ""));
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);
@@ -267,9 +267,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void chooseStatusClick(int id) {
-        switch (id)
-        {
-            case 1:   
+        switch (id) {
+            case 1:
                 LeaderCreateGroup mapFragment = new LeaderCreateGroup();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frames, mapFragment);
@@ -285,18 +284,18 @@ public class MainActivity extends AppCompatActivity implements
                 trans.addToBackStack(null);
                 trans.commit();
                 break;
-            
+
         }
     }
 
     @Override
-    public void createVolonteerCLick(String lName,String name) {
-        VolonteerStatus volonteerStatus =new VolonteerStatus();
-        editor.putString("role","volonteer");
-        editor.putString("lName",lName);
-        editor.putString("name",name);
+    public void createVolonteerCLick(String lName, String name) {
+        VolonteerStatus volonteerStatus = new VolonteerStatus();
+        editor.putString("role", "volonteer");
+        editor.putString("lName", lName);
+        editor.putString("name", name);
         editor.commit();
-        Toast.makeText(this,""+lName+name,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "" + lName + name, Toast.LENGTH_LONG).show();
         volonteerStatus.setlName(lName);
         volonteerStatus.setName(name);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -311,10 +310,13 @@ public class MainActivity extends AppCompatActivity implements
         editor.remove("lName");
         editor.remove("name");
         editor.remove("role");
+        editor.remove("groupPassword");
         editor.commit();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, dict); //если
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
 }

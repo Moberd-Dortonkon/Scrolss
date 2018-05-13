@@ -11,6 +11,7 @@ import android.os.Bundle;
         import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateVolonteer;
@@ -97,9 +98,12 @@ public class CreateVolonteer extends Fragment {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             String s=string;
+
             if(s!=null)
             {
                 if(s.equals("complete"))listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());
+                if(s.equals("try another name")){
+                    Toast.makeText(v.getContext(),"try another name",Toast.LENGTH_LONG);}
             }
         }
     }

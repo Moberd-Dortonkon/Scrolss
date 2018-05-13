@@ -17,6 +17,7 @@ import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
 
 import java.io.IOException;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -32,10 +33,11 @@ public class LeaderCreateGroup extends Fragment {
     EditText leaderName;
     Button createGroup;
     TextView test;
+    String string;
     LeaderCreateGroupNext listener;
     public interface LeaderCreateGroupNext
     {
-        void leaderCreateClick(String lName);
+        void leaderCreateClick(String lName,String key);
     }
     public LeaderCreateGroup() {
         // Required empty public constructor
@@ -64,9 +66,9 @@ public class LeaderCreateGroup extends Fragment {
         createGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                test.setText("hi");
                 Toast.makeText(v.getContext(),"Succses",Toast.LENGTH_LONG);
                 new MyAsyncTask().execute("");
+              //  if(string!=null)listener.leaderCreateClick(leaderName.getText().toString(),string);
 
             }
         });
@@ -75,6 +77,7 @@ public class LeaderCreateGroup extends Fragment {
 
     class MyAsyncTask extends AsyncTask<String,String,String>
     {
+        String s;
         @Override
         protected String doInBackground(String... strings) {
 
@@ -82,9 +85,11 @@ public class LeaderCreateGroup extends Fragment {
             Retrofit retrofit =new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             ServerCreateGroup group =retrofit.create(ServerCreateGroup.class);
             String lName =leaderName.getText().toString();
-            Call<String>call=group.createGroup(lName);
+            Call<ResponseBody>call=group.createGroup(lName);
             try {
-              Response<String> response = call.execute();
+              Response<ResponseBody> response = call.execute();
+
+              string=response.body().string();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -95,8 +100,9 @@ public class LeaderCreateGroup extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            //save name
-            listener.leaderCreateClick(leaderName.getText().toString());
+           // String key=s;
+              //  listener.leaderCreateClick(leaderName.getText().toString(),key);
+            if(string!=null)listener.leaderCreateClick(leaderName.getText().toString(),string);
             
         }
     }

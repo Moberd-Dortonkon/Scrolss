@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="118dp"
         android:ems="10"
-        android:hint="Your Leader Name"
+        android:hint="GroupId"
         android:inputType="textPersonName" />
 
     <EditText
