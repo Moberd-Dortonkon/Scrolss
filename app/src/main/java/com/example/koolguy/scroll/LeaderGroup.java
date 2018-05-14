@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.koolguy.scroll.Tools.GroupAdapter;
 import com.example.koolguy.scroll.VolonteersInfo.DisplayVolonteers;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.example.koolguy.scroll.serverInterfaces.ServerDisplayGroup;
@@ -29,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 public class LeaderGroup extends Fragment {
-    TextView textView;
+    ListView groupView;
     Button button;
     EditText editText;
     View v;
@@ -57,7 +59,7 @@ public class LeaderGroup extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v= inflater.inflate(R.layout.fragment_leader_group, container, false);
-        textView=(TextView)v.findViewById(R.id.groupInfo);
+        groupView =(ListView)v.findViewById(R.id.groupView);
         button =(Button)v.findViewById(R.id.refreshGroup);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,17 +102,13 @@ public class LeaderGroup extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            Volonteer v;
+
             String info ="";
             if(vGroup!=null) {
-                for (String name : vGroup.keySet()) {
-                    v = vGroup.get(name);
-                    info = info + v.getName() + ":     " + ("пришел:" + (v.isCome() ? "да" : "нет")) + "      " + ("поел:" + (v.isEat() ? "да" : "нет")) + "\n";
 
-                }
-                textView.setText(info);
+                groupView.setAdapter(new GroupAdapter(v.getContext(),vGroup));
             }
-            else textView.setText("Да у вас пустая группа!!");
+
 
         }
     }

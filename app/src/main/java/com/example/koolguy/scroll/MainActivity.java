@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements
         if (preferences.getString("role", "").equals("leader")) {
 
             LeaderGroup mapFragment = new LeaderGroup();
-            mapFragment.setlName(preferences.getString("lName", ""));
+            mapFragment.setlName(preferences.getString("groupPassword", ""));
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
             transaction.addToBackStack(null);

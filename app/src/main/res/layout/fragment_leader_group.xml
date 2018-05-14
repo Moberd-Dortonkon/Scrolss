@@ -11,15 +11,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/groupInfo"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="Имя:"
+                android:textColor="#303F9F"
+                android:textSize="30dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ic_onplace" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ic_eated" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/groupView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"></ListView>
+
     </LinearLayout>
 
     <LinearLayout
