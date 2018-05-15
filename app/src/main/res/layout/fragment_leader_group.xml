@@ -56,19 +56,41 @@
         android:layout_weight="8.5"
         android:orientation="horizontal">
 
-        <Button
+        <TextView
             android:id="@+id/refreshGroup"
-            android:layout_width="274dp"
+            android:layout_width="210dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="refresh" />
-        <Button
-            android:id="@+id/reset"
+            android:enabled="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:longClickable="true"
+            android:text="refresh"
+            android:textIsSelectable="true"
+            android:textSize="50dp" />
+        <LinearLayout
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="reset"
-            android:layout_weight="5"/>
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Copy"/>
+
+            <Button
+                android:id="@+id/reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="reset" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

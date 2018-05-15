@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class LeaderGroup extends Fragment {
     Button button;
     EditText editText;
     View v;
+    TextView textView;
     RefreshStatus ref;
     Button refresh;
     @Override
@@ -54,20 +56,17 @@ public class LeaderGroup extends Fragment {
     }
 
 
+    public void setPasswordView(String s)
+    {
+        textView = (TextView)v.findViewById(R.id.refreshGroup);
+        textView.setText(s);
 
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v= inflater.inflate(R.layout.fragment_leader_group, container, false);
         groupView =(ListView)v.findViewById(R.id.groupView);
-        button =(Button)v.findViewById(R.id.refreshGroup);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new MyAsyncTask().execute("");
-
-            }
-        });
         refresh=(Button)v.findViewById(R.id.reset);
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +74,19 @@ public class LeaderGroup extends Fragment {
                 ref.refrsh();
             }
         });
+        textView = (TextView)v.findViewById(R.id.refreshGroup);
+        textView.setText(key);
+        new CountDownTimer(1600000, 500) {
+            @Override
+            public void onTick(long l) {
+                     new MyAsyncTask().execute("");
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
         return v;
     }
     class MyAsyncTask extends AsyncTask<String,String,String>

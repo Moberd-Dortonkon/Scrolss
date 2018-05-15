@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
     SharedPreferences preferences;
-    public static final String SERVER = "http://192.168.1.33";
+    public static final String SERVER = "https://immense-wave-82247.herokuapp.com";
     CameraPosition saveCamera;
 
 
@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements
         if (preferences.getString("role", "").equals("leader")) {
 
             LeaderGroup mapFragment = new LeaderGroup();
+           // mapFragment.setPasswordView(preferences.getString("groupPassword", ""));
             mapFragment.setlName(preferences.getString("groupPassword", ""));
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
@@ -259,6 +260,7 @@ public class MainActivity extends AppCompatActivity implements
         editor.commit();
         mateToast(pass);
         mapFragment.setlName(preferences.getString("groupPassword", ""));
+      //  mapFragment.setPasswordView(preferences.getString("groupPassword", ""));
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);
