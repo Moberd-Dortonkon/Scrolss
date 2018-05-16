@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements
             transaction.commit();
         }
         if (position == 2) {
-            TeamListFragment mapFragment = new TeamListFragment();
+            TeamList2 mapFragment = new TeamList2();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
             transaction.addToBackStack(null);
