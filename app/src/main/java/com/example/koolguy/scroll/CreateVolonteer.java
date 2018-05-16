@@ -64,7 +64,7 @@ public class CreateVolonteer extends Fragment {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AsyncTask().execute("");
+                new MyThread().start();
                 if(string.equals("complete"))listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());
             }
         });
@@ -73,10 +73,12 @@ public class CreateVolonteer extends Fragment {
 
     }
 
-    class AsyncTask extends android.os.AsyncTask {
-        @Override
-        protected Object doInBackground(Object[] objects) {
+    class MyThread extends Thread
+    {
 
+
+        @Override
+        public void run() {
             Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             ServerCreateVolonteer group = retrofit.create(ServerCreateVolonteer.class);
             String lNam = lName.getText().toString();
@@ -89,14 +91,6 @@ public class CreateVolonteer extends Fragment {
                     e.printStackTrace();
                 }
 
-
-
-           return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
             String s=string;
 
             if(s!=null)
@@ -106,5 +100,5 @@ public class CreateVolonteer extends Fragment {
                     Toast.makeText(v.getContext(),"try another name",Toast.LENGTH_LONG);}
             }
         }
+        }
     }
-}

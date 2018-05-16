@@ -1,6 +1,7 @@
 package com.example.koolguy.scroll;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements
         Gson gson = new Gson();
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
         Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
+
         initSharedPreferences();
         initMenu();
 
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     private void mateToast(String position) {
-        Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
     }
 
     private void anotherFragment() {
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements
         if (preferences.getString("role", "").equals("leader")) {
 
             LeaderGroup mapFragment = new LeaderGroup();
+            mapFragment.setActivity(this);
            // mapFragment.setPasswordView(preferences.getString("groupPassword", ""));
             mapFragment.setlName(preferences.getString("groupPassword", ""));
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -258,8 +261,9 @@ public class MainActivity extends AppCompatActivity implements
         editor.putString("lName", lName);
         editor.putString("groupPassword", pass);
         editor.commit();
-        mateToast(pass);
+        //mateToast(pass);
         mapFragment.setlName(preferences.getString("groupPassword", ""));
+        mapFragment.setActivity(this);
       //  mapFragment.setPasswordView(preferences.getString("groupPassword", ""));
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
@@ -297,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements
         editor.putString("lName", lName);
         editor.putString("name", name);
         editor.commit();
-        Toast.makeText(this, "" + lName + name, Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, "" + lName + name, Toast.LENGTH_LONG).show();
         volonteerStatus.setlName(lName);
         volonteerStatus.setName(name);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();

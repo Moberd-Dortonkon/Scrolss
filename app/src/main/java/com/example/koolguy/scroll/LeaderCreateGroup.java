@@ -67,7 +67,7 @@ public class LeaderCreateGroup extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(v.getContext(),"Succses",Toast.LENGTH_LONG);
-                new MyAsyncTask().execute("");
+                new MyThread().start();
               //  if(string!=null)listener.leaderCreateClick(leaderName.getText().toString(),string);
 
             }
@@ -75,36 +75,29 @@ public class LeaderCreateGroup extends Fragment {
         Toast.makeText(v.getContext(),"Succses",Toast.LENGTH_LONG);
     }
 
-    class MyAsyncTask extends AsyncTask<String,String,String>
+    class MyThread extends Thread
     {
         String s;
-        @Override
-        protected String doInBackground(String... strings) {
 
 
-            Retrofit retrofit =new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
-            ServerCreateGroup group =retrofit.create(ServerCreateGroup.class);
-            String lName =leaderName.getText().toString();
-            Call<ResponseBody>call=group.createGroup(lName);
-            try {
-              Response<ResponseBody> response = call.execute();
+            @Override
+                    public void run() {
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+                ServerCreateGroup group = retrofit.create(ServerCreateGroup.class);
+                String lName = leaderName.getText().toString();
+                Call<ResponseBody> call = group.createGroup(lName);
+                try {
+                    Response<ResponseBody> response = call.execute();
 
-              string=response.body().string();
-            } catch (IOException e) {
-                e.printStackTrace();
+                    string = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(string!=null)listener.leaderCreateClick(leaderName.getText().toString(),string);
+
             }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-           // String key=s;
-              //  listener.leaderCreateClick(leaderName.getText().toString(),key);
-            if(string!=null)listener.leaderCreateClick(leaderName.getText().toString(),string);
             
         }
     }
 
-}
+

@@ -17,6 +17,9 @@ import android.widget.Switch;
 
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
 import com.example.koolguy.scroll.serverInterfaces.ServerVolonteerStatus;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 
 import java.io.IOException;
 
@@ -29,12 +32,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VolonteerStatus extends Fragment {
+public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
     View v;
     String lName;
     String name;
     Button come;
     Button eat;
+    MapView mapView;
+    GoogleMap map;
 
     public VolonteerStatus() {
         // Required empty public constructor
@@ -82,10 +87,18 @@ public class VolonteerStatus extends Fragment {
                 ref.refrsh();
             }
         });
-
+        mapView = (MapView)v.findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
         return v;
 
     }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mapView.onResume();
+    }
+
 
     class ComeMyAsyncTask extends AsyncTask<String, String, String> {
         @Override
