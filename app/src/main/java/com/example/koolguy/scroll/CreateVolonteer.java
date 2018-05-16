@@ -60,13 +60,12 @@ public class CreateVolonteer extends Fragment {
         lName = (EditText) v.findViewById(R.id.leaderName);
         name1 = (EditText) v.findViewById(R.id.yourName);
         join = (Button) v.findViewById(R.id.join);
-        string = "";
+        string="";
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new MyThread().start();
-                if (string.equals("complete"))
-                    listener.createVolonteerCLick(lName.getText().toString(), name1.getText().toString());
+                if(string.equals("complete"))listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());
             }
         });
 
@@ -74,7 +73,8 @@ public class CreateVolonteer extends Fragment {
 
     }
 
-    class MyThread extends Thread {
+    class MyThread extends Thread
+    {
 
 
         @Override
@@ -83,23 +83,22 @@ public class CreateVolonteer extends Fragment {
             ServerCreateVolonteer group = retrofit.create(ServerCreateVolonteer.class);
             String lNam = lName.getText().toString();
             String name2 = name1.getText().toString();
-            Call<ResponseBody> call = group.createVolonteer(name2, lNam);
-            try {
-                Response<ResponseBody> response = call.execute();
-                string = response.body().string();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            String s = string;
-
-            if (s != null) {
-                if (s.equals("complete"))
-                    listener.createVolonteerCLick(lName.getText().toString(), name1.getText().toString());
-                if (s.equals("try another name")) {
-                    //   Toast.makeText(v.getContext(),"try another name",Toast.LENGTH_LONG);}
+            Call<ResponseBody>  call = group.createVolonteer(name2,lNam);
+                try {
+                    Response<ResponseBody>response=call.execute();
+                    string =response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+
+            String s=string;
+
+            if(s!=null)
+            {
+                if(s.equals("complete"))listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());
+                if(s.equals("try another name")){
+                    Toast.makeText(v.getContext(),"try another name",Toast.LENGTH_LONG);}
             }
         }
+        }
     }
-}
