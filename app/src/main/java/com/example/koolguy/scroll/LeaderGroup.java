@@ -144,7 +144,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
             } catch (IOException e) {
             }
 
-            String info = "";
+
             if (vGroup != null) {
                   String s="";
                 activity.runOnUiThread(new Runnable() {
