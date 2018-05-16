@@ -46,9 +46,10 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Resources res=getResources();
         String[] phrases = res.getStringArray(R.array.dictionary);
+        Arrays.sort(phrases);
         List<String> list = Arrays.asList(phrases);
         Set<String> set = new TreeSet<String>(list);
-        ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, (List<String>) set);
+        ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, list);
 
         setListAdapter(dictAdapter);
         return super.onCreateView(inflater, container, savedInstanceState);
