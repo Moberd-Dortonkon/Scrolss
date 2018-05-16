@@ -23,16 +23,20 @@
         android:layout_height="97dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/come"
-        android:layout_marginEnd="0dp"
         android:text="I ate" />
 
     <Button
         android:id="@+id/refrsh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="96dp"
-        android:layout_marginStart="132dp"
+        android:layout_centerVertical="true"
         android:text="Refresh" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="250dp"
+        android:layout_height="212dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

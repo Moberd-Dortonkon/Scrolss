@@ -88,6 +88,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
             ft.replace(R.id.frames, gmap); //Единственное что не могу автоматизировать так это framelayout,его надо вручную ставить(((
             ft.addToBackStack(null);
             ft.commit();
+
             gmap.getMapAsync(this);
         }
     }
