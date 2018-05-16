@@ -42,6 +42,42 @@ public class ListDictFragment extends ListFragment {
         if (i==2){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.Help);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);
+            setListAdapter(dictAdapter);
+        }
+        if (i==3){
+            Resources res=getResources();
+            String[] dict = res.getStringArray(R.array.do_you_eng);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
+            setListAdapter(dictAdapter);
+        }
+        if (i==4){
+            Resources res=getResources();
+            String[] dict = res.getStringArray(R.array.i_not_eng);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
+            setListAdapter(dictAdapter);
+        }
+        if (i==5){
+            Resources res=getResources();
+            String[] dict = res.getStringArray(R.array.i_litll_eng);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
+            setListAdapter(dictAdapter);
+        }
+        if (i==6){
+            Resources res=getResources();
+            String[] dict = res.getStringArray(R.array.pls_slower);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
+            setListAdapter(dictAdapter);
+        }
+        if (i==7){
+            Resources res=getResources();
+            String[] dict = res.getStringArray(R.array.repeat_pls);
+            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
+            setListAdapter(dictAdapter);
+        }
+        if (i==8){
+            Resources res=getResources();
+            String[] dict = res.getStringArray(R.array.how_eng);
             ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
             setListAdapter(dictAdapter);
         }
