@@ -16,6 +16,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +46,9 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Resources res=getResources();
         String[] phrases = res.getStringArray(R.array.dictionary);
-        ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,phrases);
+        List<String> list = Arrays.asList(phrases);
+        Set<String> set = new TreeSet<String>(list);
+        ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, (List<String>) set);
 
         setListAdapter(dictAdapter);
         return super.onCreateView(inflater, container, savedInstanceState);

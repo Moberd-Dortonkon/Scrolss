@@ -11,23 +11,17 @@
         <item>Пожалуйста, говорите помедленнее</item>
         <item>Повторите, пожалуйста</item>
         <item>Как по-английски будет..?</item>
-        <item>Как это пишется?</item>
         <item>Я понимаю</item>
-        <item>Я не понимаю</item>
         <item>Не стоит благодарности</item>
         <item>Вы не подскажете, как добраться до…?</item>
-        <item>Вы не знаете, где находится…?</item>
         <item>Как далеко до…?</item>
         <item>Вы можете показать мне на карте?</item>
         <item>Я ищу этот адрес</item>
-        <item>Это сюда</item>
-        <item>Это туда</item>
         <item>Вы идете не в ту сторону</item>
         <item>Следуйте по этой дороге</item>
         <item>Поверните налево(направо)</item>
         <item>Идите прямо</item>
         <item>Поверните на первом повороте налево</item>
-        <item>Поверните на втором повороте направо</item>
         <item>На перекрестке поверните направо</item>
         <item>Что это?</item>
         <item>Как это называется?</item>
@@ -47,7 +41,6 @@
         <item>Вход воспрещен</item>
         <item>Помогите!</item>
         <item>Будьте осторожны!</item>
-        <item>Осторожно!</item>
         <item>Осторожно!</item>
         <item>В чем дело?</item>
         <item>Все в порядке?</item>
@@ -121,25 +114,26 @@
         <item>Исп: Por favor, hable más despacio</item>
         <item>Португ: Por favor, fale mais devagar</item>
     </string-array>
-    <string-array name="">
+    <string-array name="repeat_pls">
         <item>Повторите, пожалуйста</item>
         <item>Англ: Please repeat.</item>
         <item>Нем: Bitte wiederholen</item>
         <item>Ислан: Aftur, vinsamlegast</item>
-        <item>Хорв: </item>
-        <item>Исп: </item>
-        <item>Португ: </item>
+        <item>Хорв: Ponovite, molim vas</item>
+        <item>Исп: Repita, por favor</item>
+        <item>Португ: Por favor tente novamente</item>
     </string-array>
-    <string-array name="">
-        <item></item>
-        <item>Англ: </item>
-        <item>Нем: </item>
-        <item>Ислан: </item>
-        <item>Хорв: </item>
-        <item>Исп: </item>
-        <item>Португ: </item>
+    <string-array name="how_eng">
+        <item>Как по-английски будет..?</item>
+        <item>Англ: How English it will be..?</item>
+        <item>Нем: Wie Englisch..?</item>
+        <item>Ислан: Eins og í ensku..?</item>
+        <item>Хорв: Kako se na engleskom jeziku će biti..?</item>
+        <item>Исп: Como en inglés..?</item>
+        <item>Португ: Como o inglês será..?</item>
     </string-array>
-    <string-array name="">
+
+    <string-array name="dfdfdfdf">
         <item></item>
         <item>Англ: </item>
         <item>Нем: </item>
