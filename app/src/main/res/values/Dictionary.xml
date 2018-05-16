@@ -5,6 +5,16 @@
         <item>Здравствуйте</item>
         <item>Как у вас дела?</item>
         <item>Вам нужна помощь?</item>
+        <item>Вы говорите по-английски?</item>
+        <item>Я не говорю по-английски</item>
+        <item>Я немного говорю по-английски</item>
+        <item>Пожалуйста, говорите помедленнее</item>
+        <item>Повторите, пожалуйста</item>
+        <item>Как по-английски будет..?</item>
+        <item>Как это пишется?</item>
+        <item>Я понимаю</item>
+        <item>Я не понимаю</item>
+        <item>Не стоит благодарности</item>
         <item>Вы не подскажете, как добраться до…?</item>
         <item>Вы не знаете, где находится…?</item>
         <item>Как далеко до…?</item>
@@ -52,7 +62,7 @@
         <item>Пожалуйста, оставьте меня в покое</item>
         <item>Уйдите</item>
         <item>Я вызову полицию</item>
-
+        <item></item>
     </string-array>
 
 
@@ -74,6 +84,69 @@
         <item>Нем: Brauchts du hilfe??</item>
     </string-array>
 
+<string-array name="do_you_eng">
+    <item>Вы говорите по-английски?</item>
+    <item>Англ: Do you speak English?</item>
+    <item>Нем: Sprechen Sie Englisch?</item>
+    <item>Ислан: Ertu að tala ensku?</item>
+    <item>Хорв: Vi govorite engleski?</item>
+    <item>Исп: Usted habla inglés?</item>
+    <item>Португ: Você fala inglês?</item>
+    </string-array>
 
+    <string-array name="i_not_eng">
+        <item>Я не говорю по-английски</item>
+        <item>Англ: I don't speak English.</item>
+        <item>Нем: I don't speak English.</item>
+        <item>Ислан: Ég tala ekki ensku</item>
+        <item>Хорв: Ja ne govorim engleski</item>
+        <item>Исп: Yo no hablo inglés</item>
+        <item>Португ: Eu não falo inglês</item>
+    </string-array>
+    <string-array name="i_litll_eng">
+        <item>Я немного говорю по-английски</item>
+        <item>Англ: I speak some English.</item>
+        <item>Нем: Ich spreche etwas Englisch.</item>
+        <item>Ислан: Ég tala dálitla ensku</item>
+        <item>Хорв: Ja sam malo govorim engleski</item>
+        <item>Исп: Hablo un poco de inglés</item>
+        <item>Португ: Eu falo um pouco de inglês</item>
+    </string-array>
+    <string-array name="pls_slower">
+        <item>Пожалуйста, говорите помедленнее</item>
+        <item>Англ: Please speak more slowly</item>
+        <item>Нем: Bitte sprechen Sie langsamer</item>
+        <item>Ислан: Talaðu hægar</item>
+        <item>Хорв: Molim vas, govorite sporije</item>
+        <item>Исп: Por favor, hable más despacio</item>
+        <item>Португ: Por favor, fale mais devagar</item>
+    </string-array>
+    <string-array name="">
+        <item>Повторите, пожалуйста</item>
+        <item>Англ: Please repeat.</item>
+        <item>Нем: Bitte wiederholen</item>
+        <item>Ислан: Aftur, vinsamlegast</item>
+        <item>Хорв: </item>
+        <item>Исп: </item>
+        <item>Португ: </item>
+    </string-array>
+    <string-array name="">
+        <item></item>
+        <item>Англ: </item>
+        <item>Нем: </item>
+        <item>Ислан: </item>
+        <item>Хорв: </item>
+        <item>Исп: </item>
+        <item>Португ: </item>
+    </string-array>
+    <string-array name="">
+        <item></item>
+        <item>Англ: </item>
+        <item>Нем: </item>
+        <item>Ислан: </item>
+        <item>Хорв: </item>
+        <item>Исп: </item>
+        <item>Португ: </item>
+    </string-array>
 
 </resources>
