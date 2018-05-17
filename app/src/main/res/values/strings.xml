@@ -6,5 +6,15 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="schedule">Schedule</string>
+    <string name="map">Volunteer Map</string>
+    <string name="help">First Help</string>
+    <string name="switz">Switzerland</string>
+    <string name="brazil">Brazil</string>
+    <string name="urug">Uruguay</string>
+    <string name="arab">Saudi Arabia</string>
+    <string name="korea">South Korea</string>
+
+
 
 </resources>

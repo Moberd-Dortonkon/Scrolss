@@ -28,11 +28,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Schedule"
+                android:text="@string/schedule"
                 android:gravity="center_horizontal|center_vertical"
                 android:textSize="45sp"
                 android:textStyle="bold"
-                android:textColor="#FF0000"/>
+                android:textColor="#DAA520"/>
 
 
         </FrameLayout>
@@ -53,11 +53,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Volunteer Map"
+            android:text="@string/map"
             android:gravity="center_horizontal|center_vertical"
             android:textSize="45sp"
             android:textStyle="bold"
-            android:textColor="#FF0000"/>
+            android:textColor="#DAA520"/>
 
         </FrameLayout>
 
@@ -78,11 +78,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="First Help"
+                android:text="@string/help"
                 android:gravity="center_horizontal|center_vertical"
                 android:textSize="45sp"
                 android:textStyle="bold"
-                android:textColor="#FF0000"/>
+                android:textColor="#DAA520"/>
 
         </FrameLayout>
 
