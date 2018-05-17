@@ -15,7 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="81dp"
-        android:text="I came" />
+        android:text="@string/come" />
 
     <Button
         android:id="@+id/eat"
@@ -23,7 +23,7 @@
         android:layout_height="97dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/come"
-        android:text="I ate" />
+        android:text="@string/eat" />
 
     <Button
         android:id="@+id/refrsh"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:text="Refresh" />
+        android:text="@string/refresh" />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"

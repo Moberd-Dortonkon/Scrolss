@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="165dp"
         android:ems="10"
-        android:hint="YourName"
+        android:hint="@string/name"
         android:inputType="textPersonName" />
 
     <Button
@@ -24,14 +24,6 @@
         android:layout_height="67dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/leadername"
-        android:text="CreateGroup" />
+        android:text="@string/crtGroup" />
 
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="64dp"
-        android:text="TextView" />
 </RelativeLayout>

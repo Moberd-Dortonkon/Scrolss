@@ -25,7 +25,22 @@
     <string name="july2">2 July 21:00</string>
     <string name="winnerG">Winner of group G</string>
     <string name="winnerH">Winner of group H</string>
-
+    <string name="inf">Information</string>
+    <string name="group">Group</string>
+    <string name="Dictionary">Dictionary</string>
+    <string name="joinGroup">Join Group</string>
+    <string name="groupId">GroupId</string>
+    <string name="name">Your name</string>
+    <string name="leader">Leader</string>
+    <string name="volunteer">Volunteer</string>
+    <string name="crtGroup">Create Group</string>
+    <string name="refresh">Refresh</string>
+    <string name="share">Share</string>
+    <string name="reset">Reset</string>
+    <string name="eat">I ate</string>
+    <string name="come">I came</string>
+    <string name="no_one">There is no one on ypur group</string>
+    <string name="name_gr">Name:</string>
 
 
 </resources>

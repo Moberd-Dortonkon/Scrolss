@@ -14,7 +14,7 @@
         android:layout_height="141dp"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:text="Leader" />
+        android:text="@string/leader" />
 
     <Button
         android:id="@+id/Volonteer"
@@ -22,5 +22,5 @@
         android:layout_height="141dp"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:text="Volonteer" />
+        android:text="@string/volunteer" />
 </LinearLayout>

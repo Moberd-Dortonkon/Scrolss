@@ -4,20 +4,20 @@
     >
     <item
         android:id="@+id/book"
-        android:title="Information"
+        android:title="@string/inf"
         android:enabled="true"
         android:icon="@drawable/ic_book_black_24dp"
         app:showAsAction="never" />
     <item
         android:id="@+id/account"
         android:enabled="true"
-        android:title="Group"
+        android:title="@string/group"
         android:icon="@drawable/ic_account_box_black_24dp"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/dictionary"
         android:enabled="true"
-        android:title="Dictionary"
+        android:title="@string/Dictionary"
         android:icon="@drawable/ic_chat_bubble_black_24dp"
         app:showAsAction="ifRoom" />
 </menu>

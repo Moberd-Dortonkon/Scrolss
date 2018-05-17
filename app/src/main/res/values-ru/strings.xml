@@ -20,5 +20,20 @@
     <string name="winnerG">Победитель группы G</string>
     <string name="winnerH">Победитель группы H</string>
     <string name="july2">2 Июля 21:00</string>
+    <string name="inf">Информация</string>
+    <string name="group">Группа</string>
+    <string name="Dictionary">Словарь</string>
+    <string name="joinGroup">Присоединиться к группе</string>
+    <string name="groupId">ID Группы</string>
+    <string name="name">Ваше Имя</string>
+    <string name="leader">Лидер</string>
+    <string name="volunteer">Волонтёр</string>
+    <string name="crtGroup">Создать Группу</string>
+    <string name="refresh">Сбросить</string>
+    <string name="share">Поделиться</string>
+    <string name="reset">Сбросить</string>
+    <string name="eat">Я поел</string>
+    <string name="come">Я пришел</string>
+    <string name="no_one">В вашей группе никого нет</string>
 
 </resources>
