@@ -29,7 +29,8 @@ public class TeamListFragment extends ListFragment {
         matches[0]= new MyMatch("  Бразилия  ","     Швейцария  ", "17 Июня 21:00");
         matches[1]= new MyMatch("Уругвай","Саудовская Аравия", "20 Июня 18:00");
         matches[2]= new MyMatch("Республика Корея","Мексика", "23 Июня 18:00");
-        matches[3]= new MyMatch("  Исландия    ","          Хорватия", "26 Июня 21:00");
+        matches[3]= new MyMatch("  Исландия    ","          " +
+                "Хорватия", "26 Июня 21:00");
 
         MyMatchAdapter adapter=new MyMatchAdapter(inflater.getContext(), R.layout.adapter_item, matches);
         setListAdapter(adapter);

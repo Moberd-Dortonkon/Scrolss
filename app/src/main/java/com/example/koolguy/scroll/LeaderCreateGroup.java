@@ -35,10 +35,11 @@ public class LeaderCreateGroup extends Fragment {
     TextView test;
     String string;
     LeaderCreateGroupNext listener;
-    public interface LeaderCreateGroupNext
-    {
-        void leaderCreateClick(String lName,String key);
+
+    public interface LeaderCreateGroupNext {
+        void leaderCreateClick(String lName, String key);
     }
+
     public LeaderCreateGroup() {
         // Required empty public constructor
     }
@@ -46,16 +47,17 @@ public class LeaderCreateGroup extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        listener=(LeaderCreateGroupNext) activity;
+        listener = (LeaderCreateGroupNext) activity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v=inflater.inflate(R.layout.fragment_leader_create_group, container, false);
-        leaderName =(EditText)v.findViewById(R.id.leadername);
-        test =(TextView)v.findViewById(R.id.test);
-        createGroup=(Button)v.findViewById(R.id.createGroup);
+        v = inflater.inflate(R.layout.fragment_leader_create_group, container, false);
+        leaderName = (EditText) v.findViewById(R.id.leadername);
+        test = (TextView) v.findViewById(R.id.test);
+        createGroup = (Button) v.findViewById(R.id.createGroup);
+        createGroup.setEnabled(true);
 
         return v;
     }
@@ -66,38 +68,41 @@ public class LeaderCreateGroup extends Fragment {
         createGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(v.getContext(),"Succses",Toast.LENGTH_LONG);
+                Toast.makeText(v.getContext(), "Succses", Toast.LENGTH_LONG);
                 new MyThread().start();
-              //  if(string!=null)listener.leaderCreateClick(leaderName.getText().toString(),string);
-
+                //  if(string!=null)listener.leaderCreateClick(leaderName.getText().toString(),string);
+                createGroup.setEnabled(false);
             }
         });
-        Toast.makeText(v.getContext(),"Succses",Toast.LENGTH_LONG);
+
+        Toast.makeText(v.getContext(), "Succses", Toast.LENGTH_LONG);
     }
 
-    class MyThread extends Thread
-    {
+    class MyThread extends Thread {
         String s;
 
-
-            @Override
-                    public void run() {
-                Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
-                ServerCreateGroup group = retrofit.create(ServerCreateGroup.class);
-                String lName = leaderName.getText().toString();
+        synchronized
+        @Override
+        public void run() {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+            ServerCreateGroup group = retrofit.create(ServerCreateGroup.class);
+            String lName = leaderName.getText().toString();
                 Call<ResponseBody> call = group.createGroup(lName);
                 try {
                     Response<ResponseBody> response = call.execute();
-
                     string = response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if(string!=null)listener.leaderCreateClick(leaderName.getText().toString(),string);
+                if (string != null) {
+                    listener.leaderCreateClick(leaderName.getText().toString(), string);
+                }
+
 
             }
-            
+
         }
     }
+
 
 

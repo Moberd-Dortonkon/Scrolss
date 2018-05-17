@@ -3,6 +3,7 @@ package com.example.koolguy.scroll;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -47,6 +48,8 @@ public class ChooseStatus extends Fragment {
         leader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences preferences = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE);
+                preferences.edit().clear().commit();
                 click.chooseStatusClick(1);
             }
         });

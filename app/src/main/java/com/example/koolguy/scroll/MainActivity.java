@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements
       //  mapFragment.setPasswordView(preferences.getString("groupPassword", ""));
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -301,26 +301,21 @@ public class MainActivity extends AppCompatActivity implements
         editor.putString("lName", lName);
         editor.putString("name", name);
         editor.commit();
-       // Toast.makeText(this, "" + lName + name, Toast.LENGTH_LONG).show();
+       //l Toast.makeText(this, "" + lName + name, Toast.LENGTH_LONG).show();
         volonteerStatus.setlName(lName);
         volonteerStatus.setName(name);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, volonteerStatus);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 
     @Override
     public void refrsh() {
         ChooseStatus dict = new ChooseStatus();
-        editor.remove("lName");
-        editor.remove("name");
-        editor.remove("role");
-        editor.remove("groupPassword");
-        editor.commit();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, dict); //если
-        transaction.addToBackStack(null);
+       // transaction.addToBackStack(null);
         transaction.commit();
     }
 
