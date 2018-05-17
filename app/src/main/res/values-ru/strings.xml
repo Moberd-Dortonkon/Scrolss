@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Volunteer Helper</string>
+    <string name="schedule">Расписание</string>
+    <string name="map">Карта Волонтёра</string>
+    <string name="help">Первая Помощь</string>
+    <string name="switz">Швейцария</string>
+    <string name="brazil">Бразилия</string>
+    <string name="urug">Уругвай</string>
+    <string name="arab">Саудовская Аравия</string>
+    <string name="korea">Южная Корея</string>
+    <string name="mexico">Мексика</string>
+    <string name="iceland">Исландия</string>
+    <string name="croat">Хорватия</string>
+    <string name="arena">Ростов Арена</string>
+    <string name="june17">17 Июня 21:00</string>
+    <string name="june20">20 Июня 18:00</string>
+    <string name="june23">23 Июня 21:00</string>
+    <string name="june26">26 Июня 18:00</string>
+    <string name="winnerG">Победитель группы G</string>
+    <string name="winnerH">Победитель группы H</string>
+    <string name="july2">2 Июля 21:00</string>
+
+</resources>

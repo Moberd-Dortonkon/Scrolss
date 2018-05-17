@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Volunteer Helper</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_main2" translatable="false">Main2Activity</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
     <string name="schedule">Schedule</string>
     <string name="map">Volunteer Map</string>
     <string name="help">First Help</string>
@@ -14,6 +14,17 @@
     <string name="urug">Uruguay</string>
     <string name="arab">Saudi Arabia</string>
     <string name="korea">South Korea</string>
+    <string name="mexico">Mexico</string>
+    <string name="iceland">Iceland</string>
+    <string name="croat">Croatia</string>
+    <string name="arena">Rostov Arena</string>
+    <string name="june17">17 June 21:00</string>
+    <string name="june20">20 June 18:00</string>
+    <string name="june23">23 June 21:00</string>
+    <string name="june26">26 June 18:00</string>
+    <string name="july2">2 July 21:00</string>
+    <string name="winnerG">Winner of group G</string>
+    <string name="winnerH">Winner of group H</string>
 
 
 
