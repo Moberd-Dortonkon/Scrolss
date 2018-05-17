@@ -35,5 +35,6 @@
     <string name="eat">Я поел</string>
     <string name="come">Я пришел</string>
     <string name="no_one">В вашей группе никого нет</string>
+    <string name="name_gr">Имя:</string>
 
 </resources>
