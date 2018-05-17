@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.koolguy.scroll.MainActivity"
-    android:background="@drawable/background_blue">
+    tools:context="com.example.koolguy.scroll.MainActivity">
 
     <FrameLayout
         android:id="@+id/frames"
@@ -14,6 +13,11 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/app_background"
+            />
     </FrameLayout>
 
 
@@ -26,7 +30,6 @@
         android:layout_margin="0dp"
         app:itemIconTint="#ffff"
         app:itemTextColor="#ffff"
-
         app:menu="@menu/botton_navigation" />
 
 

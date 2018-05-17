@@ -194,7 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="23 Июня 18:00"
+                android:text="23 Июня 21:00"
                 android:textSize="37sp"
                 android:textStyle="bold"/>
 
