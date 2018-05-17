@@ -47,28 +47,27 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
         // Required empty public constructor
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view=inflater.inflate(R.layout.fragment_dictionary, container, false);
         Resources res=getResources();
         final String[] phrases = res.getStringArray(R.array.dictionary);
         ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, phrases);
+        setListAdapter(dictAdapter);
 //        Arrays.sort(phrases);
 //        List<String> list = Arrays.asList(phrases);
 //        Set<String> set = new TreeSet<String>(list);
-        view=inflater.inflate(R.layout.fragment_dictionary, container, false);
-        Toolbar toolbar= (Toolbar)view.findViewById(R.id.toolbar);
-//        ListView lv =  (ListView) view.findViewById(R.id.list);
-//        lv.setAdapter(dictAdapter);
-        setListAdapter(dictAdapter);
-        final EditText editText=(EditText)view.findViewById(R.id.searchEditText);
-        ImageButton search=(ImageButton)view.findViewById(R.id.search);
-        search.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String s=editText.getText().toString();
-                Arrays.sort(phrases);
-
-            }
-        }));
+//        Toolbar toolbar= (Toolbar)view.findViewById(R.id.toolbar);
+//        final EditText editText=(EditText)view.findViewById(R.id.searchEditText);
+//        ImageButton search=(ImageButton)view.findViewById(R.id.search);
+//        search.setOnClickListener((new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String s=editText.getText().toString();
+//                Arrays.sort(phrases);
+//                ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, phrases);
+//                setListAdapter(dictAdapter);
+//            }
+//        }));
         return view;
     }
 

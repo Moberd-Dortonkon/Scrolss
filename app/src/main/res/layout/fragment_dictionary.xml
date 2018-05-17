@@ -7,31 +7,31 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:local="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        >
+    <!--<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:local="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:minHeight="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+        <!--local:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+        <!--&gt;-->
 
-        <EditText
-            android:id="@+id/searchEditText"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            />
-        <ImageButton
-            android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/places_ic_search"
-            android:gravity="left"/>
+        <!--<EditText-->
+            <!--android:id="@+id/searchEditText"-->
+            <!--android:layout_width="320dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="start"-->
+            <!--/>-->
+        <!--<ImageButton-->
+            <!--android:id="@+id/search"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/places_ic_search"-->
+            <!--android:gravity="left"/>-->
 
-    </android.support.v7.widget.Toolbar>
+    <!--</android.support.v7.widget.Toolbar>-->
 
     <ListView
         android:id="@+id/android:list"
