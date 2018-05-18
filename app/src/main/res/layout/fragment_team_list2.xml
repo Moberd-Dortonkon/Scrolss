@@ -15,7 +15,7 @@
         android:layout_height="170dp"
         android:layout_margin="10dp"
         android:elevation="16dp"
-        android:background="#ffff">
+        android:background="#dbdbdb">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +33,8 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/switz"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000000"/>
 
             <ImageView
                 android:id="@+id/braz"
@@ -46,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/brazil"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000000"/>
 
         </LinearLayout>
 
@@ -62,7 +64,8 @@
                 android:gravity="end"
                 android:text="@string/june17"
                 android:textSize="37sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000000"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,7 +73,8 @@
                 android:gravity="bottom"
                 android:text="@string/arena"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000000"/>
 
 
         </LinearLayout>
@@ -82,7 +86,7 @@
             android:layout_height="170dp"
             android:layout_margin="10dp"
             android:elevation="16dp"
-            android:background="#ffff">
+            android:background="#DBDBDB">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,7 +104,8 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/urug"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <ImageView
                     android:id="@+id/arab"
@@ -113,7 +118,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/arab"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
             </LinearLayout>
 
@@ -129,7 +135,8 @@
                     android:gravity="end"
                     android:text="@string/june20"
                     android:textSize="37sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -137,7 +144,8 @@
                     android:gravity="bottom"
                     android:text="@string/arena"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
 
             </LinearLayout>
@@ -149,7 +157,7 @@
         android:layout_height="170dp"
         android:layout_margin="10dp"
         android:elevation="16dp"
-        android:background="#ffff">
+        android:background="#DBDBDB">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,7 +175,8 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/korea"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000000"/>
 
             <ImageView
                 android:id="@+id/mexico"
@@ -180,7 +189,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/mexico"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000000"/>
 
         </LinearLayout>
 
@@ -196,7 +206,8 @@
                 android:gravity="end"
                 android:text="@string/june23"
                 android:textSize="37sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000000"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -204,7 +215,8 @@
                 android:gravity="bottom"
                 android:text="@string/arena"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#000000"/>
 
 
         </LinearLayout>
@@ -216,7 +228,7 @@
             android:layout_height="170dp"
             android:layout_margin="10dp"
             android:elevation="16dp"
-            android:background="#ffff">
+            android:background="#DBDBDB">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -233,7 +245,8 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/iceland"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <ImageView
                     android:layout_width="70dp"
@@ -245,7 +258,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/croat"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
             </LinearLayout>
 
@@ -261,7 +275,8 @@
                     android:gravity="end"
                     android:text="@string/june26"
                     android:textSize="37sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -269,7 +284,8 @@
                     android:gravity="bottom"
                     android:text="@string/arena"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
 
             </LinearLayout>
@@ -281,7 +297,7 @@
             android:layout_height="170dp"
             android:layout_margin="10dp"
             android:elevation="16dp"
-            android:background="#ffff">
+            android:background="#DBDBDB">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -299,7 +315,8 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/winnerG"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <ImageView
                     android:id="@+id/grH"
@@ -312,7 +329,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/winnerH"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
             </LinearLayout>
 
@@ -328,7 +346,8 @@
                     android:gravity="end"
                     android:text="@string/july2"
                     android:textSize="37sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -336,7 +355,8 @@
                     android:gravity="bottom"
                     android:text="@string/arena"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
 
 
             </LinearLayout>
