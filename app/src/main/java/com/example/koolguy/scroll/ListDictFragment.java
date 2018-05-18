@@ -20,14 +20,14 @@ public class ListDictFragment extends ListFragment {
     public ListDictFragment() {
         // Required empty public constructor
     }
-   int i;
+    String[]phrase;
     View view;
-    public void setI(int position){this.i =position;}
+    public void setI(String[]phrase){this.phrase = phrase;}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_list_dict, container, false);
-        if (i==0){
+       /* if (i==0){
             Resources res=getResources();
             String[] dict = res.getStringArray(R.array.Hello);
             ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);
@@ -77,10 +77,14 @@ public class ListDictFragment extends ListFragment {
         }
         if (i==8){
             Resources res=getResources();
-            String[] dict = res.getStringArray(R.array.how_eng);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
-            setListAdapter(dictAdapter);
-        }
+        String[] dict = res.getStringArray(R.array.how_eng);
+        ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
+        setListAdapter(dictAdapter);
+    }*/
+
+        ArrayAdapter<String>adapter=new ArrayAdapter<>(inflater.getContext(),android.R.layout.simple_list_item_1,phrase);
+        setListAdapter(adapter);
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

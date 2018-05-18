@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -86,29 +88,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
                 ref.refrsh();
             }
         });
-        /*groupView =(ListView)v.findViewById(R.id.groupView);
-        refresh=(Button)v.findViewById(R.id.reset);
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ref.refrsh();
-            }
-        });
-
-        textView = (TextView)v.findViewById(R.id.refreshGroup);
-        textView.setText(key);
-        copy = (Button)v.findViewById(R.id.sendNudes);
-        copy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String send = key;
-                Intent myIntent = new Intent(Intent.ACTION_SEND);
-                myIntent.setType("text/plain");
-                myIntent.putExtra(Intent.EXTRA_TEXT, send);//
-                startActivity(Intent.createChooser(myIntent, "Share with"));
-            }
-        });
-        */
+        setHasOptionsMenu(true);
         preferences = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
          editor=preferences.edit();
         thread = new MyThread(this);
@@ -149,6 +129,13 @@ public class LeaderGroup extends Fragment implements GroupListener {
     {
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.group_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     private void firstGroupTake(){
         viewHolder = (ViewGroup) v.findViewById(R.id.groupFromStart);
         viewHolder.removeAllViews();

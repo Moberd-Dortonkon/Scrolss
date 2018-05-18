@@ -59,25 +59,25 @@
     </string-array>
 
 
-    <string-array name="Hello">
+    <string-array name="dictionary_0">
         <item>Здравствуйте</item>
         <item>Англ: Hello</item>
         <item>Нем: Hallo</item>
     </string-array>
 
-    <string-array name="How">
+    <string-array name="dictionary_1">
         <item>Как у вас дела?</item>
         <item>Англ: How are you? </item>
         <item>Нем: Wie geht es Ihnen?</item>
     </string-array>
 
-    <string-array name="Help">
+    <string-array name="dictionary_2">
         <item>Вам нужна помощь?</item>
         <item>Англ: Do you need a help?</item>
         <item>Нем: Brauchts du hilfe??</item>
     </string-array>
 
-<string-array name="do_you_eng">
+<string-array name="dictionary_3">
     <item>Вы говорите по-английски?</item>
     <item>Англ: Do you speak English?</item>
     <item>Нем: Sprechen Sie Englisch?</item>
@@ -87,7 +87,7 @@
     <item>Португ: Você fala inglês?</item>
     </string-array>
 
-    <string-array name="i_not_eng">
+    <string-array name="dictionary_4">
         <item>Я не говорю по-английски</item>
         <item>Англ: I don't speak English.</item>
         <item>Нем: I don't speak English.</item>
@@ -96,7 +96,7 @@
         <item>Исп: Yo no hablo inglés</item>
         <item>Португ: Eu não falo inglês</item>
     </string-array>
-    <string-array name="i_litll_eng">
+    <string-array name="dictionary_5">
         <item>Я немного говорю по-английски</item>
         <item>Англ: I speak some English.</item>
         <item>Нем: Ich spreche etwas Englisch.</item>
@@ -105,7 +105,7 @@
         <item>Исп: Hablo un poco de inglés</item>
         <item>Португ: Eu falo um pouco de inglês</item>
     </string-array>
-    <string-array name="pls_slower">
+    <string-array name="dictionary_6">
         <item>Пожалуйста, говорите помедленнее</item>
         <item>Англ: Please speak more slowly</item>
         <item>Нем: Bitte sprechen Sie langsamer</item>
@@ -114,7 +114,7 @@
         <item>Исп: Por favor, hable más despacio</item>
         <item>Португ: Por favor, fale mais devagar</item>
     </string-array>
-    <string-array name="repeat_pls">
+    <string-array name="dictionary_7">
         <item>Повторите, пожалуйста</item>
         <item>Англ: Please repeat.</item>
         <item>Нем: Bitte wiederholen</item>
@@ -123,7 +123,7 @@
         <item>Исп: Repita, por favor</item>
         <item>Португ: Por favor tente novamente</item>
     </string-array>
-    <string-array name="how_eng">
+    <string-array name="dictionary_8">
         <item>Как по-английски будет..?</item>
         <item>Англ: How English it will be..?</item>
         <item>Нем: Wie Englisch..?</item>

@@ -213,9 +213,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    public void DictionaryClick(int position) {
+    public void DictionaryClick(String [] phrase) {
         ListDictFragment dict = new ListDictFragment();
-        dict.setI(position);
+        dict.setI(phrase);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, dict); //если
         transaction.addToBackStack(null);

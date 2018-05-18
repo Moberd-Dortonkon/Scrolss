@@ -6,7 +6,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
         import android.app.Fragment;
-        import android.view.LayoutInflater;
+import android.os.Looper;
+import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
 import android.widget.Button;
@@ -61,10 +62,12 @@ public class CreateVolonteer extends Fragment {
         name1 = (EditText) v.findViewById(R.id.yourName);
         join = (Button) v.findViewById(R.id.join);
         string="";
+        join.setEnabled(true);
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new MyThread().start();
+                join.setEnabled(false);
                 if(string.equals("complete"))listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());
             }
         });
@@ -95,9 +98,13 @@ public class CreateVolonteer extends Fragment {
 
             if(s!=null)
             {
-                if(s.equals("complete"))listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());
+                if(s.equals("complete")){
+
+                    listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());}
                 if(s.equals("try another name")){
-                    Toast.makeText(v.getContext(),"try another name",Toast.LENGTH_LONG);}
+                    Looper.prepare();
+                    Toast.makeText(v.getContext(),"try another name",Toast.LENGTH_LONG);
+                    }
             }
         }
         }

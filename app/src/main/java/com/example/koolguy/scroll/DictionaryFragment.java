@@ -19,10 +19,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 
@@ -31,10 +33,12 @@ import java.util.TreeSet;
  */
 public class DictionaryFragment extends ListFragment { //Есть встроенные лист фрагмент.Я добавил метод нажатия
     View view;
+    TreeMap<String,String[]> dictionar;
+    String[] phrases;
     private DictionaryFragment.DictionaryListener list;
 
     public static interface DictionaryListener{
-        void DictionaryClick(int position);
+        void DictionaryClick(String[]phrase);
     }
 
 
@@ -50,7 +54,14 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_dictionary, container, false);
         Resources res=getResources();
-        final String[] phrases = res.getStringArray(R.array.dictionary);
+        dictionar = new TreeMap<String,String[]>();
+        int id=1;
+        phrases = res.getStringArray(R.array.dictionary);
+        for (int i = 0;i<9;i++)
+        {
+            int phrase_id = res.getIdentifier("dictionary_"+Integer.toString(i),"array",view.getContext().getPackageName());
+            dictionar.put(phrases[i],res.getStringArray(phrase_id));
+        }
         ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, phrases);
         setListAdapter(dictAdapter);
 //        Arrays.sort(phrases);
@@ -75,7 +86,10 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        list.DictionaryClick(position);
+
+        try {
+            list.DictionaryClick(dictionar.get(phrases[position]));
+        }catch (Exception e){}
 
     }
 
