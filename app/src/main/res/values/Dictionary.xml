@@ -2,27 +2,47 @@
 <resources>
 
     <string-array name="dictionary">
-        <item>Здравствуйте</item>
-        <item>Как у вас дела?</item>
-        <item>Вам нужна помощь?</item>
+        <item>Здравствуйте!</item>
+        <item>Привет!</item>
+        <item>Доброе утро!</item>
+        <item>Добрый день!</item>
+        <item>Добрый вечер!</item>
+        <item>До свидания!</item>
+        <item>Пока!</item>
+        <item>Спокойной ночи!</item>
+        <item>До встречи!</item>
+        <item>Хорошего дня!</item>
         <item>Вы говорите по-английски?</item>
         <item>Я не говорю по-английски</item>
         <item>Я немного говорю по-английски</item>
         <item>Пожалуйста, говорите помедленнее</item>
         <item>Повторите, пожалуйста</item>
-        <item>Как по-английски будет..?</item>
+        <item>Продиктуйте по буквам, пожалуйста</item>
+        <item>Как по-английски будет ...?</item>
+        <item>Как это пишется?</item>
+        <item>Как произносится это слово?</item>
         <item>Я понимаю</item>
-        <item>Не стоит благодарности</item>
+        <item>Я не понимаю</item>
         <item>Вы не подскажете, как добраться до…?</item>
+        <item>Вы не знаете, где находится…?</item>
         <item>Как далеко до…?</item>
         <item>Вы можете показать мне на карте?</item>
         <item>Я ищу этот адрес</item>
+        <item>Это сюда</item>
+        <item>Это туда</item>
         <item>Вы идете не в ту сторону</item>
         <item>Следуйте по этой дороге</item>
-        <item>Поверните налево(направо)</item>
+        <item>Поверните налево</item>
+        <item>Поверните направо</item>
         <item>Идите прямо</item>
         <item>Поверните на первом повороте налево</item>
+        <item>Поверните на втором повороте направо</item>
         <item>На перекрестке поверните направо</item>
+        <item>Продолжайте идти (ехать) прямо</item>
+        <item>Проходите (проезжайте) мимо здания почты</item>
+        <item>Слева будет парк</item>
+        <item>Пройдите еще…</item>
+        <item>Это будет ...</item>
         <item>Что это?</item>
         <item>Как это называется?</item>
         <item>У вас есть минутка?</item>
@@ -34,7 +54,6 @@
         <item>Запасной выход</item>
         <item>От себя</item>
         <item>На себя</item>
-        <item>Tуалет</item>
         <item>Не работает</item>
         <item>Не курить</item>
         <item>Частная собственность</item>
@@ -42,6 +61,7 @@
         <item>Помогите!</item>
         <item>Будьте осторожны!</item>
         <item>Осторожно!</item>
+        <item>Что-то не так?</item>
         <item>В чем дело?</item>
         <item>Все в порядке?</item>
         <item>Что происходит?</item>
@@ -49,89 +69,913 @@
         <item>Вы в порядке?</item>
         <item>Все целы?</item>
         <item>Мне нужна помощь</item>
+        <item>Мне нужен врач</item>
         <item>Вызовите скорую!</item>
+        <item>Произошел несчастный случай</item>
+        <item>Я порезался</item>
+        <item>Я обжегся</item>
+        <item>Я повредил…</item>
+        <item>Вызовите полицию!</item>
+        <item>Мой … украли</item>
+        <item>Меня ограбили</item>
+        <item>На меня напали</item>
+        <item>Пожар!</item>
+        <item>Вызовите пожарных!</item>
+        <item>Там пожар</item>
+        <item>Здание горит</item>
         <item>Я заблудился</item>
+        <item>Мы заблудились</item>
         <item>Я не могу найти…</item>
+        <item>Я потерял…</item>
         <item>Пожалуйста, оставьте меня в покое</item>
         <item>Уйдите</item>
         <item>Я вызову полицию</item>
-        <item></item>
     </string-array>
 
-
     <string-array name="dictionary_0">
-        <item>Здравствуйте</item>
-        <item>Англ: Hello</item>
-        <item>Нем: Hallo</item>
+        <item>Здравствуйте!</item>
+        <item>Англ:Hello</item>
+        <item>Нем:Hallo</item>
+        <item>Исланд:Halló</item>
+        <item>Хорв:zdravo</item>
+        <item>Исп:Hola</item>
+        <item>Португ:Olá</item>
     </string-array>
 
     <string-array name="dictionary_1">
-        <item>Как у вас дела?</item>
-        <item>Англ: How are you? </item>
-        <item>Нем: Wie geht es Ihnen?</item>
+        <item>Привет!</item>
+        <item>Англ:Hi</item>
+        <item>Нем:Hallo</item>
+        <item>Исланд:Hæ</item>
+        <item>Хорв:bok</item>
+        <item>Исп:Hola</item>
+        <item>Португ:Oi</item>
     </string-array>
 
     <string-array name="dictionary_2">
-        <item>Вам нужна помощь?</item>
-        <item>Англ: Do you need a help?</item>
-        <item>Нем: Brauchts du hilfe??</item>
+        <item>Доброе утро!</item>
+        <item>Англ:Good morning</item>
+        <item>Нем:Guten Morgen</item>
+        <item>Исланд:Góðan daginn</item>
+        <item>Хорв:Dobro jutro</item>
+        <item>Исп:Buenos días</item>
+        <item>Португ:Bom Dia</item>
     </string-array>
 
-<string-array name="dictionary_3">
-    <item>Вы говорите по-английски?</item>
-    <item>Англ: Do you speak English?</item>
-    <item>Нем: Sprechen Sie Englisch?</item>
-    <item>Исланд: Ertu að tala ensku?</item>
-    <item>Хорв: Vi govorite engleski?</item>
-    <item>Исп: Usted habla inglés?</item>
-    <item>Португ: Você fala inglês?</item>
+    <string-array name="dictionary_3">
+        <item>Добрый день!</item>
+        <item>Англ:Good afternoon</item>
+        <item>Нем:guten Tag</item>
+        <item>Исланд:Góðan daginn</item>
+        <item>Хорв:Dobar dan</item>
+        <item>Исп:Buenas tardes</item>
+        <item>Португ:Boa tarde</item>
     </string-array>
 
     <string-array name="dictionary_4">
-        <item>Я не говорю по-английски</item>
-        <item>Англ: I don't speak English.</item>
-        <item>Нем: I don't speak English.</item>
-        <item>Исланд: Ég tala ekki ensku</item>
-        <item>Хорв: Ja ne govorim engleski</item>
-        <item>Исп: Yo no hablo inglés</item>
-        <item>Португ: Eu não falo inglês</item>
+        <item>Добрый вечер!</item>
+        <item>Англ:Good evening</item>
+        <item>Нем:Guten Abend</item>
+        <item>Исланд:Gott kvöld</item>
+        <item>Хорв:Dobra večer</item>
+        <item>Исп:Buenas tardes</item>
+        <item>Португ:Boa noite</item>
     </string-array>
+
     <string-array name="dictionary_5">
-        <item>Я немного говорю по-английски</item>
-        <item>Англ: I speak some English.</item>
-        <item>Нем: Ich spreche etwas Englisch.</item>
-        <item>Исланд: Ég tala dálitla ensku</item>
-        <item>Хорв: Ja sam malo govorim engleski</item>
-        <item>Исп: Hablo un poco de inglés</item>
-        <item>Португ: Eu falo um pouco de inglês</item>
+        <item>До свидания!</item>
+        <item>Англ:Goodbye</item>
+        <item>Нем:Auf Wiedersehen</item>
+        <item>Исланд:Bless</item>
+        <item>Хорв:Doviđenja</item>
+        <item>Исп:Adiós</item>
+        <item>Португ:Adeus</item>
     </string-array>
+
     <string-array name="dictionary_6">
-        <item>Пожалуйста, говорите помедленнее</item>
-        <item>Англ: Please speak more slowly</item>
-        <item>Нем: Bitte sprechen Sie langsamer</item>
-        <item>Исланд: Talaðu hægar</item>
-        <item>Хорв: Molim vas, govorite sporije</item>
-        <item>Исп: Por favor, hable más despacio</item>
-        <item>Португ: Por favor, fale mais devagar</item>
+        <item>Пока!</item>
+        <item>Англ:Bye</item>
+        <item>Нем:Tschüss</item>
+        <item>Исланд:Bless</item>
+        <item>Хорв:Pozdrav</item>
+        <item>Исп:Adiós</item>
+        <item>Португ:Tchau</item>
     </string-array>
+
     <string-array name="dictionary_7">
-        <item>Повторите, пожалуйста</item>
-        <item>Англ: Please repeat.</item>
-        <item>Нем: Bitte wiederholen</item>
-        <item>Исланд: Aftur, vinsamlegast</item>
-        <item>Хорв: Ponovite, molim vas</item>
-        <item>Исп: Repita, por favor</item>
-        <item>Португ: Por favor tente novamente</item>
+        <item>Спокойной ночи!</item>
+        <item>Англ:Good night</item>
+        <item>Нем:Gute Nacht</item>
+        <item>Исланд:Góða nótt</item>
+        <item>Хорв:Laku noć</item>
+        <item>Исп:Buenas noches</item>
+        <item>Португ:Boa noite</item>
     </string-array>
+
     <string-array name="dictionary_8">
-        <item>Как по-английски будет..?</item>
-        <item>Англ: How English it will be..?</item>
-        <item>Нем: Wie Englisch..?</item>
-        <item>Исланд: Eins og í ensku..?</item>
-        <item>Хорв: Kako se na engleskom jeziku će biti..?</item>
-        <item>Исп: Como en inglés..?</item>
-        <item>Португ: Como o inglês será..?</item>
+        <item>До встречи!</item>
+        <item>Англ:See you</item>
+        <item>Нем:Wir sehen uns</item>
+        <item>Исланд:Sjáumst</item>
+        <item>Хорв:Vidimo se</item>
+        <item>Исп:Nos vemos</item>
+        <item>Португ:Até logo</item>
     </string-array>
+
+    <string-array name="dictionary_9">
+        <item>Хорошего дня!</item>
+        <item>Англ:Have a nice day</item>
+        <item>Нем:Einen schönen Tag noch</item>
+        <item>Исланд:Eigðu góðan dag</item>
+        <item>Хорв:Lijep dan</item>
+        <item>Исп:Que tengas un buen día</item>
+        <item>Португ:Tenha um bom dia</item>
+    </string-array>
+
+    <string-array name="dictionary_10">
+        <item>Вы говорите по-английски?</item>
+        <item>Англ:Do you speak English?</item>
+        <item>Нем:Sprichst du Englisch?</item>
+        <item>Исланд:Talar þú ensku?</item>
+        <item>Хорв:GovoriŠ li engleski?</item>
+        <item>Исп:¿Habla usted Inglés?</item>
+        <item>Португ:Você fala inglês?</item>
+    </string-array>
+
+    <string-array name="dictionary_11">
+        <item>Я не говорю по-английски</item>
+        <item>Англ: I dont speak English</item>
+        <item>Нем:Ich spreche kein Englisch</item>
+        <item>Исланд:Ég tala ekki ensku</item>
+        <item>Хорв:Ne govorim engleski</item>
+        <item>Исп:Yo no hablo ingles</item>
+        <item>Португ:Eu nao falo ingles</item>
+    </string-array>
+
+    <string-array name="dictionary_12">
+        <item>Я немного говорю по-английски</item>
+        <item>Англ:I speak a little English</item>
+        <item>Нем:Ich spreche ein wenig Englisch</item>
+        <item>Исланд:Ég tala smá ensku</item>
+        <item>Хорв:Malo govorim engleski</item>
+        <item>Исп:Hablo un poco de Inglés</item>
+        <item>Португ:Eu falo um pouco de Inglês</item>
+    </string-array>
+
+    <string-array name="dictionary_13">
+        <item>Пожалуйста, говорите помедленнее</item>
+        <item>Англ:Please speak more slowly</item>
+        <item>Нем:Bitte spreche etwas langsamer</item>
+        <item>Исланд:Vinsamlegast talaðu hægar</item>
+        <item>Хорв:Molimo, polako govorite</item>
+        <item>Исп:Por favor habla más despacio</item>
+        <item>Португ:Por favor fale mais devagar</item>
+    </string-array>
+
+    <string-array name="dictionary_14">
+        <item>Повторите, пожалуйста</item>
+        <item>Англ:Could you please repeat that?</item>
+        <item>Нем:Könnten Sie das bitte wiederholen?</item>
+        <item>Исланд:Gætirðu vinsamlegast endurtaka það?</item>
+        <item>Хорв:Možete li to ponoviti?</item>
+        <item>Исп:¿Podrías repetir eso por favor?</item>
+        <item>Португ:Você poderia por favor repetir isso?</item>
+    </string-array>
+
+    <string-array name="dictionary_15">
+        <item>Продиктуйте по буквам, пожалуйста</item>
+        <item>Англ:Could you please spell that?</item>
+        <item>Нем:Könnten Sie das bitte buchstabieren?</item>
+        <item>Исланд:Gætirðu vinsamlegast stafa það?</item>
+        <item>Хорв:Možete li to čarolija?</item>
+        <item>Исп:¿Podrías por favor deletrear eso?</item>
+        <item>Португ:Você poderia soletrar isso?</item>
+    </string-array>
+
+    <string-array name="dictionary_16">
+        <item>Как по-английски будет ...?</item>
+        <item>Англ:How do you say ... in English?</item>
+        <item>Нем:Wie sagst du das auf Englisch?</item>
+        <item>Исланд:Hvernig segir þú ... á ensku?</item>
+        <item>Хорв:Kako se kaže na engleskom?</item>
+        <item>Исп:¿Cómo se dice en Inglés?</item>
+        <item>Португ:Como se diz em inglês?</item>
+    </string-array>
+
+    <string-array name="dictionary_17">
+        <item>Как это пишется?</item>
+        <item>Англ:How do you spell that?</item>
+        <item>Нем:Wie buchstabiert man das?</item>
+        <item>Исланд:Hvernig stafa þú þetta?</item>
+        <item>Хорв:Kako se to piše?</item>
+        <item>Исп:¿Cómo se deletrea eso?</item>
+        <item>Португ:Como se soletra isso?</item>
+    </string-array>
+
+    <string-array name="dictionary_18">
+        <item>Как произносится это слово?</item>
+        <item>Англ:How do you pronounce this word?</item>
+        <item>Нем:Wie spricht man diese Wort aus?</item>
+        <item>Исланд:Hvernig dæmir þú þetta orð?</item>
+        <item>Хорв:Kako se izgovara ova riječ?</item>
+        <item>Исп:¿Cómo se pronuncia esta palabra?</item>
+        <item>Португ:Como se pronuncia esta palavra?</item>
+    </string-array>
+
+    <string-array name="dictionary_19">
+        <item>Я понимаю</item>
+        <item>Англ:I understand</item>
+        <item>Нем:ich verstehe</item>
+        <item>Исланд:ég skil</item>
+        <item>Хорв:razumijem</item>
+        <item>Исп:entiendo</item>
+        <item>Португ:Compreendo</item>
+    </string-array>
+
+    <string-array name="dictionary_20">
+        <item>Я не понимаю</item>
+        <item>Англ:I don\'t understand</item>
+        <item>Нем:Ich verstehe nicht</item>
+        <item>Исланд:Ég skil það ekki</item>
+        <item>Хорв:Ne razumijem</item>
+        <item>Исп:No entiendo</item>
+        <item>Португ:Eu não entendo</item>
+    </string-array>
+
+    <string-array name="dictionary_21">
+        <item>Вы не подскажете, как добраться до…?</item>
+        <item>Англ:Could you tell me how to get to the ...?</item>
+        <item>Нем:Kannst du mir sagen, wie ich zum ... komme?</item>
+        <item>Исланд:Gætirðu sagt mér hvernig á að komast í ...?</item>
+        <item>Хорв:Možete li mi reći kako doći do ...?</item>
+        <item>Исп:¿Podrías decirme cómo llegar al ...?</item>
+        <item>Португ:Você poderia me dizer como chegar ao ...?</item>
+    </string-array>
+
+    <string-array name="dictionary_22">
+        <item>Вы не знаете, где находится…?</item>
+        <item>Англ:Do you know where the ... is?</item>
+        <item>Нем:Weißt du wo das ... ist?</item>
+        <item>Исланд:Veistu hvar ... er?</item>
+        <item>Хорв:Znaš li gdje je ...?</item>
+        <item>Исп:¿Sabes dónde está ...?</item>
+        <item>Португ:Você sabe onde o ... é?</item>
+    </string-array>
+
+    <string-array name="dictionary_23">
+        <item>Как далеко до…?</item>
+        <item>Англ:How far is the…?</item>
+        <item>Нем:Wie weit ist das ...?</item>
+        <item>Исланд:Hversu langt er ...?</item>
+        <item>Хорв:Koliko je daleko ...?</item>
+        <item>Исп:¿Qué tan lejos está el ...?</item>
+        <item>Португ:Quão longe é a…?</item>
+    </string-array>
+
+    <string-array name="dictionary_24">
+        <item>Вы можете показать мне на карте?</item>
+        <item>Англ:Can you show me on the map?</item>
+        <item>Нем:Können Sie mir auf der Karte zeigen?</item>
+        <item>Исланд:Geturðu sýnt mér á kortinu?</item>
+        <item>Хорв:Možete li mi pokazati na karti?</item>
+        <item>Исп:¿Me puede mostrar en el mapa?</item>
+        <item>Португ:Você pode me mostrar no mapa?</item>
+    </string-array>
+
+    <string-array name="dictionary_25">
+        <item>Я ищу этот адрес</item>
+        <item>Англ:I\'m looking for this address</item>
+        <item>Нем:Ich suche nach dieser Adresse</item>
+        <item>Исланд:Ég er að leita að þessu netfangi</item>
+        <item>Хорв:Tražim ovu adresu</item>
+        <item>Исп:Estoy buscando esta dirección</item>
+        <item>Португ:Estou procurando este endereço</item>
+    </string-array>
+
+    <string-array name="dictionary_26">
+        <item>Это сюда</item>
+        <item>Англ:It\'s this way</item>
+        <item>Нем:Es geht hier entlang</item>
+        <item>Исланд:Það er svona</item>
+        <item>Хорв:Tako je</item>
+        <item>Исп:Es por aquí</item>
+        <item>Португ:É este caminho</item>
+    </string-array>
+
+    <string-array name="dictionary_27">
+        <item>Это туда</item>
+        <item>Англ:It\'s that way</item>
+        <item>Нем:Es ist so</item>
+        <item>Исланд:Það er svona</item>
+        <item>Хорв:Tako je</item>
+        <item>Исп:Es de esa manera</item>
+        <item>Португ:É assim</item>
+    </string-array>
+
+    <string-array name="dictionary_28">
+        <item>Вы идете не в ту сторону</item>
+        <item>Англ:You\'re going the wrong way</item>
+        <item>Нем:Du gehst in die falsche Richtung</item>
+        <item>Исланд:Þú ert að fara á rangan hátt</item>
+        <item>Хорв:Idete na pogrešan način</item>
+        <item>Исп:Vas por el camino equivocado</item>
+        <item>Португ:Você está indo na direção errada</item>
+    </string-array>
+
+    <string-array name="dictionary_29">
+        <item>Следуйте по этой дороге</item>
+        <item>Англ:Take this road</item>
+        <item>Нем:Nimm diese Straße</item>
+        <item>Исланд:Taktu þessa leið</item>
+        <item>Хорв:Uzmi ovu cestu</item>
+        <item>Исп:Toma este camino</item>
+        <item>Португ:Tome esta estrada</item>
+    </string-array>
+
+    <string-array name="dictionary_30">
+        <item>Поверните налево</item>
+        <item>Англ:Turn left</item>
+        <item>Нем:Biegen Sie links ab</item>
+        <item>Исланд:Beygðu til vinstri</item>
+        <item>Хорв:Skrenite lijevo</item>
+        <item>Исп:Girar a la izquierda</item>
+        <item>Португ:Vire a esquerda</item>
+    </string-array>
+
+    <string-array name="dictionary_31">
+        <item>Поверните направо</item>
+        <item>Англ:Turn right</item>
+        <item>Нем:Biegen Sie rechts ab</item>
+        <item>Исланд:Beygðu til hægri</item>
+        <item>Хорв:Skrenuti desno</item>
+        <item>Исп:Dobla a la derecha</item>
+        <item>Португ:Vire à direita</item>
+    </string-array>
+
+    <string-array name="dictionary_32">
+        <item>Идите прямо</item>
+        <item>Англ:Go straight ahead</item>
+        <item>Нем:Gehe gerade aus</item>
+        <item>Исланд:Fara beint áfram</item>
+        <item>Хорв:Idite ravno naprijed</item>
+        <item>Исп:Siga recto</item>
+        <item>Португ:Siga em frente</item>
+    </string-array>
+
+    <string-array name="dictionary_33">
+        <item>Поверните на первом повороте налево</item>
+        <item>Англ:Take the first turn on the left</item>
+        <item>Нем:Biegen Sie die erste Straße links ab</item>
+        <item>Исланд:Taktu fyrstu beygju til vinstri</item>
+        <item>Хорв:Prvo skrenite lijevo</item>
+        <item>Исп:Tome la primera vuelta a la izquierda</item>
+        <item>Португ:Pegue a primeira curva à esquerda</item>
+    </string-array>
+
+    <string-array name="dictionary_34">
+        <item>Поверните на втором повороте направо</item>
+        <item>Англ:Take the second turn on the right</item>
+        <item>Нем:Nehmen Sie die zweite Abzweigung rechts</item>
+        <item>Исланд:Taktu næstu beygju til hægri</item>
+        <item>Хорв:Zauzmite drugo skretanje s desne strane</item>
+        <item>Исп:Toma el segundo giro a la derecha</item>
+        <item>Португ:Pegue a segunda curva à direita</item>
+    </string-array>
+
+    <string-array name="dictionary_35">
+        <item>На перекрестке поверните направо</item>
+        <item>Англ:Turn left at the crossroads</item>
+        <item>Нем:Biegen Sie an der Kreuzung links ab</item>
+        <item>Исланд:Snúðu til vinstri við krossgöturnar</item>
+        <item>Хорв:Skrenite lijevo na raskrižju</item>
+        <item>Исп:Gire a la izquierda en la encrucijada</item>
+        <item>Португ:Vire à esquerda na encruzilhada</item>
+    </string-array>
+
+    <string-array name="dictionary_36">
+        <item>Продолжайте идти (ехать) прямо</item>
+        <item>Англ:Continue straight ahead</item>
+        <item>Нем:Fahren Sie geradeaus</item>
+        <item>Исланд:Haltu áfram beint fram</item>
+        <item>Хорв:Nastavite ravno naprijed</item>
+        <item>Исп:Continúe recto</item>
+        <item>Португ:Continue em frente</item>
+    </string-array>
+
+    <string-array name="dictionary_37">
+        <item>Проходите (проезжайте) мимо здания почты</item>
+        <item>Англ:Continue past the post office</item>
+        <item>Нем:Fahren Sie an der Post vorbei</item>
+        <item>Исланд:Haltu áfram framhjá pósthúsinu</item>
+        <item>Хорв:Nastavite prošli pored pošte</item>
+        <item>Исп:Continuar más allá de la oficina de correos</item>
+        <item>Португ:Continue após a estação dos correios</item>
+    </string-array>
+
+    <string-array name="dictionary_38">
+        <item>Слева будет парк</item>
+        <item>Англ:You\'ll pass a park on your left</item>
+        <item>Нем:Sie werden einen Park zu Ihrer Linken passieren</item>
+        <item>Исланд:Þú munt fara í garð til vinstri</item>
+        <item>Хорв:Proći ćete park na lijevoj strani</item>
+        <item>Исп:Pasarás un parque a tu izquierda</item>
+        <item>Португ:Você vai passar por um parque à sua esquerda</item>
+    </string-array>
+
+    <string-array name="dictionary_39">
+        <item>Пройдите еще…</item>
+        <item>Англ:Keep going for another…</item>
+        <item>Нем:Mach weiter für ...</item>
+        <item>Исланд:Haltu áfram að fara til annars ...</item>
+        <item>Хорв:Idite na drugu ...</item>
+        <item>Исп:Sigue por otro ...</item>
+        <item>Португ:Continue indo para outro ...</item>
+    </string-array>
+
+    <string-array name="dictionary_40">
+        <item>Это будет ...</item>
+        <item>Англ:It\'ll be…</item>
+        <item>Нем:Es wird sein…</item>
+        <item>Исланд:Það verður ...</item>
+        <item>Хорв:Biti će…</item>
+        <item>Исп:Será…</item>
+        <item>Португ:Vai ser ...</item>
+    </string-array>
+
+    <string-array name="dictionary_41">
+        <item>Что это?</item>
+        <item>Англ:What\'s this?</item>
+        <item>Нем:Was ist das?</item>
+        <item>Исланд:Hvað er þetta?</item>
+        <item>Хорв:Što je ovo?</item>
+        <item>Исп:¿Qué es esto?</item>
+        <item>Португ:O que é isso?</item>
+    </string-array>
+
+    <string-array name="dictionary_42">
+        <item>Как это называется?</item>
+        <item>Англ:What\'s this called?</item>
+        <item>Нем:Wie heißt das?</item>
+        <item>Исланд:Hvað er þetta kallað?</item>
+        <item>Хорв:Što se to zove?</item>
+        <item>Исп:¿Cómo se llama esto?</item>
+        <item>Португ:Como isso é chamado?</item>
+    </string-array>
+
+    <string-array name="dictionary_43">
+        <item>У вас есть минутка?</item>
+        <item>Англ:Have you got a minute?</item>
+        <item>Нем:Hast du eine Minute?</item>
+        <item>Исланд:Hefurðu eina mínútu?</item>
+        <item>Хорв:Imate li minutu?</item>
+        <item>Исп:¿Tienes un minuto?</item>
+        <item>Португ:Você tem um minuto?</item>
+    </string-array>
+
+    <string-array name="dictionary_44">
+        <item>Вы не могли бы мне помочь?</item>
+        <item>Англ:Can you help me?</item>
+        <item>Нем:Kannst du mir helfen?</item>
+        <item>Исланд:Getur þú hjálpað mér?</item>
+        <item>Хорв:Možeš li mi pomoći?</item>
+        <item>Исп:¿Me puedes ayudar?</item>
+        <item>Португ:Pode me ajudar?</item>
+    </string-array>
+
+    <string-array name="dictionary_45">
+        <item>Я могу позаимствовать вашу ручку?</item>
+        <item>Англ:May I borrow your pen?</item>
+        <item>Нем:Dürfte ich Deinen Stift ausleihen?</item>
+        <item>Исланд:Má ég taka penna?</item>
+        <item>Хорв:Mogu li posuditi tvoju olovku?</item>
+        <item>Исп:¿Me puede prestar su bolígrafo?</item>
+        <item>Португ:Posso pegar sua caneta emprestada?</item>
+    </string-array>
+
+    <string-array name="dictionary_46">
+        <item>Я могу воспользоваться вашим телефоном?</item>
+        <item>Англ:May I use your phone?</item>
+        <item>Нем:Darf ich Ihre Telefon benutzen?</item>
+        <item>Исланд:Má ég nota símann þinn?</item>
+        <item>Хорв:Mogu li se poslužiti Vašim telefonom?</item>
+        <item>Исп:¿Puedo usar tu teléfono?</item>
+        <item>Португ:Posso usar o seu telefone?</item>
+    </string-array>
+
+    <string-array name="dictionary_47">
+        <item>Вход</item>
+        <item>Англ:Entrance</item>
+        <item>Нем:Eingang</item>
+        <item>Исланд:Inngangur</item>
+        <item>Хорв:Ulaz</item>
+        <item>Исп:Entrada</item>
+        <item>Португ:Entrada</item>
+    </string-array>
+
+    <string-array name="dictionary_48">
+        <item>Выход</item>
+        <item>Англ:Exit</item>
+        <item>Нем:Ausgang</item>
+        <item>Исланд:Hætta</item>
+        <item>Хорв:Izlaz</item>
+        <item>Исп:Salida</item>
+        <item>Португ:Saída</item>
+    </string-array>
+
+    <string-array name="dictionary_49">
+        <item>Запасной выход</item>
+        <item>Англ:Emergency exit</item>
+        <item>Нем:Notausgang</item>
+        <item>Исланд:Neyðarútgangur</item>
+        <item>Хорв:Izlaz u nuždi</item>
+        <item>Исп:Salida de emergencia</item>
+        <item>Португ:Saída de emergência</item>
+    </string-array>
+
+    <string-array name="dictionary_50">
+        <item>От себя</item>
+        <item>Англ:Push</item>
+        <item>Нем:drücken</item>
+        <item>Исланд:Ýttu á</item>
+        <item>Хорв:Gurnuti</item>
+        <item>Исп:empujar</item>
+        <item>Португ:Empurrar</item>
+    </string-array>
+
+    <string-array name="dictionary_51">
+        <item>На себя</item>
+        <item>Англ:Pull</item>
+        <item>Нем:ziehen</item>
+        <item>Исланд:Dragðu</item>
+        <item>Хорв:Vuci</item>
+        <item>Исп:Halar</item>
+        <item>Португ:Puxar</item>
+    </string-array>
+
+    <string-array name="dictionary_52">
+        <item>Не работает</item>
+        <item>Англ:Out of order</item>
+        <item>Нем:Außer Betrieb</item>
+        <item>Исланд:Bilað</item>
+        <item>Хорв:Izvanredno</item>
+        <item>Исп:Fuera de servicio</item>
+        <item>Португ:Fora de serviço</item>
+    </string-array>
+
+    <string-array name="dictionary_53">
+        <item>Не курить</item>
+        <item>Англ:No smoking</item>
+        <item>Нем:Rauchen verboten</item>
+        <item>Исланд:Bannað að reykja</item>
+        <item>Хорв:Zabranjeno pušenje</item>
+        <item>Исп:No Fumar</item>
+        <item>Португ:Proibido fumar</item>
+    </string-array>
+
+    <string-array name="dictionary_54">
+        <item>Частная собственность</item>
+        <item>Англ:Private</item>
+        <item>Нем:Privatgelände</item>
+        <item>Исланд:Einkamál</item>
+        <item>Хорв:Privatna</item>
+        <item>Исп:Privado</item>
+        <item>Португ:Privado</item>
+    </string-array>
+
+    <string-array name="dictionary_55">
+        <item>Вход воспрещен</item>
+        <item>Англ:No entry</item>
+        <item>Нем:Kein Einlass</item>
+        <item>Исланд:Aðgangur bannaður</item>
+        <item>Хорв:Zabranjen ulaz</item>
+        <item>Исп:No hay entrada</item>
+        <item>Португ:Entrada proibida</item>
+    </string-array>
+
+    <string-array name="dictionary_56">
+        <item>Помогите!</item>
+        <item>Англ:Help!</item>
+        <item>Нем:Hilfe!</item>
+        <item>Исланд:Hjálp!</item>
+        <item>Хорв:Pomozite!</item>
+        <item>Исп:¡Ayuda!</item>
+        <item>Португ:Socorro!</item>
+    </string-array>
+
+    <string-array name="dictionary_57">
+        <item>Будьте осторожны!</item>
+        <item>Англ:Be careful!</item>
+        <item>Нем:Achtung!</item>
+        <item>Исланд:Farðu varlega!</item>
+        <item>Хорв:Budi oprezan!</item>
+        <item>Исп:¡Ten cuidado!</item>
+        <item>Португ:Seja cuidadoso!</item>
+    </string-array>
+
+    <string-array name="dictionary_58">
+        <item>Осторожно!</item>
+        <item>Англ:Look out!</item>
+        <item>Нем:Achtung!</item>
+        <item>Исланд:Gættu þín!</item>
+        <item>Хорв:Pazi!</item>
+        <item>Исп:¡Estar atento!</item>
+        <item>Португ:Tenha cuidado!</item>
+    </string-array>
+
+    <string-array name="dictionary_59">
+        <item>Что-то не так?</item>
+        <item>Англ:Is anything wrong?</item>
+        <item>Нем:Ist etwas falsch?</item>
+        <item>Исланд:Er eitthvað rangt?</item>
+        <item>Хорв:Je li nešto krivo?</item>
+        <item>Исп:¿Hay algún problema?</item>
+        <item>Португ:Tem alguma coisa errada?</item>
+    </string-array>
+
+    <string-array name="dictionary_60">
+        <item>В чем дело?</item>
+        <item>Англ:What\'s the matter?</item>
+        <item>Нем:Was ist los?</item>
+        <item>Исланд:Hvað er að?</item>
+        <item>Хорв:Što je bilo?</item>
+        <item>Исп:¿Qué pasa?</item>
+        <item>Португ:Qual é o problema?</item>
+    </string-array>
+
+    <string-array name="dictionary_61">
+        <item>Все в порядке?</item>
+        <item>Англ:Is everything ok?</item>
+        <item>Нем:Ist alles in Ordnung?</item>
+        <item>Исланд:Er allt í lagi?</item>
+        <item>Хорв:Je li sve u redu?</item>
+        <item>Исп:¿Esta todo bien?</item>
+        <item>Португ:Está tudo bem?</item>
+    </string-array>
+
+    <string-array name="dictionary_62">
+        <item>Что происходит?</item>
+        <item>Англ:What\'s going on?</item>
+        <item>Нем:Was ist los?</item>
+        <item>Исланд:Hvað er í gangi?</item>
+        <item>Хорв:Što se događa?</item>
+        <item>Исп:¿Que esta pasando?</item>
+        <item>Португ:O que está acontecendo?</item>
+    </string-array>
+
+    <string-array name="dictionary_63">
+        <item>Что случилось?</item>
+        <item>Англ:What happened?</item>
+        <item>Нем:Was ist passiert?</item>
+        <item>Исланд:Hvað gerðist?</item>
+        <item>Хорв:Što se dogodilo?</item>
+        <item>Исп:¿Que pasó?</item>
+        <item>Португ:O que aconteceu?</item>
+    </string-array>
+
+    <string-array name="dictionary_64">
+        <item>Вы в порядке?</item>
+        <item>Англ:Are you ok?</item>
+        <item>Нем:Bist du in Ordnung?</item>
+        <item>Исланд:Er allt í lagi?</item>
+        <item>Хорв:Jesi li dobro?</item>
+        <item>Исп:¿Estas bien?</item>
+        <item>Португ:Você está bem?</item>
+    </string-array>
+
+    <string-array name="dictionary_65">
+        <item>Все целы?</item>
+        <item>Англ:Is everyone ok?</item>
+        <item>Нем:Sind alle in Ordnung?</item>
+        <item>Исланд:Er allt í lagi?</item>
+        <item>Хорв:Je li sve u redu?</item>
+        <item>Исп:¿Están todos bien?</item>
+        <item>Португ:Está tudo bem?</item>
+    </string-array>
+
+    <string-array name="dictionary_66">
+        <item>Мне нужна помощь</item>
+        <item>Англ:I need help</item>
+        <item>Нем:Ich brauche Hilfe</item>
+        <item>Исланд:ég þarf hjálp</item>
+        <item>Хорв:trebam pomoć</item>
+        <item>Исп:necesito ayuda</item>
+        <item>Португ:eu preciso de ajuda</item>
+    </string-array>
+
+    <string-array name="dictionary_67">
+        <item>Мне нужен врач</item>
+        <item>Англ:I need a doctor</item>
+        <item>Нем:Ich brauche einen Arzt</item>
+        <item>Исланд:ég þarf lækni</item>
+        <item>Хорв:trebam liječnika</item>
+        <item>Исп:Necesito un médico</item>
+        <item>Португ:Eu preciso de um doutor</item>
+    </string-array>
+
+    <string-array name="dictionary_68">
+        <item>Вызовите скорую!</item>
+        <item>Англ:Call an ambulance!</item>
+        <item>Нем:Rufen Sie einen Krankenwagen!</item>
+        <item>Исланд:Hringdu í sjúkrabíl!</item>
+        <item>Хорв:Zovite hitnu pomoć!</item>
+        <item>Исп:¡Llama una ambulancia!</item>
+        <item>Португ:Chame uma ambulância!</item>
+    </string-array>
+
+    <string-array name="dictionary_69">
+        <item>Произошел несчастный случай</item>
+        <item>Англ:There\'s been an accident</item>
+        <item>Нем:Es gab einen Unfall</item>
+        <item>Исланд:Það hefur verið slys</item>
+        <item>Хорв:Došlo je do nesreće</item>
+        <item>Исп:Ha habido un accidente</item>
+        <item>Португ:Houve um acidente</item>
+    </string-array>
+
+    <string-array name="dictionary_70">
+        <item>Я порезался</item>
+        <item>Англ:I\'ve cut myself</item>
+        <item>Нем:Ich habe mich geschnitten</item>
+        <item>Исланд:Ég hef skorið mig</item>
+        <item>Хорв:Sjekao sam se</item>
+        <item>Исп:Me he cortado</item>
+        <item>Португ:Eu me cortei</item>
+    </string-array>
+
+    <string-array name="dictionary_71">
+        <item>Я обжегся</item>
+        <item>Англ:I\'ve burnt myself</item>
+        <item>Нем:Ich habe mich verbrannt</item>
+        <item>Исланд:Ég hef brennt sjálfan mig</item>
+        <item>Хорв:Spalio sam se</item>
+        <item>Исп:Me he quemado</item>
+        <item>Португ:Eu me queimei</item>
+    </string-array>
+
+    <string-array name="dictionary_72">
+        <item>Я повредил…</item>
+        <item>Англ:I’ve hurt my…</item>
+        <item>Нем:Ich habe meine ... verletzt</item>
+        <item>Исланд:Ég hef meiða mig ...</item>
+        <item>Хорв:Ozlijedio sam ...</item>
+        <item>Исп:He lastimado mi ...</item>
+        <item>Португ:Eu machuquei meu…</item>
+    </string-array>
+
+    <string-array name="dictionary_73">
+        <item>Вызовите полицию!</item>
+        <item>Англ:Call the police!</item>
+        <item>Нем:Ruf die Polizei!</item>
+        <item>Исланд:Hringdu í lögregluna!</item>
+        <item>Хорв:Zovi policiju!</item>
+        <item>Исп:¡Llama a la policía!</item>
+        <item>Португ:Chame a polícia!</item>
+    </string-array>
+
+    <string-array name="dictionary_74">
+        <item>Мой … украли</item>
+        <item>Англ:My … has been stolen</item>
+        <item>Нем:Mein ... wurde gestohlen</item>
+        <item>Исланд:Mín ... hefur verið stolið</item>
+        <item>Хорв:Moj ... je ukraden</item>
+        <item>Исп:Mi ... ha sido robado</item>
+        <item>Португ:Meu… foi roubado</item>
+    </string-array>
+
+    <string-array name="dictionary_75">
+        <item>Меня ограбили</item>
+        <item>Англ:I\'ve been mugged</item>
+        <item>Нем:Ich wurde überfallen</item>
+        <item>Исланд:Ég hef verið áfallinn</item>
+        <item>Хорв:Bio sam mrvljen</item>
+        <item>Исп:Me han asaltado</item>
+        <item>Португ:Fui assaltado</item>
+    </string-array>
+
+    <string-array name="dictionary_76">
+        <item>На меня напали</item>
+        <item>Англ:I\'ve been attacked</item>
+        <item>Нем:Ich wurde angegriffen</item>
+        <item>Исланд:Ég hef verið ráðist</item>
+        <item>Хорв:Napadnut sam</item>
+        <item>Исп:Me atacaron</item>
+        <item>Португ:Fui atacado</item>
+    </string-array>
+
+    <string-array name="dictionary_77">
+        <item>Пожар!</item>
+        <item>Англ:Fire!</item>
+        <item>Нем:Feuer!</item>
+        <item>Исланд:Eldur!</item>
+        <item>Хорв:Vatra!</item>
+        <item>Исп:¡Fuego!</item>
+        <item>Португ:Fogo!</item>
+    </string-array>
+
+    <string-array name="dictionary_78">
+        <item>Вызовите пожарных!</item>
+        <item>Англ:Call the fire brigade!</item>
+        <item>Нем:Ruf die Feuerwehr an!</item>
+        <item>Исланд:Hringdu í slökkviliðið!</item>
+        <item>Хорв:Nazovite vatrogasce!</item>
+        <item>Исп:¡Llama al cuerpo de bomberos!</item>
+        <item>Португ:Ligue para a brigada de incêndio!</item>
+    </string-array>
+
+    <string-array name="dictionary_79">
+        <item>Там пожар</item>
+        <item>Англ:There\'s a fire</item>
+        <item>Нем:Da ist ein Feuer</item>
+        <item>Исланд:Það er eldur</item>
+        <item>Хорв:Tu je požar</item>
+        <item>Исп:Hay un incendio</item>
+        <item>Португ:Há um fogo</item>
+    </string-array>
+
+    <string-array name="dictionary_80">
+        <item>Здание горит</item>
+        <item>Англ:The building is on fire</item>
+        <item>Нем:Das Gebäude brennt</item>
+        <item>Исланд:Húsið er í eldi</item>
+        <item>Хорв:Zgrada je na vatri</item>
+        <item>Исп:El edificio está en llamas</item>
+        <item>Португ:O prédio está pegando fogo</item>
+    </string-array>
+
+    <string-array name="dictionary_81">
+        <item>Я заблудился</item>
+        <item>Англ:I\'m lost</item>
+        <item>Нем:ich bin verloren</item>
+        <item>Исланд:ég er týndur</item>
+        <item>Хорв:izgubljen sam</item>
+        <item>Исп:estoy perdido</item>
+        <item>Португ:estou perdido</item>
+    </string-array>
+
+    <string-array name="dictionary_82">
+        <item>Мы заблудились</item>
+        <item>Англ:We\'re lost</item>
+        <item>Нем:Wir sind verloren</item>
+        <item>Исланд:Við erum glataður</item>
+        <item>Хорв:Izgubili smo</item>
+        <item>Исп:Estamos perdidos</item>
+        <item>Португ:Perdidos</item>
+    </string-array>
+
+    <string-array name="dictionary_83">
+        <item>Я не могу найти…</item>
+        <item>Англ:I can\'t find my…</item>
+        <item>Нем:Ich kann mein ... nicht finden</item>
+        <item>Исланд:Ég finn ekki mína ...</item>
+        <item>Хорв:Ne mogu pronaći moje ...</item>
+        <item>Исп:No puedo encontrar mi ...</item>
+        <item>Португ:Não consigo encontrar meu…</item>
+    </string-array>
+
+    <string-array name="dictionary_84">
+        <item>Я потерял…</item>
+        <item>Англ:I\'ve lost my…</item>
+        <item>Нем:Ich habe meine ... verloren</item>
+        <item>Исланд:Ég hef misst minn ...</item>
+        <item>Хорв:Izgubio sam ...</item>
+        <item>Исп:Perdí mi ...</item>
+        <item>Португ:Eu perdi meu…</item>
+    </string-array>
+
+    <string-array name="dictionary_85">
+        <item>Пожалуйста, оставьте меня в покое</item>
+        <item>Англ:Leave me alone</item>
+        <item>Нем:Lass mich allein</item>
+        <item>Исланд:Láttu mig vera</item>
+        <item>Хорв:Ostavi me na miru</item>
+        <item>Исп:Déjame solo</item>
+        <item>Португ:Me deixe em paz</item>
+    </string-array>
+
+    <string-array name="dictionary_86">
+        <item>Уйдите</item>
+        <item>Англ:Go away</item>
+        <item>Нем:Geh weg</item>
+        <item>Исланд:Farðu burt</item>
+        <item>Хорв:Odlazi</item>
+        <item>Исп:Vete</item>
+        <item>Португ:Vá embora</item>
+    </string-array>
+
+    <string-array name="dictionary_87">
+        <item>Я вызову полицию</item>
+        <item>Англ:I’ll call the police</item>
+        <item>Нем:Ich werde die Polizei rufen</item>
+        <item>Исланд:Ég hringi í lögregluna</item>
+        <item>Хорв:Nazvat ću policiju</item>
+        <item>Исп:Llamaré a la policía</item>
+        <item>Португ:Vou chamar a polícia</item>
+    </string-array>
+
+
+
+
+
 
     <string-array name="dfdfdfdf">
         <item></item>

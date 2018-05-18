@@ -57,7 +57,7 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
         dictionar = new TreeMap<String,String[]>();
         int id=1;
         phrases = res.getStringArray(R.array.dictionary);
-        for (int i = 0;i<9;i++)
+        for (int i = 0;i<phrases.length;i++)
         {
             int phrase_id = res.getIdentifier("dictionary_"+Integer.toString(i),"array",view.getContext().getPackageName());
             dictionar.put(phrases[i],res.getStringArray(phrase_id));
