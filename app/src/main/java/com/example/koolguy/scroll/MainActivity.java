@@ -313,6 +313,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void refrsh() {
         ChooseStatus dict = new ChooseStatus();
+
+        editor.clear().commit();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, dict); //если
        // transaction.addToBackStack(null);

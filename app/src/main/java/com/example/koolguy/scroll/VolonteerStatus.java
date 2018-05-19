@@ -3,6 +3,7 @@ package com.example.koolguy.scroll;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
@@ -48,6 +50,10 @@ public class VolonteerStatus extends Fragment {
     MapView mapView;
     GoogleMap map;
     String latlng;
+    ImageView eaten;
+    ImageView camen;
+    Boolean boolEat;
+    Boolean boolCome;
 
 
     public VolonteerStatus() {
@@ -78,22 +84,77 @@ public class VolonteerStatus extends Fragment {
         come = (Button) v.findViewById(R.id.come);
       //  new getCoordinates().start();
         eat = (Button) v.findViewById(R.id.eat);
+        eaten = (ImageView)v.findViewById(R.id.eaten);
+        camen = (ImageView)v.findViewById(R.id.camen);
+        final SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("VolonteerStatus",Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor=sharedPreferences.edit();
+        if(sharedPreferences.contains("come"))
+        {
+            boolCome=sharedPreferences.getBoolean("come",false);
+            if(!boolCome){camen.setImageResource(R.drawable.ic_thumup);}
+            if(boolCome){camen.setImageResource(R.drawable.ic_thumdown);
+            }
+        }
+        if(!sharedPreferences.contains("come"))boolCome = true;
+        if(sharedPreferences.contains("eat"))
+        {
+            boolEat=sharedPreferences.getBoolean("eat",true);
+            if(!boolEat)eaten.setImageResource(R.drawable.ic_thumup);
+            if(boolEat)eaten.setImageResource(R.drawable.ic_thumdown);
+
+        }
+        if(!sharedPreferences.contains("eat"))boolEat = true;
+
+
         come.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ComeMyAsyncTask().execute("");
+                if(!boolCome)
+                {
+                    camen.setImageResource(R.drawable.ic_thumdown);
+
+
+                }
+                if(boolCome)
+                {
+                    camen.setImageResource(R.drawable.ic_thumup);
+
+                }
+
+                boolCome = !boolCome;
+                editor.putBoolean("come",boolCome);
+                editor.commit();
+
+              new ComeMyAsyncTask().execute("");
+
             }
         });
         eat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new EatMyAsyncTask().execute("");
+                if(!boolEat)
+                {
+                    eaten.setImageResource(R.drawable.ic_thumdown);
+
+                }
+                if(boolEat)
+                {
+                    eaten.setImageResource(R.drawable.ic_thumup);
+
+                }
+
+                boolEat = !boolEat;
+                editor.putBoolean("eat",boolEat);
+                editor.commit();
+               new EatMyAsyncTask().execute("");
+
             }
         });
         refresh=(Button)v.findViewById(R.id.refrsh);
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editor.clear().commit();
                 ref.refrsh();
             }
         });

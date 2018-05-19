@@ -173,7 +173,10 @@ public class LeaderGroup extends Fragment implements GroupListener {
                     @Override
                     public void run() {
                         if(!preferences.contains("groupExist")){editor.putString("groupExist","yes");editor.commit();firstGroupTake();}
-                         groupView.setAdapter(new GroupAdapter(v.getContext(),vGroup));
+                        try {
+
+
+                         groupView.setAdapter(new GroupAdapter(v.getContext(),vGroup));}catch (Exception e){}
                     }
                 });}
                 try {
