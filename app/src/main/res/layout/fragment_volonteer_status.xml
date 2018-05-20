@@ -52,5 +52,14 @@
         android:layout_centerVertical="true"
         android:src="@drawable/ic_thumdown" />
 
+    <Button
+        android:id="@+id/calendarButton"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/refrsh"
+        android:layout_centerHorizontal="true"
+        android:text="calendar" />
+
 
 </RelativeLayout>

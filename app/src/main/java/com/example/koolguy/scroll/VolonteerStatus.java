@@ -2,6 +2,8 @@ package com.example.koolguy.scroll;
 
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -86,6 +88,16 @@ public class VolonteerStatus extends Fragment {
         eat = (Button) v.findViewById(R.id.eat);
         eaten = (ImageView)v.findViewById(R.id.eaten);
         camen = (ImageView)v.findViewById(R.id.camen);
+        Button calendar= (Button)v.findViewById(R.id.calendarButton);
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CalendarFragment calendarFragment =new CalendarFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frames,new CalendarFragment()).commit();
+
+            }
+        });
         final SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("VolonteerStatus",Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor=sharedPreferences.edit();
         if(sharedPreferences.contains("come"))
