@@ -17,8 +17,8 @@
             android:elevation="16dp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal|center_vertical"
                 android:textColor="#0000CD"
                 android:textSize="45sp"
@@ -26,11 +26,11 @@
 
             <ImageButton
                 android:id="@+id/schdBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="192dp"
                 android:layout_margin="5dp"
                 android:background="@drawable/match_clear"
-                android:scaleType="fitXY"/>
+                android:scaleType="centerInside" />
 
 
         </FrameLayout>
@@ -43,7 +43,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/rostov"
+            android:background="@drawable/volunt_map"
             android:scaleType="centerInside"
             android:layout_margin="5dp"
             android:id="@+id/mapBtn"/>
@@ -52,7 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="@string/map"
                 android:textColor="#0000CD"
                 android:textSize="45sp"
                 android:textStyle="bold" />
@@ -61,26 +60,23 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="168dp"
-            android:layout_margin="10dp"
+            android:layout_height="180dp"
             android:elevation="16dp">
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/first_help"
-                android:scaleType="centerInside"
-                android:layout_margin="5dp"
-                android:id="@+id/helpBtn"/>
-
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal|center_vertical"
                 android:textSize="45sp"
                 android:textStyle="bold"
                 android:textColor="#0000CD"/>
+
+            <ImageButton
+                android:id="@+id/helpBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="152dp"
+                android:background="@drawable/first_help_2"
+                android:scaleType="centerInside" />
 
         </FrameLayout>
 
