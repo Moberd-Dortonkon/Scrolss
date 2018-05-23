@@ -139,19 +139,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    /*
-     case 0:
-                        handBookFragment(); //создать метод который вызывает справочник
-                        break;
-                    case 1:
-                         map.makeMap(new ArrayList<LatLng>());break;
-                    case 2:
-                        anotherFragment(); // для сервера
-                        break;
-                    case 3:
-                        dictionaryFragment(); //Создать метод который вызывыет словарь
-                        break;
-     */
+
     private void initMenu() {
 
         handBookFragment();

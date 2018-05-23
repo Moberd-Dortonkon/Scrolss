@@ -13,26 +13,24 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="168dp"
-            android:layout_margin="10dp"
+            android:layout_height="180dp"
             android:elevation="16dp">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/zabivaka"
-                android:scaleType="centerInside"
-                android:layout_margin="5dp"
-                android:id="@+id/schdBtn"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/schedule"
                 android:gravity="center_horizontal|center_vertical"
+                android:textColor="#0000CD"
                 android:textSize="45sp"
-                android:textStyle="bold"
-                android:textColor="#0000CD"/>
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/schdBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/match_clear"
+                android:scaleType="fitXY"/>
 
 
         </FrameLayout>
@@ -50,14 +48,14 @@
             android:layout_margin="5dp"
             android:id="@+id/mapBtn"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/map"
-            android:gravity="center_horizontal|center_vertical"
-            android:textSize="45sp"
-            android:textStyle="bold"
-            android:textColor="#0000CD"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/map"
+                android:textColor="#0000CD"
+                android:textSize="45sp"
+                android:textStyle="bold" />
 
         </FrameLayout>
 
