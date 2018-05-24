@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item
         android:id="@+id/book"
         android:title="@string/inf"
         android:enabled="true"
-        android:icon="@drawable/ic_book_black_24dp"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_book_black_24dp"/>
     <item
         android:id="@+id/account"
         android:enabled="true"

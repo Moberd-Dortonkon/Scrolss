@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ScrollView;
 
 
 /**
@@ -21,8 +23,9 @@ public class ChooseStatus extends Fragment {
         void chooseStatusClick(int id);
 
     }
-    View v;
-    Button volonteer,leader;
+    View view;
+    ImageButton volonteer,leader;
+    ScrollView scrollView;
     public ChooseStatus() {
         // Required empty public constructor
     }
@@ -36,9 +39,10 @@ public class ChooseStatus extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v=inflater.inflate(R.layout.fragment_choose_status, container, false);
-        volonteer=(Button)v.findViewById(R.id.Volonteer);
-        leader=(Button)v.findViewById(R.id.Leader);
+        view=inflater.inflate(R.layout.fragment_choose_status, container, false);
+        scrollView=view.findViewById(R.id.scrollView);
+        volonteer=(ImageButton)view.findViewById(R.id.Volonteer);
+        leader=(ImageButton)view.findViewById(R.id.Leader);
         volonteer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,12 +52,12 @@ public class ChooseStatus extends Fragment {
         leader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences preferences = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE);
+                SharedPreferences preferences = view.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE);
                 preferences.edit().clear().commit();
                 click.chooseStatusClick(1);
             }
         });
-        return v;
+        return view;
     }
 
 }
