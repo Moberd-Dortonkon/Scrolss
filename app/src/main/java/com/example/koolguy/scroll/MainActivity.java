@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements
         Gson gson = new Gson();
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
         Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
-
         initSharedPreferences();
         initMenu();
 
