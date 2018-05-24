@@ -149,7 +149,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         synchronized
         @Override
         public void run() {
-            for (int i =0;i<99999;i++){
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(MainActivity.SERVER)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -179,17 +179,12 @@ public class LeaderGroup extends Fragment implements GroupListener {
                          groupView.setAdapter(new GroupAdapter(v.getContext(),vGroup));}catch (Exception e){}
                     }
                 });}
-                try {
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+
+
         }
     }
     @Override
     public void onPause() {
         super.onPause();
-        //timer.cancel();
     }
 }

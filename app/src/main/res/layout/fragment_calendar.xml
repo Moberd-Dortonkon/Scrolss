@@ -8,18 +8,19 @@
     tools:context=".CalendarFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <sun.bob.mcalendarview.MCalendarView
+    
+    <com.haibin.calendarview.CalendarView
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:id="@+id/calendar"
-        android:layout_width="match_parent"
-        android:layout_height="305dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+
+
+/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
 
     </LinearLayout>

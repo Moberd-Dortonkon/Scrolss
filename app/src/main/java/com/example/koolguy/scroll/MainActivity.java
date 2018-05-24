@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
     SharedPreferences preferences;
-    public static final String SERVER = "https://immense-wave-82247.herokuapp.com";
+    public static final String SERVER = "https://vast-oasis-60477.herokuapp.com";
     CameraPosition saveCamera;
 
 
@@ -303,6 +303,8 @@ public class MainActivity extends AppCompatActivity implements
         transaction.replace(R.id.frames, volonteerStatus);
         //transaction.addToBackStack(null);
         transaction.commit();
+
+
     }
 
     @Override
