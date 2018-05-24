@@ -79,7 +79,7 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
 //                setListAdapter(dictAdapter);
 //            }
 //        }));
-        return view;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
 
