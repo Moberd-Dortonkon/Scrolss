@@ -6,7 +6,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -19,6 +23,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
@@ -57,6 +62,11 @@ public class VolonteerStatus extends Fragment {
     Boolean boolEat;
     Boolean boolCome;
 
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
+
 
     public VolonteerStatus() {
         // Required empty public constructor
@@ -83,6 +93,11 @@ public class VolonteerStatus extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_volonteer_status, container, false);
+
+        createSoundPool();
+        myAssetManager = getActivity().getAssets();
+        myButtonSound=createSound("button_16.mp3");
+
         come = (Button) v.findViewById(R.id.come);
       //  new getCoordinates().start();
         eat = (Button) v.findViewById(R.id.eat);
@@ -92,6 +107,7 @@ public class VolonteerStatus extends Fragment {
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playSound(myButtonSound);
                 CalendarFragment calendarFragment =new CalendarFragment();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.frames,new CalendarFragment()).commit();
@@ -121,6 +137,7 @@ public class VolonteerStatus extends Fragment {
         come.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playSound(myButtonSound);
                 if(!boolCome)
                 {
                     camen.setImageResource(R.drawable.ic_thumdown);
@@ -144,6 +161,7 @@ public class VolonteerStatus extends Fragment {
         eat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playSound(myButtonSound);
                 if(!boolEat)
                 {
                     eaten.setImageResource(R.drawable.ic_thumdown);
@@ -166,6 +184,7 @@ public class VolonteerStatus extends Fragment {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playSound(myButtonSound);
                 editor.clear().commit();
                 ref.refrsh();
             }
@@ -295,5 +314,34 @@ public class VolonteerStatus extends Fragment {
             //save name
 
         }
+    }
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
+
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
+        try {
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(v.getContext(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
     }
 }
