@@ -8,7 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
@@ -24,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.koolguy.scroll.Tools.GroupAdapter;
 import com.example.koolguy.scroll.Tools.GroupListener;
@@ -77,6 +82,11 @@ public class LeaderGroup extends Fragment implements GroupListener {
 
     ViewGroup viewHolder;
 
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -112,6 +122,10 @@ public class LeaderGroup extends Fragment implements GroupListener {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_leader_group, container, false);
 
+        createSoundPool();
+        myAssetManager = getActivity().getAssets();
+        myButtonSound=createSound("button_16.mp3");
+
         refresh = (Button) v.findViewById(R.id.reset);
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +158,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playSound(myButtonSound); //повставляй везде эту строчку где у тебя какие либо нажатия будут
                 String send = key;
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
@@ -158,6 +173,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                playSound(myButtonSound);
                /* AlertDialog.Builder alertDiaolog = new AlertDialog.Builder(v.getContext());
                 alertDiaolog.setView(R.layout.gmap_diaolg_icon);
                 alertDiaolog.setCancelable(true);
@@ -313,4 +329,38 @@ public class LeaderGroup extends Fragment implements GroupListener {
         super.onPause();
         thread.interrupt();
     }
+
+
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
+
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
+        try {
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
+    }
+
+
 }
+

@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements
         initMenu();
 
         createSoundPool();
-
         myAssetManager = getAssets();
         myButtonSound=createSound("button_16.mp3");
 
@@ -319,6 +318,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void createVolonteerCLick(String lName, String name) {
+        playSound(myButtonSound);
         VolonteerStatus volonteerStatus = new VolonteerStatus();
         editor.putString("role", "volonteer");
         editor.putString("lName", lName);
@@ -337,6 +337,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void refrsh() {
+        playSound(myButtonSound);
         ChooseStatus dict = new ChooseStatus();
 
         editor.clear().commit();

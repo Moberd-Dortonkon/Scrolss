@@ -2,7 +2,11 @@ package com.example.koolguy.scroll;
 
 
 import android.app.ListFragment;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.speech.tts.TextToSpeech;
@@ -13,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Locale;
 
 
@@ -28,6 +33,12 @@ public class ListDictFragment extends ListFragment {
     String[]phrase;
     View view;
     private TextToSpeech TTS;
+
+
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
     
     public void setI(String[]phrase){this.phrase = phrase;}
     @Override
@@ -37,12 +48,17 @@ public class ListDictFragment extends ListFragment {
         ArrayAdapter<String>adapter=new ArrayAdapter<>(inflater.getContext(),android.R.layout.simple_list_item_1,phrase);
         setListAdapter(adapter);
 
+        createSoundPool();
+        myAssetManager = getActivity().getAssets();
+        myButtonSound=createSound("button_16.mp3");
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        playSound(myButtonSound);
         if (position==0){
             String speak=phrase[0];
             textToSpeechRus(speak);
@@ -225,6 +241,38 @@ public class ListDictFragment extends ListFragment {
 
 
     }
+
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
+
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
+        try {
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
+    }
+
+
 
 
 }

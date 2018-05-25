@@ -3,6 +3,10 @@ package com.example.koolguy.scroll;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
         import android.app.Fragment;
@@ -37,6 +41,11 @@ public class CreateVolonteer extends Fragment {
     View v;
     String string;
 
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
+
     interface createVolonteer {
         void createVolonteerCLick(String lName, String name);
 
@@ -57,6 +66,10 @@ public class CreateVolonteer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        createSoundPool();
+        myAssetManager = getActivity().getAssets();
+        myButtonSound=createSound("button_16.mp3");
+
         v = inflater.inflate(R.layout.fragment_create_volonteer, container, false);
         lName = (EditText) v.findViewById(R.id.leaderName);
         name1 = (EditText) v.findViewById(R.id.yourName);
@@ -66,6 +79,7 @@ public class CreateVolonteer extends Fragment {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playSound(myButtonSound);
                 new MyThread().start();
                 join.setEnabled(false);
                 if(string.equals("complete"))listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());
@@ -107,5 +121,37 @@ public class CreateVolonteer extends Fragment {
                     }
             }
         }
-        }
+
     }
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
+
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
+        try {
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
+    }
+
+
+}
