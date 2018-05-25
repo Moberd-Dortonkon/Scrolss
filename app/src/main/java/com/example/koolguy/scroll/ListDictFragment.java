@@ -169,7 +169,7 @@ public class ListDictFragment extends ListFragment {
         TTS = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
             @Override public void onInit(int initStatus) {
                 if (initStatus == TextToSpeech.SUCCESS) {
-                    Locale localeIsln=new Locale("island");
+                    Locale localeIsln=new Locale("icelandic");
                     TTS.setLanguage(localeIsln);
                     TTS.setPitch(1.3f);
                     TTS.setSpeechRate(0.7f);

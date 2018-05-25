@@ -12,7 +12,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="120dp"
             android:text="@string/inf"
             android:textSize="50sp"
             android:gravity="center"

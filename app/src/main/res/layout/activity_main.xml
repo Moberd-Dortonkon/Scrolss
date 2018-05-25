@@ -25,10 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        app:itemBackground="@drawable/bnv_background"
         android:layout_margin="0dp"
-        app:itemIconTint="#ffff"
-        app:itemTextColor="#ffff"
+        app:itemIconTint="@color/bnv_text"
+        app:itemTextColor="@color/bnv_text"
         app:menu="@menu/botton_navigation" />
 
 
