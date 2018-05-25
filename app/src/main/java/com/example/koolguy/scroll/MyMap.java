@@ -39,6 +39,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -63,7 +64,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener,ExpandableListListener {
+public class MyMap implements OnMapReadyCallback,ExpandableListListener,LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     GoogleMap googleMap;
     FragmentTransaction ft;
@@ -76,17 +77,20 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
     LocationRequest mLocationRequest;
     MapFragment gmap;
     LatLng lng;
+    int layout_id;
     Resources res;
+    LatLng testlng;
     AlertDialog dialog;
     boolean firstEnable;
     ArrayList<LatLng> list;
 
-    public MyMap(Activity activity, Context context) {
+    public MyMap(Activity activity, Context context,int layout_id) {
         this.activity = activity;
         this.context = context;
+        this.layout_id = layout_id;
         res=context.getResources();
         MapsInitializer.initialize(context);
-        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999);
+       // ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999);
 
     }
 
@@ -94,8 +98,9 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
         if (googleServicesAvaliable()) {
              gmap = new MapFragment();
             firstEnable=true;
+            testlng = new LatLng(47.236274, 39.713726);
             ft = activity.getFragmentManager().beginTransaction();
-            ft.replace(R.id.frames, gmap); //Единственное что не могу автоматизировать так это framelayout,его надо вручную ставить(((
+            ft.replace(layout_id, gmap); //Единственное что не могу автоматизировать так это framelayout,его надо вручную ставить(((
             ft.addToBackStack(null);
             ft.commit();
 
@@ -211,7 +216,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
                     String key =context.getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
                     String latlng=""+latLng.latitude+","+latLng.longitude;
 
-                    Call<ResponseBody> call =status.getCoordinates(key,latlng);
+                    Call<ResponseBody> call =status.setCoordinates(key,latlng);
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -233,7 +238,9 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
 
 
 
-    protected synchronized void buildGoogleApiClient() {
+
+
+   protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -253,6 +260,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
 
         }
 
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         mLocationRequest = new LocationRequest();
@@ -262,7 +270,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener,GoogleApiClien
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest,  this);
         }
 
     }

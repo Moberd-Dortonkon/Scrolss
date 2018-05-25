@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
     SharedPreferences preferences;
-    public static final String SERVER = "https://vast-oasis-60477.herokuapp.com";
+    public static final String SERVER = "https://immense-wave-82247.herokuapp.com";
     CameraPosition saveCamera;
 
     private SoundPool mySoundPool;
@@ -82,8 +82,9 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         menu = (BottomNavigationView) findViewById(R.id.menu);
         textView = (TextView) findViewById(R.id.text);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999);
         int i = 0;
-        map = new MyMap(this, this);
+       // map = new MyMap(this, this);
         Gson gson = new Gson();
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
         Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
