@@ -29,7 +29,7 @@
         <ImageButton
             android:id="@+id/dialogCheck"
             android:background="#ffffff"
-            android:src="@drawable/ic_dialogCheck"
+            android:src="@drawable/ic_dialogcheck"
 
             android:layout_width="128dp"
             android:layout_height="match_parent"

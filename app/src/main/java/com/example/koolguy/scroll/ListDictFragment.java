@@ -28,68 +28,12 @@ public class ListDictFragment extends ListFragment {
     String[]phrase;
     View view;
     private TextToSpeech TTS;
-    boolean ttsEnabled;
     
     public void setI(String[]phrase){this.phrase = phrase;}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_list_dict, container, false);
-       /* if (i==0){
-            Resources res=getResources();
-            String[] dict = res.getStringArray(R.array.Hello);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);
-            setListAdapter(dictAdapter);
-        }
-        if (i==1){
-            Resources res=getResources();
-            String[] dict = res.getStringArray(R.array.How);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);
-            setListAdapter(dictAdapter);
-        }
-        if (i==2){
-            Resources res=getResources();
-            String[] dict = res.getStringArray(R.array.Help);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);
-            setListAdapter(dictAdapter);
-        }
-        if (i==3){
-            Resources res=getResources();
-            String[] dict = res.getStringArray(R.array.do_you_eng);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
-            setListAdapter(dictAdapter);
-        }
-        if (i==4){
-            Resources res=getResources();
-            String[] dict = res.getStringArray(R.array.i_not_eng);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
-            setListAdapter(dictAdapter);
-        }
-        if (i==5){
-            Resources res=getResources();
-            String[] dict = res.getStringArray(R.array.i_litll_eng);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
-            setListAdapter(dictAdapter);
-        }
-        if (i==6){
-            Resources res=getResources();
-            String[] dict = res.getStringArray(R.array.pls_slower);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
-            setListAdapter(dictAdapter);
-        }
-        if (i==7){
-            Resources res=getResources();
-            String[] dict = res.getStringArray(R.array.repeat_pls);
-            ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
-            setListAdapter(dictAdapter);
-        }
-        if (i==8){
-            Resources res=getResources();
-        String[] dict = res.getStringArray(R.array.how_eng);
-        ArrayAdapter<String> dictAdapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, dict);//и тут
-        setListAdapter(dictAdapter);
-    }*/
-
         ArrayAdapter<String>adapter=new ArrayAdapter<>(inflater.getContext(),android.R.layout.simple_list_item_1,phrase);
         setListAdapter(adapter);
 
@@ -99,15 +43,54 @@ public class ListDictFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        if (position==0){
+            String speak=phrase[0];
+            textToSpeechRus(speak);
+        }
+
+
         if(position==1){
             String needToSpeak=phrase[1];
             String[] makeSpeak=needToSpeak.split(":");
             String speak=makeSpeak[1];
             textToSpeechEng(speak);
-
-
-
         }
+
+        if(position==2){
+            String needToSpeak=phrase[2];
+            String[] makeSpeak=needToSpeak.split(":");
+            String speak=makeSpeak[1];
+            textToSpeechGer(speak);
+        }
+
+        if(position==3){
+            String needToSpeak=phrase[3];
+            String[] makeSpeak=needToSpeak.split(":");
+            String speak=makeSpeak[1];
+            textToSpeechIsln(speak);
+        }
+        if(position==4){
+            String needToSpeak=phrase[4];
+            String[] makeSpeak=needToSpeak.split(":");
+            String speak=makeSpeak[1];
+            textToSpeechCroat(speak);
+        }
+        if(position==5){
+            String needToSpeak=phrase[5];
+            String[] makeSpeak=needToSpeak.split(":");
+            String speak=makeSpeak[1];
+            textToSpeechSpain(speak);
+        }
+        if (position==6){
+            String needToSpeak=phrase[6];
+            String[] makeSpeak=needToSpeak.split(":");
+            String speak=makeSpeak[1];
+            textToSpeechPortug(speak);
+        }
+
+
+
+
     }
 
     public void textToSpeechEng(final String text){
@@ -117,18 +100,130 @@ public class ListDictFragment extends ListFragment {
                     TTS.setLanguage(Locale.US);
                     TTS.setPitch(1.3f);
                     TTS.setSpeechRate(0.7f);
-                    ttsEnabled = true;
                     String utteranceId = this.hashCode() + "";
                     TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
 
                 } else if (initStatus == TextToSpeech.ERROR) {
                     Toast.makeText(getActivity(),"error" , Toast.LENGTH_LONG).show();
-                    ttsEnabled = false;
                 }
             }
         });
 
         
+    }
+    public void textToSpeechRus(final String text){
+        TTS = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override public void onInit(int initStatus) {
+                if (initStatus == TextToSpeech.SUCCESS) {
+                    Locale localeRu=new Locale("ru");
+                    TTS.setLanguage(localeRu);
+                    TTS.setPitch(1.3f);
+                    TTS.setSpeechRate(0.7f);
+                    String utteranceId = this.hashCode() + "";
+                    TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+
+                } else if (initStatus == TextToSpeech.ERROR) {
+                    Toast.makeText(getActivity(),"error" , Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }
+    public void textToSpeechGer(final String text){
+        TTS = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override public void onInit(int initStatus) {
+                if (initStatus == TextToSpeech.SUCCESS) {
+                    TTS.setLanguage(Locale.GERMAN);
+                    TTS.setPitch(1.3f);
+                    TTS.setSpeechRate(0.7f);
+                    String utteranceId = this.hashCode() + "";
+                    TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+
+                } else if (initStatus == TextToSpeech.ERROR) {
+                    Toast.makeText(getActivity(),"error" , Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }
+
+    public void textToSpeechIsln(final String text){
+        TTS = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override public void onInit(int initStatus) {
+                if (initStatus == TextToSpeech.SUCCESS) {
+                    Locale localeIsln=new Locale("island");
+                    TTS.setLanguage(localeIsln);
+                    TTS.setPitch(1.3f);
+                    TTS.setSpeechRate(0.7f);
+                    String utteranceId = this.hashCode() + "";
+                    TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+
+                } else if (initStatus == TextToSpeech.ERROR) {
+                    Toast.makeText(getActivity(),"error" , Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }
+    public void textToSpeechCroat(final String text){
+        TTS = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override public void onInit(int initStatus) {
+                if (initStatus == TextToSpeech.SUCCESS) {
+                    Locale localeCroat=new Locale("croatian");
+                    TTS.setLanguage(localeCroat);
+                    TTS.setPitch(1.3f);
+                    TTS.setSpeechRate(0.7f);
+                    String utteranceId = this.hashCode() + "";
+                    TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+
+                } else if (initStatus == TextToSpeech.ERROR) {
+                    Toast.makeText(getActivity(),"error" , Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }
+    public void textToSpeechSpain(final String text){
+        TTS = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override public void onInit(int initStatus) {
+                if (initStatus == TextToSpeech.SUCCESS) {
+                    Locale localeSpain=new Locale("spanish");
+                    TTS.setLanguage(localeSpain);
+                    TTS.setPitch(1.3f);
+                    TTS.setSpeechRate(0.7f);
+                    String utteranceId = this.hashCode() + "";
+                    TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+
+                } else if (initStatus == TextToSpeech.ERROR) {
+                    Toast.makeText(getActivity(),"error" , Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }
+    public void textToSpeechPortug(final String text){
+        TTS = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override public void onInit(int initStatus) {
+                if (initStatus == TextToSpeech.SUCCESS) {
+                    Locale localePortug=new Locale("portuguese");
+                    TTS.setLanguage(localePortug);
+                    TTS.setPitch(1.3f);
+                    TTS.setSpeechRate(0.7f);
+                    String utteranceId = this.hashCode() + "";
+                    TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+
+                } else if (initStatus == TextToSpeech.ERROR) {
+                    Toast.makeText(getActivity(),"error" , Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
     }
 
 
