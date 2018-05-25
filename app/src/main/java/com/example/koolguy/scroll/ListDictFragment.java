@@ -5,10 +5,15 @@ import android.app.ListFragment;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.Locale;
 
 
 /**
@@ -22,6 +27,9 @@ public class ListDictFragment extends ListFragment {
     }
     String[]phrase;
     View view;
+    private TextToSpeech TTS;
+    boolean ttsEnabled;
+    
     public void setI(String[]phrase){this.phrase = phrase;}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,5 +95,41 @@ public class ListDictFragment extends ListFragment {
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        if(position==1){
+            String needToSpeak=phrase[1];
+            String[] makeSpeak=needToSpeak.split(":");
+            String speak=makeSpeak[1];
+            textToSpeechEng(speak);
+
+
+
+        }
+    }
+
+    public void textToSpeechEng(final String text){
+        TTS = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override public void onInit(int initStatus) {
+                if (initStatus == TextToSpeech.SUCCESS) {
+                    TTS.setLanguage(Locale.US);
+                    TTS.setPitch(1.3f);
+                    TTS.setSpeechRate(0.7f);
+                    ttsEnabled = true;
+                    String utteranceId = this.hashCode() + "";
+                    TTS.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+
+                } else if (initStatus == TextToSpeech.ERROR) {
+                    Toast.makeText(getActivity(),"error" , Toast.LENGTH_LONG).show();
+                    ttsEnabled = false;
+                }
+            }
+        });
+
+        
+    }
+
 
 }
