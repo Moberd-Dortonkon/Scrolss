@@ -8,9 +8,12 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
@@ -46,6 +49,7 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -66,6 +70,11 @@ public class MainActivity extends AppCompatActivity implements
     public static final String SERVER = "https://vast-oasis-60477.herokuapp.com";
     CameraPosition saveCamera;
 
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +89,12 @@ public class MainActivity extends AppCompatActivity implements
         Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
         initSharedPreferences();
         initMenu();
+
+        createSoundPool();
+
+        myAssetManager = getAssets();
+        myButtonSound=createSound("button_16.mp3");
+
 
 
 
@@ -115,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void anotherFragment() {
+        playSound(myButtonSound);
         if (!preferences.contains("role")) {
             ChooseStatus mapFragment = new ChooseStatus();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -177,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void dictionaryFragment() //создание
     {
+        playSound(myButtonSound);
         DictionaryFragment mapFragment = new DictionaryFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
@@ -186,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void handBookFragment() //создание
     {
+        playSound(myButtonSound);
         HandBookFragment mapFragment = new HandBookFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
@@ -209,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     public void DictionaryClick(String [] phrase) {
+        playSound(myButtonSound);
         ListDictFragment dict = new ListDictFragment();
         dict.setI(phrase);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -218,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void extraNumbersClick() {
+        playSound(myButtonSound);
         ExtraNumbersFragment mapFragment = new ExtraNumbersFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
@@ -228,11 +248,14 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void handBookClick(int position) {
         if (position == 0) {
+            playSound(myButtonSound);
             map.makeMap();
+
 
 
         }
         if (position == 1) {
+            playSound(myButtonSound);
             FirstHelpFragment mapFragment = new FirstHelpFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
@@ -240,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements
             transaction.commit();
         }
         if (position == 2) {
+            playSound(myButtonSound);
             TeamList2 mapFragment = new TeamList2();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
@@ -251,6 +275,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void leaderCreateClick(String lName, String pass) {
+        playSound(myButtonSound);
         LeaderGroup mapFragment = new LeaderGroup();
         editor.putString("role", "leader");
         editor.putString("lName", lName);
@@ -270,6 +295,7 @@ public class MainActivity extends AppCompatActivity implements
     public void chooseStatusClick(int id) {
         switch (id) {
             case 1:
+                playSound(myButtonSound);
                 LeaderCreateGroup mapFragment = new LeaderCreateGroup();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frames, mapFragment);
@@ -279,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
             case 2:
+                playSound(myButtonSound);
                 CreateVolonteer volonteerStatus = new CreateVolonteer();
                 FragmentTransaction trans = getFragmentManager().beginTransaction();
                 trans.replace(R.id.frames, volonteerStatus);
@@ -316,6 +343,36 @@ public class MainActivity extends AppCompatActivity implements
         transaction.replace(R.id.frames, dict); //если
        // transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
+
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
+        try {
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
     }
 
 

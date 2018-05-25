@@ -5,6 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
@@ -17,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.koolguy.scroll.Tools.GroupAdapter;
 import com.example.koolguy.scroll.Tools.GroupListener;
@@ -52,6 +57,14 @@ public class LeaderGroup extends Fragment implements GroupListener {
     View greetingview;
     View showGroup;
     ViewGroup viewHolder;
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
+
+
+
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -81,10 +94,16 @@ public class LeaderGroup extends Fragment implements GroupListener {
                              Bundle savedInstanceState) {
         v= inflater.inflate(R.layout.fragment_leader_group, container, false);
 
+        createSoundPool();
+
+        myAssetManager = getActivity().getAssets();
+        myButtonSound=createSound("button_16.mp3");
+
         refresh=(Button)v.findViewById(R.id.reset);
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playSound(myButtonSound);
                 ref.refrsh();
             }
         });
@@ -110,6 +129,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playSound(myButtonSound);
                 String send = key;
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
@@ -187,4 +207,38 @@ public class LeaderGroup extends Fragment implements GroupListener {
     public void onPause() {
         super.onPause();
     }
+
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
+
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
+        try {
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(v.getContext(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
+    }
+
+
+
+
 }

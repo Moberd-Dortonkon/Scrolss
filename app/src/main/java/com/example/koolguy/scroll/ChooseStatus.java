@@ -26,6 +26,8 @@ public class ChooseStatus extends Fragment {
     View view;
     ImageButton volonteer,leader;
     ScrollView scrollView;
+
+
     public ChooseStatus() {
         // Required empty public constructor
     }
