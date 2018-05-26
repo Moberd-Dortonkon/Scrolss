@@ -33,7 +33,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_dialogCheck" />
+                                      <entry key="outputName" value="ic_dialogcheck" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="239f39" />
                                     </map>

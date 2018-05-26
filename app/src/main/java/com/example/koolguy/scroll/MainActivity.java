@@ -12,6 +12,7 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
@@ -35,8 +37,16 @@ import com.example.koolguy.scroll.ServerRequest.CreateGroup;
 import com.example.koolguy.scroll.Tools.Json.JsonData;
 import com.example.koolguy.scroll.Tools.Json.Place;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
+import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
+import com.example.koolguy.scroll.serverInterfaces.ServerSetCoordinates;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderApi;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -57,10 +67,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class MainActivity extends AppCompatActivity implements
         Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext
-        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer,RefreshStatus {
+        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer,RefreshStatus, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener {
     BottomNavigationView menu;
     TextView textView;
     MyMap map;
@@ -69,7 +86,10 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences preferences;
     public static final String SERVER = "https://immense-wave-82247.herokuapp.com";
     CameraPosition saveCamera;
-
+    private FusedLocationProviderApi mFusedLocation;
+    GoogleApiClient mGoogleApiClient;
+    LocationRequest mLocationRequest;
+    VolonteerStatus volonteerStatus;
     private SoundPool mySoundPool;
     private AssetManager myAssetManager;
     private int myButtonSound;
@@ -80,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       buildGoogleApiClient();
+
         menu = (BottomNavigationView) findViewById(R.id.menu);
         textView = (TextView) findViewById(R.id.text);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999);
@@ -88,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements
         Gson gson = new Gson();
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
         Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
+        volonteerStatus = new VolonteerStatus();
         initSharedPreferences();
         initMenu();
 
@@ -151,11 +174,10 @@ public class MainActivity extends AppCompatActivity implements
 
         }
         if (preferences.getString("role", "").equals("volonteer")) {
-            VolonteerStatus mapFragment = new VolonteerStatus();
-            mapFragment.setlName(preferences.getString("lName", ""));
-            mapFragment.setName(preferences.getString("name", ""));
+            volonteerStatus.setlName(preferences.getString("lName", ""));
+            volonteerStatus.setName(preferences.getString("name", ""));
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.frames, mapFragment);
+            transaction.replace(R.id.frames, volonteerStatus);
             transaction.addToBackStack(null);
             transaction.commit();
 
@@ -319,9 +341,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void createVolonteerCLick(String lName, String name) {
         playSound(myButtonSound);
-        VolonteerStatus volonteerStatus = new VolonteerStatus();
         editor.putString("role", "volonteer");
-        editor.putString("lName", lName);
+        editor.putString("groupPassword", lName);
         editor.putString("name", name);
         editor.commit();
        //l Toast.makeText(this, "" + lName + name, Toast.LENGTH_LONG).show();
@@ -332,6 +353,77 @@ public class MainActivity extends AppCompatActivity implements
         //transaction.addToBackStack(null);
         transaction.commit();
 
+
+    }
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
+                .build();
+        mGoogleApiClient.connect();
+    }
+    String coordinates;
+    @Override
+    public void onLocationChanged(Location location) {
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+        ServerGetCoordinates setCoordinates = retrofit.create(ServerGetCoordinates.class);
+        Call<ResponseBody> call=setCoordinates.getCoordinates(getSharedPreferences(MainActivity.APP_PREFERENCES,MODE_PRIVATE).getString("groupPassword",""));
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful())
+                {
+                    try {
+                        coordinates=response.body().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+      //  String test = getSharedPreferences(MainActivity.APP_PREFERENCES,MODE_PRIVATE).getString("groupPassword","");
+        if(coordinates!=null&&!coordinates.isEmpty()){
+      Location locationl=new Location("test");
+     locationl.setLatitude(Double.parseDouble(coordinates.split(",")[0]));
+     locationl.setLongitude(Double.parseDouble(coordinates.split(",")[1]));
+      float distance = location.distanceTo(locationl) ;
+     // Toast.makeText(this,""+distance,Toast.LENGTH_SHORT).show();
+        if(volonteerStatus.isVisible())volonteerStatus.setDistance(distance);
+       }
+    }
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(500);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest,  this );
+        }
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 
@@ -378,4 +470,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }

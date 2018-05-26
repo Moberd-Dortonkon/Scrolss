@@ -61,7 +61,7 @@ public class VolonteerStatus extends Fragment {
     ImageView camen;
     Boolean boolEat;
     Boolean boolCome;
-
+    private float distance;
     private SoundPool mySoundPool;
     private AssetManager myAssetManager;
     private int myButtonSound;
@@ -76,13 +76,15 @@ public class VolonteerStatus extends Fragment {
     public void setlName(String lName) {
         this.lName = lName;
     }
-
+    public void setDistance(float distance){
+        this.distance = distance;
+        if(distance<400)camen.setImageResource(R.drawable.ic_thumup);
+        if(distance>400)camen.setImageResource(R.drawable.ic_thumdown); }
     public void setName(String name) {
         this.name = name;
     }
     Button refresh;
     RefreshStatus ref;
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -114,16 +116,18 @@ public class VolonteerStatus extends Fragment {
 
             }
         });
+        if(distance<400)camen.setImageResource(R.drawable.ic_thumup);
+        if(distance>400)camen.setImageResource(R.drawable.ic_thumdown);
         final SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("VolonteerStatus",Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor=sharedPreferences.edit();
-        if(sharedPreferences.contains("come"))
+       /* if(sharedPreferences.contains("come"))
         {
             boolCome=sharedPreferences.getBoolean("come",false);
             if(!boolCome){camen.setImageResource(R.drawable.ic_thumup);}
             if(boolCome){camen.setImageResource(R.drawable.ic_thumdown);
             }
-        }
-        if(!sharedPreferences.contains("come"))boolCome = true;
+        }*/
+        //if(!sharedPreferences.contains("come"))boolCome = true;
         if(sharedPreferences.contains("eat"))
         {
             boolEat=sharedPreferences.getBoolean("eat",true);
@@ -134,7 +138,7 @@ public class VolonteerStatus extends Fragment {
         if(!sharedPreferences.contains("eat"))boolEat = true;
 
 
-        come.setOnClickListener(new View.OnClickListener() {
+        /*come.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playSound(myButtonSound);
@@ -157,7 +161,7 @@ public class VolonteerStatus extends Fragment {
               new ComeMyAsyncTask().execute("");
 
             }
-        });
+        });*/
         eat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

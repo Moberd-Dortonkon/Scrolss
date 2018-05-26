@@ -26,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.HashMap;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -66,11 +68,13 @@ public class LeaderGroup extends Fragment implements GroupListener {
     Button button;
     EditText editText;
     View v;
+    String testString;
     LatLng groupLatLng;
     MyThread thread;
     Button copy;
     TextView textView;
     Button map;
+    Thread sendCoordinates;
     GoogleMap gMap;
     RefreshStatus ref;
     SharedPreferences.Editor editor;
@@ -134,7 +138,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
             }
         });
         setHasOptionsMenu(true);
-
+        sendCoordinates = new sendCoordinates();
         map = (Button) v.findViewById(R.id.MAP);
         createMapDialog(savedInstanceState);
         preferences = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
@@ -192,14 +196,14 @@ public class LeaderGroup extends Fragment implements GroupListener {
          */
 
 
-                Dialog dialog = new Dialog(getActivity());
+                final Dialog dialog = new Dialog(getActivity());
                 dialog.setContentView(R.layout.gmap_diaolg_icon);
                 Window w = dialog.getWindow();
                 w.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                 dialog.setTitle("Укажите ваше место сегодня");
                 dialog.show();
                 MapView mapView = (MapView) dialog.findViewById(R.id.mapView);
-              LatLng groupLatLng;
+
                 MapsInitializer.initialize(getActivity());
 
                 mapView.onCreate(dialog.onSaveInstanceState());
@@ -218,33 +222,83 @@ public class LeaderGroup extends Fragment implements GroupListener {
                             @Override
                             public void onMapLongClick(LatLng latLng) {
                                gMap.clear();
-                               gMap.addCircle(new CircleOptions().center(latLng).radius(450).clickable(true).fillColor(0x220000FF));
+                               Circle circle =gMap.addCircle(new CircleOptions().center(latLng).radius(450).clickable(true).fillColor(0x220000FF));
+                              // gMap.addCircle(new CircleOptions().center(latLng).radius(450).clickable(true).fillColor(0x220000FF));
+
                                gMap.addMarker(new MarkerOptions().title("место вашей группы?").position(latLng).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));
+                               groupLatLng=latLng;
+
+
 
                             }
 
                         });
-                        gMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
-                            @Override
-                            public void onCircleClick(Circle circle) {
-                                gMap.addMarker(new MarkerOptions().position(circle.getCenter()).title("Место Вашей группы"));
-                            }
-                        });
+
 
 
                     }
                 });
-               Button dialogCheck = (Button)dialog.findViewById(R.id.dialogCheck);
+               ImageButton dialogCheck = (ImageButton)dialog.findViewById(R.id.dialogCheck);
                dialogCheck.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View view) {
+                       if(groupLatLng!=null){
+                            //String latlngForServer=Double.toString(groupLatLng.latitude)+","+Double.toString(groupLatLng.longitude);
+                            //String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
+                             sendCoordinates.start();
+                             dialog.cancel();
 
+
+
+                       }
                    }
                });
 
             }
         });
     }
+    class sendCoordinates extends Thread
+    {
+
+        @Override
+        public void run()
+        {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+            ServerSetCoordinates setCoordinates = retrofit.create(ServerSetCoordinates.class);
+            if(groupLatLng!=null){
+            String latlngForServer=Double.toString(groupLatLng.latitude)+","+Double.toString(groupLatLng.longitude);
+            testString="";
+            String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
+            Call<ResponseBody>call = setCoordinates.setCoordinates(key,latlngForServer);
+                try {
+                    Response<ResponseBody>response= call.execute();
+                    if(response.isSuccessful()){
+                        testString=response.body().string().toString();}
+                        else{testString="hi therre";}
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(!testString.equals(""))
+                {activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(activity,"коорд:"+testString,Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                }
+
+            }
+
+        }
+    }
+
 
     @Override
     public void listener(HashMap<String, Volonteer> vGroup) {
@@ -321,13 +375,13 @@ public class LeaderGroup extends Fragment implements GroupListener {
     @Override
     public void onStart() {
         super.onStart();
-        thread.start();
+       // thread.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        thread.interrupt();
+        //thread.interrupt();
     }
 
 

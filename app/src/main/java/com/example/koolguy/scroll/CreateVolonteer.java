@@ -41,6 +41,7 @@ public class CreateVolonteer extends Fragment {
     View v;
     String string;
 
+
     private SoundPool mySoundPool;
     private AssetManager myAssetManager;
     private int myButtonSound;
@@ -82,7 +83,9 @@ public class CreateVolonteer extends Fragment {
                 playSound(myButtonSound);
                 new MyThread().start();
                 join.setEnabled(false);
-                if(string.equals("complete"))listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());
+                if(string.equals("complete")){
+
+                    listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());}
             }
         });
 
@@ -113,7 +116,7 @@ public class CreateVolonteer extends Fragment {
             if(s!=null)
             {
                 if(s.equals("complete")){
-
+                     v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).edit().putString("groupPassword",lNam).commit();
                     listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());}
                 if(s.equals("try another name")){
                     Looper.prepare();
