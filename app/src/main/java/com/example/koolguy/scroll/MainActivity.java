@@ -39,6 +39,7 @@ import com.example.koolguy.scroll.Tools.Json.Place;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
 import com.example.koolguy.scroll.serverInterfaces.ServerSetCoordinates;
+import com.example.koolguy.scroll.serverInterfaces.ServerVolonteerStatus;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements
     private AssetManager myAssetManager;
     private int myButtonSound;
     private int myStreamID;
+    private boolean come;
 
 
     @Override
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements
         int i = 0;
        // map = new MyMap(this, this);
         Gson gson = new Gson();
+        come=false;
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
         Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
         volonteerStatus = new VolonteerStatus();
@@ -397,6 +400,49 @@ public class MainActivity extends AppCompatActivity implements
                 locationl.setLongitude(Double.parseDouble(coordinates.split(",")[1]));
                 float distance = location.distanceTo(locationl);
                 // Toast.makeText(this,""+distance,Toast.LENGTH_SHORT).show();
+                if(distance>450)
+                {
+                    if(come)
+                    {
+                        ServerVolonteerStatus status = retrofit.create(ServerVolonteerStatus.class);
+                        String servName = getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("name","");
+                        String servlName =getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
+                        Call<String> came = status.volonteerStatus("come", servlName, servName);
+                        came.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                //if(response.isSuccessful(){}
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+
+                            }
+                        });
+
+                    }
+                }
+                if(distance<450&&!come)
+                {
+                    ServerVolonteerStatus status = retrofit.create(ServerVolonteerStatus.class);
+                    come=true;
+                    String servName = getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("name","");
+                    String servlName =getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
+                    Call<String> came = status.volonteerStatus("come", servlName, servName);
+                    came.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            //if(response.isSuccessful(){}
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
+
+
+                }
                 if (volonteerStatus.isVisible())
                     volonteerStatus.setDistance(distance, new LatLng(locationl.getLatitude(), locationl.getLongitude()), new LatLng(location.getLatitude(), location.getLongitude()));
             }

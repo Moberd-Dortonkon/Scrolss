@@ -119,7 +119,6 @@ public class CreateVolonteer extends Fragment {
                      v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).edit().putString("groupPassword",lNam).commit();
                     listener.createVolonteerCLick(lName.getText().toString(),name1.getText().toString());}
                 if(s.equals("try another name")){
-                    Looper.prepare();
                     Toast.makeText(v.getContext(),"try another name",Toast.LENGTH_LONG);
                     }
             }

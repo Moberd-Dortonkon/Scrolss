@@ -145,6 +145,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         preferences = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = preferences.edit();
         thread = new MyThread(this);
+        thread.start();
         viewHolder = (ViewGroup) v.findViewById(R.id.groupFromStart);
 
         if (!preferences.contains("groupExist")) {
@@ -359,7 +360,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         synchronized
         @Override
         public void run() {
-            for (int i =0;i<99999;i++) {
+            for (int i =0;i<10;i++) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(MainActivity.SERVER)
                         .addConverterFactory(GsonConverterFactory.create())
@@ -372,11 +373,22 @@ public class LeaderGroup extends Fragment implements GroupListener {
                     DisplayVolonteers d = response.body();
                     try {
                         vGroup = d.getVolonteers();
+
                     } catch (Exception e) {
                     }
                 } catch (IOException e) {
                 }
 
+                if (vGroup != null) {
+                    String s="";
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(!preferences.contains("groupExist")){editor.putString("groupExist","yes");editor.commit();firstGroupTake();}
+                            try { groupView.setAdapter(new GroupAdapter(v.getContext(),vGroup));}catch (Exception e){}
+                        }
+                    });}
                 try {
                     sleep(5000);
                 } catch (InterruptedException e) {
@@ -385,19 +397,6 @@ public class LeaderGroup extends Fragment implements GroupListener {
             }
 
 
-            if (vGroup != null) {
-                  String s="";
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(!preferences.contains("groupExist")){editor.putString("groupExist","yes");editor.commit();firstGroupTake();}
-                        try {
-
-
-                         groupView.setAdapter(new GroupAdapter(v.getContext(),vGroup));}catch (Exception e){}
-                    }
-                });}
-
 
         }
     }
@@ -405,15 +404,26 @@ public class LeaderGroup extends Fragment implements GroupListener {
     @Override
     public void onStart() {
         super.onStart();
-       // thread.start();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //thread.interrupt();
+        thread.interrupt();
+
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+    }
 
     private void createSoundPool() {
         AudioAttributes attributes = new AudioAttributes.Builder()
