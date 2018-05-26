@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -14,6 +15,7 @@ import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,15 +25,19 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
 import com.example.koolguy.scroll.serverInterfaces.ServerVolonteerStatus;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -48,24 +54,29 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VolonteerStatus extends Fragment {
+public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
     View v;
+    TextView textView;
     String lName;
     String name;
     Button come;
     Button eat;
+    LatLng groupCircle;
     MapView mapView;
     GoogleMap map;
+    LatLng user;
     String latlng;
     ImageView eaten;
     ImageView camen;
     Boolean boolEat;
+    Boolean firstenable;
     Boolean boolCome;
     private float distance;
     private SoundPool mySoundPool;
     private AssetManager myAssetManager;
     private int myButtonSound;
     private int myStreamID;
+    private LatLng lastGroupcircle;
 
 
     public VolonteerStatus() {
@@ -76,19 +87,49 @@ public class VolonteerStatus extends Fragment {
     public void setlName(String lName) {
         this.lName = lName;
     }
-    public void setDistance(float distance){
+
+    public void setDistance(float distance, LatLng latLng, LatLng user) {
         this.distance = distance;
-        if(distance<400)camen.setImageResource(R.drawable.ic_thumup);
-        if(distance>400)camen.setImageResource(R.drawable.ic_thumdown); }
+        if (distance < 400) camen.setImageResource(R.drawable.ic_thumup);
+        if (distance > 400) camen.setImageResource(R.drawable.ic_thumdown);
+        groupCircle = latLng;
+        if (groupCircle!=lastGroupcircle) {
+            map.clear();
+            map.addCircle(new CircleOptions().center(groupCircle).radius(450).clickable(true).fillColor(0x220000FF));
+            map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)).position(groupCircle).title("Ваша группа"));
+            lastGroupcircle=groupCircle;
+        }
+
+        this.user = user;
+        if(firstenable) {
+            map.moveCamera(CameraUpdateFactory.newLatLng(user));
+            firstenable=false;
+        }
+        if(distance>450)
+        {
+        float realDistance=distance-450;
+        textView.setText("До вашей группы:" + String.format("%d",(long)realDistance) + " м.");
+        }
+        if(distance<450)
+        {
+         textView.setText("Вы на месте");
+        }
+
+
+
+    }
+
     public void setName(String name) {
         this.name = name;
     }
+
     Button refresh;
     RefreshStatus ref;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ref=(RefreshStatus)activity;
+        ref = (RefreshStatus) activity;
     }
 
     @Override
@@ -98,28 +139,30 @@ public class VolonteerStatus extends Fragment {
 
         createSoundPool();
         myAssetManager = getActivity().getAssets();
-        myButtonSound=createSound("button_16.mp3");
+        myButtonSound = createSound("button_16.mp3");
 
+        firstenable=true;
         come = (Button) v.findViewById(R.id.come);
-      //  new getCoordinates().start();
+        //  new getCoordinates().start();
         eat = (Button) v.findViewById(R.id.eat);
-        eaten = (ImageView)v.findViewById(R.id.eaten);
-        camen = (ImageView)v.findViewById(R.id.camen);
-        Button calendar= (Button)v.findViewById(R.id.calendarButton);
+        eaten = (ImageView) v.findViewById(R.id.eaten);
+        textView = (TextView) v.findViewById(R.id.distance);
+        camen = (ImageView) v.findViewById(R.id.camen);
+        Button calendar = (Button) v.findViewById(R.id.calendarButton);
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playSound(myButtonSound);
-                CalendarFragment calendarFragment =new CalendarFragment();
+                CalendarFragment calendarFragment = new CalendarFragment();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frames,new CalendarFragment()).commit();
+                fragmentTransaction.replace(R.id.frames, new CalendarFragment()).commit();
 
             }
         });
-        if(distance<400)camen.setImageResource(R.drawable.ic_thumup);
-        if(distance>400)camen.setImageResource(R.drawable.ic_thumdown);
-        final SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("VolonteerStatus",Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor=sharedPreferences.edit();
+        if (distance < 400) camen.setImageResource(R.drawable.ic_thumup);
+        if (distance > 400) camen.setImageResource(R.drawable.ic_thumdown);
+        final SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("VolonteerStatus", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
        /* if(sharedPreferences.contains("come"))
         {
             boolCome=sharedPreferences.getBoolean("come",false);
@@ -128,14 +171,13 @@ public class VolonteerStatus extends Fragment {
             }
         }*/
         //if(!sharedPreferences.contains("come"))boolCome = true;
-        if(sharedPreferences.contains("eat"))
-        {
-            boolEat=sharedPreferences.getBoolean("eat",true);
-            if(!boolEat)eaten.setImageResource(R.drawable.ic_thumup);
-            if(boolEat)eaten.setImageResource(R.drawable.ic_thumdown);
+        if (sharedPreferences.contains("eat")) {
+            boolEat = sharedPreferences.getBoolean("eat", true);
+            if (!boolEat) eaten.setImageResource(R.drawable.ic_thumup);
+            if (boolEat) eaten.setImageResource(R.drawable.ic_thumdown);
 
         }
-        if(!sharedPreferences.contains("eat"))boolEat = true;
+        if (!sharedPreferences.contains("eat")) boolEat = true;
 
 
         /*come.setOnClickListener(new View.OnClickListener() {
@@ -166,25 +208,23 @@ public class VolonteerStatus extends Fragment {
             @Override
             public void onClick(View view) {
                 playSound(myButtonSound);
-                if(!boolEat)
-                {
+                if (!boolEat) {
                     eaten.setImageResource(R.drawable.ic_thumdown);
 
                 }
-                if(boolEat)
-                {
+                if (boolEat) {
                     eaten.setImageResource(R.drawable.ic_thumup);
 
                 }
 
                 boolEat = !boolEat;
-                editor.putBoolean("eat",boolEat);
+                editor.putBoolean("eat", boolEat);
                 editor.commit();
-               new EatMyAsyncTask().execute("");
+                new EatMyAsyncTask().execute("");
 
             }
         });
-        refresh=(Button)v.findViewById(R.id.refrsh);
+        refresh = (Button) v.findViewById(R.id.refrsh);
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,59 +233,33 @@ public class VolonteerStatus extends Fragment {
                 ref.refrsh();
             }
         });
-        //mapView = (MapView)v.findViewById(R.id.mapView);
-        //mapView.onCreate(savedInstanceState);
-        //mapView.getMapAsync(this);
+        mapView = (MapView) v.findViewById(R.id.volonteerMap);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
         return v;
 
     }
-/*
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-       // map = googleMap;
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
-        ServerGetCoordinates status = retrofit.create(ServerGetCoordinates.class);
-        Call<ResponseBody> call =status.getCoordinates(lName);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful())
-                {
-                    if(latlng!=null)
-                        if(!latlng.equals("not complete"))
-                        {
-                    String[]latlngs = latlng.split(",");
-                    Double lat = Double.parseDouble(latlngs[0]);
-                    Double lng = Double.parseDouble(latlngs[1]);
-                   // map.addMarker(new MarkerOptions()
-                     //       .position(new LatLng(lat,lng))
-                     //       .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));
-                        }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-
-        if(latlng!=null)
-        if(!latlng.equals("not complete"))
-        {
-            String[]latlngs = latlng.split(",");
-            Double lat = Double.parseDouble(latlngs[0]);
-            Double lng = Double.parseDouble(latlngs[1]);
-            map.addMarker(new MarkerOptions()
-            .position(new LatLng(lat,lng))
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));
-
+        map = googleMap;
+        map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47.249365, 39.696464)));
+        map.moveCamera(CameraUpdateFactory.zoomTo(12));
+        if (ActivityCompat.checkSelfPermission(v.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(v.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         }
-        //mapView.onResume();
+        map.setMyLocationEnabled(true);
+       // map.moveCamera(CameraUpdateFactory.newLatLngZoom(user,12));
+       // if(groupCircle!=null) {
+         //   map.addCircle(new CircleOptions().center(groupCircle).radius(450).clickable(true).fillColor(0x220000FF));
+           // map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)).position(groupCircle).title("Ваша группа"));
+      //  }
+        mapView.onResume();
 
 
     }
-*/
+
 
     class getCoordinates extends Thread
     {

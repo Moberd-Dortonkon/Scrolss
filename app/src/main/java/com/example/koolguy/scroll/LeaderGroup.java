@@ -55,6 +55,7 @@ import java.util.HashMap;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -242,14 +243,43 @@ public class LeaderGroup extends Fragment implements GroupListener {
                dialogCheck.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View view) {
-                       if(groupLatLng!=null){
-                            //String latlngForServer=Double.toString(groupLatLng.latitude)+","+Double.toString(groupLatLng.longitude);
-                            //String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
-                             sendCoordinates.start();
-                             dialog.cancel();
+                       if(groupLatLng!=null) {
+                           //String latlngForServer=Double.toString(groupLatLng.latitude)+","+Double.toString(groupLatLng.longitude);
+                           //String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
+                           // try{
+                           // sendCoordinates.start();}catch (Exception e){Toast.makeText(getActivity(),"Try again",Toast.LENGTH_LONG).show();}
+                           Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+                           ServerSetCoordinates setCoordinates = retrofit.create(ServerSetCoordinates.class);
+                           if (groupLatLng != null) {
+                               String latlngForServer = Double.toString(groupLatLng.latitude) + "," + Double.toString(groupLatLng.longitude);
+                               testString = "";
+                               String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE).getString("groupPassword", "");
+                               Call<ResponseBody> call = setCoordinates.setCoordinates(key, latlngForServer);
+                               call.enqueue(new Callback<ResponseBody>() {
+                                   @Override
+                                   public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                       if (response.isSuccessful()) {
+                                           try {
+                                               testString = response.body().string().toString();
+                                               Toast.makeText(activity,"коорд:"+testString,Toast.LENGTH_LONG).show();
+                                           } catch (IOException e) {
+                                               e.printStackTrace();
+                                           }
+                                       } else {
+                                           testString = "hi therre";
+                                       }
+                                   }
+
+                                   @Override
+                                   public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                   }
+                               });
+                               //Toast.makeText(activity,"коорд:"+testString,Toast.LENGTH_LONG).show();
+                               dialog.cancel();
 
 
-
+                           }
                        }
                    }
                });

@@ -367,39 +367,41 @@ public class MainActivity extends AppCompatActivity implements
     String coordinates;
     @Override
     public void onLocationChanged(Location location) {
+        if(getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("role","").equals("volonteer")) {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+            ServerGetCoordinates setCoordinates = retrofit.create(ServerGetCoordinates.class);
+            Call<ResponseBody> call = setCoordinates.getCoordinates(getSharedPreferences(MainActivity.APP_PREFERENCES, MODE_PRIVATE).getString("groupPassword", ""));
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        try {
+                            coordinates = response.body().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
-        ServerGetCoordinates setCoordinates = retrofit.create(ServerGetCoordinates.class);
-        Call<ResponseBody> call=setCoordinates.getCoordinates(getSharedPreferences(MainActivity.APP_PREFERENCES,MODE_PRIVATE).getString("groupPassword",""));
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful())
-                {
-                    try {
-                        coordinates=response.body().string();
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+                }
+
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 }
+            });
+            //  String test = getSharedPreferences(MainActivity.APP_PREFERENCES,MODE_PRIVATE).getString("groupPassword","");
+            if (coordinates != null && !coordinates.isEmpty()) {
+                Location locationl = new Location("test");
+                locationl.setLatitude(Double.parseDouble(coordinates.split(",")[0]));
+                locationl.setLongitude(Double.parseDouble(coordinates.split(",")[1]));
+                float distance = location.distanceTo(locationl);
+                // Toast.makeText(this,""+distance,Toast.LENGTH_SHORT).show();
+                if (volonteerStatus.isVisible())
+                    volonteerStatus.setDistance(distance, new LatLng(locationl.getLatitude(), locationl.getLongitude()), new LatLng(location.getLatitude(), location.getLongitude()));
             }
 
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-      //  String test = getSharedPreferences(MainActivity.APP_PREFERENCES,MODE_PRIVATE).getString("groupPassword","");
-        if(coordinates!=null&&!coordinates.isEmpty()){
-      Location locationl=new Location("test");
-     locationl.setLatitude(Double.parseDouble(coordinates.split(",")[0]));
-     locationl.setLongitude(Double.parseDouble(coordinates.split(",")[1]));
-      float distance = location.distanceTo(locationl) ;
-     // Toast.makeText(this,""+distance,Toast.LENGTH_SHORT).show();
-        if(volonteerStatus.isVisible())volonteerStatus.setDistance(distance);
-       }
+        }
     }
 
 

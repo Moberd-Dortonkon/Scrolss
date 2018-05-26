@@ -57,9 +57,26 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/refrsh"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:text="MAP" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/volonteerMap"
+        android:layout_width="258dp"
+        android:layout_height="144dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/eat"
+        android:gravity="center"
+        android:text=""
+        android:textSize="25dp" />
 
 
 </RelativeLayout>
