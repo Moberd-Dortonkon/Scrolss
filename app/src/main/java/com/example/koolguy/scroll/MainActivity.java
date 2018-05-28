@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       buildGoogleApiClient();
+        buildGoogleApiClient();
 
         menu = (BottomNavigationView) findViewById(R.id.menu);
         textView = (TextView) findViewById(R.id.text);
@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements
     private void handBookFragment() //создание
     {
         playSound(myButtonSound);
-        HandBookFragment mapFragment = new HandBookFragment();
+        HandBook2 mapFragment = new HandBook2();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, mapFragment);
         transaction.addToBackStack(null);

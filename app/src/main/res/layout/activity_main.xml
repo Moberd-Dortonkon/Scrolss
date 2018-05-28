@@ -15,17 +15,18 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_gold"
+            android:background="@color/colorWhite_back"
             android:scaleType="centerCrop"/>
     </FrameLayout>
 
 
     <android.support.design.widget.BottomNavigationView
+        android:elevation="8dp"
         android:id="@+id/menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@drawable/bnv_background"
+        android:background="@color/colorWhite_front"
         android:layout_margin="0dp"
         app:itemIconTint="@color/bnv_text"
         app:itemTextColor="@color/bnv_text"
