@@ -15,6 +15,7 @@ import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -28,8 +29,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
+import com.example.koolguy.scroll.serverInterfaces.ServerGetMyInformation;
 import com.example.koolguy.scroll.serverInterfaces.ServerVolonteerStatus;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,6 +43,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -70,19 +74,31 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
     ImageView camen;
     Boolean boolEat;
     Boolean firstenable;
+    Volonteer meVolonteer;
+    String fromServer;
     Boolean boolCome;
+    Boolean firstEatSet;
     private float distance;
     private SoundPool mySoundPool;
     private AssetManager myAssetManager;
     private int myButtonSound;
     private int myStreamID;
     private LatLng lastGroupcircle;
-
+    private Gson gson;
+   // private Initation initation;
 
     public VolonteerStatus() {
         // Required empty public constructor
     }
 
+    public void setBoolEat(Boolean boolEat) {
+        this.boolEat = boolEat;
+
+    }
+
+    public void setBoolCome(Boolean boolCome) {
+        this.boolCome = boolCome;
+    }
 
     public void setlName(String lName) {
         this.lName = lName;
@@ -94,9 +110,12 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
         if (distance > 400) camen.setImageResource(R.drawable.ic_thumdown);
         groupCircle = latLng;
         if (groupCircle!=lastGroupcircle) {
-            map.clear();
+            try {
+                map.clear();
+
+
             map.addCircle(new CircleOptions().center(groupCircle).radius(450).clickable(true).fillColor(0x220000FF));
-            map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)).position(groupCircle).title("Ваша группа"));
+            map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)).position(groupCircle).title("Ваша группа"));}catch (Exception e){}
             lastGroupcircle=groupCircle;
         }
 
@@ -133,20 +152,31 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_volonteer_status, container, false);
 
         createSoundPool();
+        gson = new Gson();
+
         myAssetManager = getActivity().getAssets();
         myButtonSound = createSound("button_16.mp3");
-
+        boolEat=false;
         firstenable=true;
+        firstEatSet=true;
         come = (Button) v.findViewById(R.id.come);
         //  new getCoordinates().start();
         eat = (Button) v.findViewById(R.id.eat);
         eaten = (ImageView) v.findViewById(R.id.eaten);
         textView = (TextView) v.findViewById(R.id.distance);
+        textView.setText("Connecting...");
+
         camen = (ImageView) v.findViewById(R.id.camen);
         Button calendar = (Button) v.findViewById(R.id.calendarButton);
         calendar.setOnClickListener(new View.OnClickListener() {
@@ -159,67 +189,12 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
 
             }
         });
-        if (distance < 400) camen.setImageResource(R.drawable.ic_thumup);
-        if (distance > 400) camen.setImageResource(R.drawable.ic_thumdown);
-        final SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("VolonteerStatus", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-       /* if(sharedPreferences.contains("come"))
-        {
-            boolCome=sharedPreferences.getBoolean("come",false);
-            if(!boolCome){camen.setImageResource(R.drawable.ic_thumup);}
-            if(boolCome){camen.setImageResource(R.drawable.ic_thumdown);
-            }
-        }*/
-        //if(!sharedPreferences.contains("come"))boolCome = true;
-        if (sharedPreferences.contains("eat")) {
-            boolEat = sharedPreferences.getBoolean("eat", true);
-            if (!boolEat) eaten.setImageResource(R.drawable.ic_thumup);
-            if (boolEat) eaten.setImageResource(R.drawable.ic_thumdown);
-
-        }
-        if (!sharedPreferences.contains("eat")) boolEat = true;
-
-
-        /*come.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                playSound(myButtonSound);
-                if(!boolCome)
-                {
-                    camen.setImageResource(R.drawable.ic_thumdown);
-
-
-                }
-                if(boolCome)
-                {
-                    camen.setImageResource(R.drawable.ic_thumup);
-
-                }
-
-                boolCome = !boolCome;
-                editor.putBoolean("come",boolCome);
-                editor.commit();
-
-              new ComeMyAsyncTask().execute("");
-
-            }
-        });*/
+        eat.setEnabled(false);
         eat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playSound(myButtonSound);
-                if (!boolEat) {
-                    eaten.setImageResource(R.drawable.ic_thumdown);
-
-                }
-                if (boolEat) {
-                    eaten.setImageResource(R.drawable.ic_thumup);
-
-                }
-
-                boolEat = !boolEat;
-                editor.putBoolean("eat", boolEat);
-                editor.commit();
+                eat.setEnabled(false);
                 new EatMyAsyncTask().execute("");
 
             }
@@ -229,14 +204,63 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 playSound(myButtonSound);
-                editor.clear().commit();
                 ref.refrsh();
             }
         });
         mapView = (MapView) v.findViewById(R.id.volonteerMap);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
+
         return v;
+
+    }
+
+    public void initMe() {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+            ServerGetMyInformation doIt = retrofit.create(ServerGetMyInformation.class);
+            String servName = name;
+            String servlName = lName;
+
+            Call<ResponseBody> call = doIt.getMyInfromation(servlName, servName);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        try {
+                            fromServer = response.body().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        meVolonteer = gson.fromJson(fromServer, Volonteer.class);
+                        firstEatSet=false;
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+            if (meVolonteer != null) {
+                if (meVolonteer.isCome()) {
+                    camen.setImageResource(R.drawable.ic_thumup);
+                }
+                if (!meVolonteer.isCome()) {
+                    camen.setImageResource(R.drawable.ic_thumdown);
+                }
+                if (meVolonteer.isEat()) {
+                    eaten.setImageResource(R.drawable.ic_thumup);
+                    boolEat = false;
+                }
+                if (!meVolonteer.isEat()) {
+                    eaten.setImageResource(R.drawable.ic_thumdown);
+                    boolEat = true;
+                }
+                eat.setEnabled(true);
+            }
+
 
     }
 
@@ -305,6 +329,25 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
         }
 
     }
+    class EatThread extends Thread
+    {
+        @Override
+        public void run()
+        {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+            ServerVolonteerStatus status = retrofit.create(ServerVolonteerStatus.class);
+            String servName = name;
+            String servlName = lName;
+
+            Call<String> call = status.volonteerStatus("eat", servlName, servName);
+            try {
+                Response<String> response = call.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
     class EatMyAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -321,7 +364,6 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
             return null;
         }

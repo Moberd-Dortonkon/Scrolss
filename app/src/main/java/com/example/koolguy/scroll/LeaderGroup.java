@@ -360,7 +360,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         synchronized
         @Override
         public void run() {
-            for (int i =0;i<10;i++) {
+            for (int i =0;i<4;i++) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(MainActivity.SERVER)
                         .addConverterFactory(GsonConverterFactory.create())

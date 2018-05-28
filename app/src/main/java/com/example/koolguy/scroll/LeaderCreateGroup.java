@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -82,7 +83,33 @@ public class LeaderCreateGroup extends Fragment {
             public void onClick(View view) {
                 playSound(myButtonSound);
                 Toast.makeText(v.getContext(), "Succses", Toast.LENGTH_LONG);
-                new MyThread().start();
+              //  new MyThread().start();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+                ServerCreateGroup group = retrofit.create(ServerCreateGroup.class);
+                String lName = leaderName.getText().toString();
+                Call<ResponseBody> call = group.createGroup(lName);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.isSuccessful())
+                        {
+                            String string = null;
+                            try {
+                                string = response.body().string();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            listener.leaderCreateClick(leaderName.getText().toString(), string);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+
+
                 //  if(string!=null)listener.leaderCreateClick(leaderName.getText().toString(),string);
                 createGroup.setEnabled(false);
             }

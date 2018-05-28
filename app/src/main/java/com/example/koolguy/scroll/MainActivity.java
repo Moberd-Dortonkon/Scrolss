@@ -38,6 +38,7 @@ import com.example.koolguy.scroll.Tools.Json.JsonData;
 import com.example.koolguy.scroll.Tools.Json.Place;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
+import com.example.koolguy.scroll.serverInterfaces.ServerGetMyInformation;
 import com.example.koolguy.scroll.serverInterfaces.ServerSetCoordinates;
 import com.example.koolguy.scroll.serverInterfaces.ServerVolonteerStatus;
 import com.google.android.gms.common.ConnectionResult;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
     SharedPreferences preferences;
-    public static final String SERVER = "https://immense-wave-82247.herokuapp.com";
+    public static final String SERVER = "https://vast-oasis-60477.herokuapp.com";
     CameraPosition saveCamera;
     private FusedLocationProviderApi mFusedLocation;
     GoogleApiClient mGoogleApiClient;
@@ -96,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements
     private int myButtonSound;
     private int myStreamID;
     private boolean come;
+    private Gson gson;
+
 
 
     @Override
@@ -177,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements
 
         }
         if (preferences.getString("role", "").equals("volonteer")) {
-            volonteerStatus.setlName(preferences.getString("lName", ""));
+            volonteerStatus.setlName(preferences.getString("groupPassword", ""));
             volonteerStatus.setName(preferences.getString("name", ""));
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, volonteerStatus);
@@ -349,6 +352,8 @@ public class MainActivity extends AppCompatActivity implements
         editor.putString("name", name);
         editor.commit();
        //l Toast.makeText(this, "" + lName + name, Toast.LENGTH_LONG).show();
+        volonteerStatus.setBoolCome(false);
+        volonteerStatus.setBoolEat(false);
         volonteerStatus.setlName(lName);
         volonteerStatus.setName(name);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -443,8 +448,10 @@ public class MainActivity extends AppCompatActivity implements
 
 
                 }
-                if (volonteerStatus.isVisible())
+                if (volonteerStatus.isVisible()){
                     volonteerStatus.setDistance(distance, new LatLng(locationl.getLatitude(), locationl.getLongitude()), new LatLng(location.getLatitude(), location.getLongitude()));
+                    volonteerStatus.initMe();
+                }
             }
 
         }
