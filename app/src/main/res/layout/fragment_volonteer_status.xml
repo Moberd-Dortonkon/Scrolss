@@ -9,31 +9,14 @@
 
 
     <Button
-        android:id="@+id/come"
-        android:layout_width="180dp"
-        android:layout_height="98dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="81dp"
-        android:text="@string/come" />
-
-    <Button
         android:id="@+id/eat"
         android:layout_width="180dp"
         android:layout_height="97dp"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
 
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="102dp"
         android:text="@string/eat" />
-
-    <ImageView
-        android:id="@+id/camen"
-        android:layout_width="80dp"
-        android:layout_height="88dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/come"
-        android:layout_marginEnd="40dp"
-        android:src="@drawable/ic_thumdown" />
 
     <Button
         android:id="@+id/refrsh"
@@ -48,32 +31,36 @@
         android:id="@+id/eaten"
         android:layout_width="80dp"
         android:layout_height="88dp"
-        android:layout_alignStart="@+id/camen"
-        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/eat"
         android:src="@drawable/ic_thumdown" />
 
-    <Button
-        android:id="@+id/calendarButton"
 
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:id="@+id/mapButton"
+        android:layout_width="43dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
+        android:layout_above="@+id/refrsh"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="13dp"
+        android:background="#ffff"
+        android:src="@drawable/ic_full_open"
         android:text="MAP" />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/volonteerMap"
         android:layout_width="258dp"
-        android:layout_height="144dp"
+        android:layout_height="200dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
+
 
     <TextView
         android:id="@+id/distance"
         android:layout_width="match_parent"
         android:layout_height="91dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/eat"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:text=""
         android:textSize="25dp" />

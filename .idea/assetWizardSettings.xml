@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_check_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_fullscreen_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -33,9 +33,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_dialogcheck" />
+                                      <entry key="outputName" value="ic_full_open" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="239f39" />
+                                      <entry key="themeColor" value="d3d3d3" />
                                     </map>
                                   </option>
                                 </PersistentState>

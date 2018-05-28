@@ -449,8 +449,8 @@ public class MainActivity extends AppCompatActivity implements
 
                 }
                 if (volonteerStatus.isVisible()){
-                    volonteerStatus.setDistance(distance, new LatLng(locationl.getLatitude(), locationl.getLongitude()), new LatLng(location.getLatitude(), location.getLongitude()));
-                    volonteerStatus.initMe();
+                    //volonteerStatus.setDistance(distance, new LatLng(locationl.getLatitude(), locationl.getLongitude()), new LatLng(location.getLatitude(), location.getLongitude()));
+                    volonteerStatus.initMe(distance, new LatLng(locationl.getLatitude(), locationl.getLongitude()), new LatLng(location.getLatitude(), location.getLongitude()));
                 }
             }
 

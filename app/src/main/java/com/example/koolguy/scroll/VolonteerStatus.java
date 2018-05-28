@@ -2,6 +2,7 @@ package com.example.koolguy.scroll;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -21,9 +23,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -38,6 +43,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
@@ -68,6 +74,7 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
     LatLng groupCircle;
     MapView mapView;
     GoogleMap map;
+    Boolean rightCheck;
     LatLng user;
     String latlng;
     ImageView eaten;
@@ -75,6 +82,7 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
     Boolean boolEat;
     Boolean firstenable;
     Volonteer meVolonteer;
+    Dialog dialog;
     String fromServer;
     Boolean boolCome;
     Boolean firstEatSet;
@@ -85,6 +93,7 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
     private int myStreamID;
     private LatLng lastGroupcircle;
     private Gson gson;
+    public static String EAT_PREFERENCES;
    // private Initation initation;
 
     public VolonteerStatus() {
@@ -106,14 +115,13 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
 
     public void setDistance(float distance, LatLng latLng, LatLng user) {
         this.distance = distance;
-        if (distance < 400) camen.setImageResource(R.drawable.ic_thumup);
-        if (distance > 400) camen.setImageResource(R.drawable.ic_thumdown);
+//        if (distance < 400) camen.setImageResource(R.drawable.ic_thumup);
+  //      if (distance > 400) camen.setImageResource(R.drawable.ic_thumdown);
         groupCircle = latLng;
         if (groupCircle!=lastGroupcircle) {
             try {
+
                 map.clear();
-
-
             map.addCircle(new CircleOptions().center(groupCircle).radius(450).clickable(true).fillColor(0x220000FF));
             map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)).position(groupCircle).title("Ваша группа"));}catch (Exception e){}
             lastGroupcircle=groupCircle;
@@ -121,7 +129,10 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
 
         this.user = user;
         if(firstenable) {
-            map.moveCamera(CameraUpdateFactory.newLatLng(user));
+            try {
+
+
+            map.moveCamera(CameraUpdateFactory.newLatLng(user));}catch (Exception e){}
             firstenable=false;
         }
         if(distance>450)
@@ -168,24 +179,51 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
         myAssetManager = getActivity().getAssets();
         myButtonSound = createSound("button_16.mp3");
         boolEat=false;
+
         firstenable=true;
         firstEatSet=true;
-        come = (Button) v.findViewById(R.id.come);
+      //  come = (Button) v.findViewById(R.id.come);
         //  new getCoordinates().start();
         eat = (Button) v.findViewById(R.id.eat);
         eaten = (ImageView) v.findViewById(R.id.eaten);
+      //  camen = (ImageView) v.findViewById(R.id.camen);
+        eaten.setImageResource(R.drawable.ic_loading);
+      //  camen.setImageResource(R.drawable.ic_loading);
         textView = (TextView) v.findViewById(R.id.distance);
         textView.setText("Connecting...");
-
-        camen = (ImageView) v.findViewById(R.id.camen);
-        Button calendar = (Button) v.findViewById(R.id.calendarButton);
-        calendar.setOnClickListener(new View.OnClickListener() {
+       /* if(!v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).contains("eat"))boolEat=false;
+        if(v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).contains("eat"))
+        {
+          if(v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).getBoolean("eat",false)){eaten.setImageResource(R.drawable.ic_thumup);boolEat = false; }
+          else {eaten.setImageResource(R.drawable.ic_thumdown);boolEat=true;}
+        }*/
+        ImageButton imageButton = (ImageButton) v.findViewById(R.id.mapButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playSound(myButtonSound);
-                CalendarFragment calendarFragment = new CalendarFragment();
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frames, new CalendarFragment()).commit();
+                dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.volonteer_status_map);
+                Window w = dialog.getWindow();
+                w.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                dialog.show();
+                MapView mapView = (MapView) dialog.findViewById(R.id.volonteerStatusMap);
+                MapsInitializer.initialize(getActivity());
+                mapView.onCreate(dialog.onSaveInstanceState());
+                mapView.onResume();
+                mapView.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        GoogleMap dialogMap = googleMap;
+                        dialogMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47.249365, 39.696464)));
+                        dialogMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+                        map.addCircle(new CircleOptions().center(groupCircle).radius(450).clickable(true).fillColor(0x220000FF));
+                        map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)).position(groupCircle).title("Ваша группа"));
+                        if (ActivityCompat.checkSelfPermission(v.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                                && ActivityCompat.checkSelfPermission(v.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        }
+                        map.setMyLocationEnabled(true);
+                    }
+                });
 
             }
         });
@@ -194,7 +232,14 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 playSound(myButtonSound);
+               // if(!boolEat){eaten.setImageResource(R.drawable.ic_thumup);}
+               // else eaten.setImageResource(R.drawable.ic_thumdown);
+               // boolEat=!boolEat;
+                boolEat=true;
+                if((Integer)eaten.getTag()==R.drawable.ic_thumup){rightCheck=true;}
+                if ((Integer)eaten.getTag()==R.drawable.ic_thumdown){rightCheck=false;}
                 eat.setEnabled(false);
+                eaten.setImageResource(R.drawable.ic_loading);
                 new EatMyAsyncTask().execute("");
 
             }
@@ -216,7 +261,7 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
 
     }
 
-    public void initMe() {
+    public void initMe(float distance, LatLng latLng, LatLng user) {
             Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             ServerGetMyInformation doIt = retrofit.create(ServerGetMyInformation.class);
             String servName = name;
@@ -244,23 +289,41 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
                 }
             });
             if (meVolonteer != null) {
-                if (meVolonteer.isCome()) {
-                    camen.setImageResource(R.drawable.ic_thumup);
+                if(!boolEat) {
+                    if (meVolonteer.isEat()) {
+                        eaten.setImageResource(R.drawable.ic_thumup);
+                        //boolEat = false;
+                        eaten.setTag(R.drawable.ic_thumup);
+                        eat.setEnabled(true);
+                        //v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("eat",false).commit();
+                    }
+                    if (!meVolonteer.isEat()) {
+                        eaten.setImageResource(R.drawable.ic_thumdown);
+                        eaten.setTag(R.drawable.ic_thumdown);
+                        // boolEat = true;
+                        eat.setEnabled(true);
+                        //v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("eat",true).commit();
+                    }
                 }
-                if (!meVolonteer.isCome()) {
-                    camen.setImageResource(R.drawable.ic_thumdown);
+                if(boolEat)
+                {
+                    if (meVolonteer.isEat()&&!rightCheck) {
+                        eaten.setImageResource(R.drawable.ic_thumup);
+                        eaten.setTag(R.drawable.ic_thumup);
+                        //boolEat = false;
+                        eat.setEnabled(true);
+                        //v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("eat",false).commit();
+                    }
+                    if (!meVolonteer.isEat()&&rightCheck) {
+                        eaten.setImageResource(R.drawable.ic_thumdown);
+                        eaten.setTag(R.drawable.ic_thumdown);
+                        // boolEat = true;
+                        eat.setEnabled(true);
+                        //v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("eat",true).commit();
+                    }
                 }
-                if (meVolonteer.isEat()) {
-                    eaten.setImageResource(R.drawable.ic_thumup);
-                    boolEat = false;
-                }
-                if (!meVolonteer.isEat()) {
-                    eaten.setImageResource(R.drawable.ic_thumdown);
-                    boolEat = true;
-                }
-                eat.setEnabled(true);
             }
-
+            setDistance(distance,latLng,user);
 
     }
 
@@ -269,7 +332,7 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47.249365, 39.696464)));
-        map.moveCamera(CameraUpdateFactory.zoomTo(12));
+        map.moveCamera(CameraUpdateFactory.zoomTo(9));
         if (ActivityCompat.checkSelfPermission(v.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(v.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         }
