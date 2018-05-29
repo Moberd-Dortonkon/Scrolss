@@ -52,16 +52,15 @@ public class HandBook2 extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_hand_book2, container, false);
         Resources resources = view.getResources();
         map = new MyMap(activity,view.getContext(),resources.getIdentifier("frames","id",view.getContext().getPackageName()));
         ScrollView sv = (ScrollView) view.findViewById(R.id.handbook);
-
-        Resources res=getResources();
-        String[] FirstHelp = res.getStringArray(R.array.FirstHelp);
-        ListView listView = (ListView)view.findViewById(R.id.lv);
+        final Resources res=getResources();
+        FirstHelp = res.getStringArray(R.array.FirstHelp);
+        listView = (ListView)view.findViewById(R.id.lv);
         ArrayAdapter<String> BookAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,FirstHelp);
         listView.setAdapter(BookAdapter);
         Button schBtn=(Button)view.findViewById(R.id.schdBtn);
@@ -120,6 +119,7 @@ public class HandBook2 extends Fragment {
                 }
             }
         });
+
 
         return view;
     }
