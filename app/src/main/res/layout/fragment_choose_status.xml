@@ -29,6 +29,7 @@
        android:layout_weight="0.25"
         android:gravity="bottom">
        <Button
+           android:layout_margin="5dp"
            android:textColor="@color/colorBlue_text"
            android:background="@drawable/button"
            android:text="@string/leader"
@@ -37,6 +38,7 @@
            android:layout_height="60dp"
            android:layout_weight="1"/>
        <Button
+           android:layout_margin="5dp"
            android:textColor="@color/colorBlue_text"
            android:background="@drawable/button"
            android:text="@string/volunteer"

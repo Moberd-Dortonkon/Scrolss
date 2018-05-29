@@ -1,11 +1,25 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.koolguy.scroll.TeamList2"
-    android:id="@+id/teamlist">
+    android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        app:title="@string/schedule"
+        android:elevation="8dp"
+        android:background="@color/colorWhite_front"
+        android:id="@+id/toolbarId"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="?attr/homeAsUpIndicator"/>
+
+    <ScrollView
+        android:id="@+id/teamlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -380,5 +394,5 @@
         </FrameLayout>
 
     </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
+</LinearLayout>
