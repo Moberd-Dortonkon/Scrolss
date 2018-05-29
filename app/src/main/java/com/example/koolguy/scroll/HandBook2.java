@@ -56,7 +56,7 @@ public class HandBook2 extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_hand_book2, container, false);
         Resources resources = view.getResources();
-        map = new MyMap(activity,view.getContext(),resources.getIdentifier("frames","id",view.getContext().getPackageName()));
+        map = new MyMap(getActivity(),view.getContext());
         ScrollView sv = (ScrollView) view.findViewById(R.id.handbook);
         final Resources res=getResources();
         FirstHelp = res.getStringArray(R.array.FirstHelp);
