@@ -39,5 +39,6 @@
     <string name="status">Выберете статус</string>
     <string name="all">ВСЁ</string>
     <string name="my_schd">МОЁ РАСПИСАНИЕ</string>
+    <string name="map_short">КАРТА</string>
 
 </resources>

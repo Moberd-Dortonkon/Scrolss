@@ -44,6 +44,7 @@
     <string name="status">Choose status</string>
     <string name="all">ALL</string>
     <string name="my_schd">My Schedule</string>
+    <string name="map_short">Map</string>
 
 
 </resources>
