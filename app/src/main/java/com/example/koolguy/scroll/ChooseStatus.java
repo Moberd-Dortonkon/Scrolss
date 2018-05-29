@@ -65,6 +65,7 @@ public class ChooseStatus extends Fragment {
                 getChildFragmentManager().beginTransaction().replace(R.id.childChooseFragment,new LeaderCreateGroup()).commit();
             }
         });
+
         return view;
     }
 

@@ -411,7 +411,7 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
 
     }
 
-
+    public void committoGit(){}
     class getCoordinates extends Thread
     {
         @Override
