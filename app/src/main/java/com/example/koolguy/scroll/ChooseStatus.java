@@ -51,7 +51,7 @@ public class ChooseStatus extends Fragment {
         volonteer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView.setText("Join To Group");
+                textView.setText("Присоединиться к Группе");
                 getChildFragmentManager().beginTransaction().replace(R.id.childChooseFragment,new CreateVolonteer()).commit();
             }
         });
@@ -61,7 +61,7 @@ public class ChooseStatus extends Fragment {
                 SharedPreferences preferences = view.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE);
                 preferences.edit().clear().commit();
 
-                textView.setText("Create Group");
+                textView.setText("Создать Группу");
                 getChildFragmentManager().beginTransaction().replace(R.id.childChooseFragment,new LeaderCreateGroup()).commit();
             }
         });

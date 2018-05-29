@@ -42,6 +42,8 @@
             android:layout_weight="1">
 
             <Button
+                android:textColor="@color/colorBlue_text"
+                android:background="@drawable/button"
                 android:id="@+id/MAP"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -49,6 +51,8 @@
                 android:text="MAP" />
 
             <Button
+                android:textColor="@color/colorBlue_text"
+                android:background="@drawable/button"
                 android:id="@+id/sendNudes"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -56,6 +60,8 @@
                 android:text="@string/share" />
 
             <Button
+                android:textColor="@color/colorBlue_text"
+                android:background="@drawable/button"
                 android:id="@+id/reset"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

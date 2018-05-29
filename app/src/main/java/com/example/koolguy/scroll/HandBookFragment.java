@@ -28,7 +28,8 @@ import java.io.IOException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HandBookFragment extends Fragment {
+public class
+HandBookFragment extends Fragment {
     MyMap map;
     View view;
     Activity activity;

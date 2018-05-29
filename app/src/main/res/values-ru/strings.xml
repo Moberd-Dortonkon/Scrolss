@@ -23,7 +23,7 @@
     <string name="inf">Справочник</string>
     <string name="group">Группа</string>
     <string name="Dictionary">Словарь</string>
-    <string name="joinGroup">Присоединиться к группе</string>
+    <string name="joinGroup">Присоединиться</string>
     <string name="groupId">ID Группы</string>
     <string name="name">Ваше Имя</string>
     <string name="leader">Лидер</string>
@@ -37,5 +37,6 @@
     <string name="no_one">В вашей группе никого нет</string>
     <string name="name_gr">Имя:</string>
     <string name="status">Выберете статус</string>
+    <string name="all">ВСЁ</string>
 
 </resources>

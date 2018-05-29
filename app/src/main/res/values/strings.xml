@@ -42,6 +42,7 @@
     <string name="no_one">There is no one on ypur group</string>
     <string name="name_gr">Name:</string>
     <string name="status">Choose status</string>
+    <string name="all">ALL</string>
 
 
 </resources>

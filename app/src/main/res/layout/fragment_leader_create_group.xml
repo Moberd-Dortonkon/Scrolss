@@ -19,6 +19,8 @@
         android:inputType="textPersonName" />
 
     <Button
+        android:textColor="@color/colorBlue_text"
+        android:background="@drawable/button"
         android:id="@+id/createGroup"
         android:layout_width="175dp"
         android:layout_height="67dp"

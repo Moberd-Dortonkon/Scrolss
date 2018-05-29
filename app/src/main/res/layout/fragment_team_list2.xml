@@ -15,10 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_margin="10dp"
-        android:elevation="16dp"
-        android:background="@drawable/background_blue_match">
+        android:elevation="4dp"
+        android:background="@drawable/rect_back">
 
         <LinearLayout
+            android:paddingLeft="3dp"
+            android:paddingTop="3dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -35,8 +37,7 @@
                 android:text="@string/switz"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                android:fontFamily="@font/dusha"/>
+                android:textColor="#000000" />
 
             <ImageView
                 android:id="@+id/braz"
@@ -50,12 +51,12 @@
                 android:text="@string/brazil"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                android:fontFamily="@font/dusha"/>
+                android:textColor="#000000" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:paddingRight="3dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -68,8 +69,7 @@
                 android:text="@string/june17"
                 android:textSize="37sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                android:fontFamily="@font/dusha"/>
+                android:textColor="#000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,8 +78,7 @@
                 android:text="@string/arena"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                android:fontFamily="@font/dusha"/>
+                android:textColor="#000000" />
 
 
         </LinearLayout>
@@ -90,10 +89,12 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_margin="10dp"
-            android:elevation="16dp"
-            android:background="@drawable/background_blue_match">
+            android:elevation="4dp"
+            android:background="@drawable/rect_back">
 
             <LinearLayout
+                android:paddingLeft="3dp"
+                android:paddingTop="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -110,8 +111,7 @@
                     android:text="@string/urug"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000"/>
 
                 <ImageView
                     android:id="@+id/arab"
@@ -125,12 +125,12 @@
                     android:text="@string/arab"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000"/>
 
             </LinearLayout>
 
             <LinearLayout
+                android:paddingRight="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -143,8 +143,7 @@
                     android:text="@string/june20"
                     android:textSize="37sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -153,8 +152,7 @@
                     android:text="@string/arena"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000" />
 
 
             </LinearLayout>
@@ -165,10 +163,12 @@
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_margin="10dp"
-        android:elevation="16dp"
-        android:background="@drawable/background_blue_match">
+            android:elevation="4dp"
+            android:background="@drawable/rect_back">
 
         <LinearLayout
+            android:paddingLeft="3dp"
+            android:paddingTop="3dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -185,8 +185,7 @@
                 android:text="@string/korea"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                android:fontFamily="@font/dusha"/>
+                android:textColor="#000000" />
 
             <ImageView
                 android:id="@+id/mexico"
@@ -200,12 +199,12 @@
                 android:text="@string/mexico"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                android:fontFamily="@font/dusha"/>
+                android:textColor="#000000" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:paddingRight="3dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -218,8 +217,7 @@
                 android:text="@string/june23"
                 android:textSize="37sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                android:fontFamily="@font/dusha"/>
+                android:textColor="#000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -228,8 +226,7 @@
                 android:text="@string/arena"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                android:fontFamily="@font/dusha"/>
+                android:textColor="#000000"/>
 
 
         </LinearLayout>
@@ -240,10 +237,12 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_margin="10dp"
-            android:elevation="16dp"
-            android:background="@drawable/background_blue_match">
+            android:elevation="4dp"
+            android:background="@drawable/rect_back">
 
             <LinearLayout
+                android:paddingLeft="3dp"
+                android:paddingTop="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -259,8 +258,7 @@
                     android:text="@string/iceland"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000"/>
 
                 <ImageView
                     android:layout_width="70dp"
@@ -273,12 +271,12 @@
                     android:text="@string/croat"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000"/>
 
             </LinearLayout>
 
             <LinearLayout
+                android:paddingRight="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -291,8 +289,7 @@
                     android:text="@string/june26"
                     android:textSize="37sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -301,8 +298,7 @@
                     android:text="@string/arena"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000"/>
 
 
             </LinearLayout>
@@ -313,10 +309,12 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_margin="10dp"
-            android:elevation="16dp"
-            android:background="@drawable/background_blue_match">
+            android:elevation="4dp"
+            android:background="@drawable/rect_back">
 
             <LinearLayout
+                android:paddingLeft="3dp"
+                android:paddingTop="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -333,8 +331,7 @@
                     android:text="@string/winnerG"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000"/>
 
                 <ImageView
                     android:id="@+id/grH"
@@ -348,12 +345,12 @@
                     android:text="@string/winnerH"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000"/>
 
             </LinearLayout>
 
             <LinearLayout
+                android:paddingRight="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -366,8 +363,7 @@
                     android:text="@string/july2"
                     android:textSize="37sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -376,8 +372,7 @@
                     android:text="@string/arena"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/dusha"/>
+                    android:textColor="#000000"/>
 
 
             </LinearLayout>

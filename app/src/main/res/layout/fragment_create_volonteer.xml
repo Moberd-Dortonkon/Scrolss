@@ -35,9 +35,11 @@
             android:inputType="textPersonName" />
 
         <Button
+            android:textColor="@color/colorBlue_text"
+            android:background="@drawable/button"
             android:id="@+id/join"
-            android:layout_width="125dp"
-            android:layout_height="78dp"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
             android:layout_alignBottom="@+id/yourName"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="8dp"
