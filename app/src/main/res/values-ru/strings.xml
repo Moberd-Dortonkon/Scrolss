@@ -38,5 +38,6 @@
     <string name="name_gr">Имя:</string>
     <string name="status">Выберете статус</string>
     <string name="all">ВСЁ</string>
+    <string name="my_schd">МОЁ РАСПИСАНИЕ</string>
 
 </resources>

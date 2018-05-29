@@ -99,6 +99,14 @@ public class HandBook2 extends Fragment {
             }
         });
 
+        Button myBtn=(Button) view.findViewById(R.id.my_schd);
+        myBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playSound(myButtonSound);
+            }
+        });
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

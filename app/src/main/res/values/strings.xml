@@ -43,6 +43,7 @@
     <string name="name_gr">Name:</string>
     <string name="status">Choose status</string>
     <string name="all">ALL</string>
+    <string name="my_schd">My Schedule</string>
 
 
 </resources>
