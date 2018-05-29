@@ -453,7 +453,13 @@ public class MainActivity extends AppCompatActivity implements
                     volonteerStatus.initMe(distance, new LatLng(locationl.getLatitude(), locationl.getLongitude()), new LatLng(location.getLatitude(), location.getLongitude()));
                 }
             }
-
+           if(coordinates!=null&&coordinates.isEmpty())
+           {
+               if(volonteerStatus.isVisible())
+               {
+                   volonteerStatus.initMe();
+               }
+           }
         }
     }
 
@@ -486,7 +492,7 @@ public class MainActivity extends AppCompatActivity implements
     public void refrsh() {
         playSound(myButtonSound);
         ChooseStatus dict = new ChooseStatus();
-
+        if (preferences.contains("groupExist"))preferences.edit().remove("groupExist").commit();
         editor.clear().commit();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frames, dict); //если

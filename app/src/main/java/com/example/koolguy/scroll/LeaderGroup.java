@@ -341,11 +341,6 @@ public class LeaderGroup extends Fragment implements GroupListener {
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.group_menu,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     private void firstGroupTake(){
         viewHolder = (ViewGroup) v.findViewById(R.id.groupFromStart);
@@ -379,7 +374,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
                 } catch (IOException e) {
                 }
 
-                if (vGroup != null) {
+                if (vGroup != null&&!vGroup.isEmpty()) {
                     String s="";
 
                     activity.runOnUiThread(new Runnable() {

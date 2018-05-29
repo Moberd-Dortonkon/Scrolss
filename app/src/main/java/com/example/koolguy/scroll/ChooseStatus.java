@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 
 /**
@@ -24,8 +25,9 @@ public class ChooseStatus extends Fragment {
 
     }
     View view;
-    ImageButton volonteer,leader;
+    Button volonteer,leader;
     ScrollView scrollView;
+    TextView textView;
 
 
     public ChooseStatus() {
@@ -43,12 +45,14 @@ public class ChooseStatus extends Fragment {
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_choose_status, container, false);
         scrollView=view.findViewById(R.id.scrollView);
-        volonteer=(ImageButton)view.findViewById(R.id.Volonteer);
-        leader=(ImageButton)view.findViewById(R.id.Leader);
+        textView = (TextView)view.findViewById(R.id.chooseStatus);
+        volonteer=(Button)view.findViewById(R.id.Volonteer);
+        leader=(Button) view.findViewById(R.id.Leader);
         volonteer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                click.chooseStatusClick(2);
+                textView.setText("Join To Group");
+                getChildFragmentManager().beginTransaction().replace(R.id.childChooseFragment,new CreateVolonteer()).commit();
             }
         });
         leader.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +60,9 @@ public class ChooseStatus extends Fragment {
             public void onClick(View view) {
                 SharedPreferences preferences = view.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE);
                 preferences.edit().clear().commit();
-                click.chooseStatusClick(1);
+
+                textView.setText("Create Group");
+                getChildFragmentManager().beginTransaction().replace(R.id.childChooseFragment,new LeaderCreateGroup()).commit();
             }
         });
         return view;

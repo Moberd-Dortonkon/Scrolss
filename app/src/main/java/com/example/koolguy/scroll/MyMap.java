@@ -64,7 +64,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MyMap implements OnMapReadyCallback,ExpandableListListener,LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MyMap implements OnMapReadyCallback,LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     GoogleMap googleMap;
     FragmentTransaction ft;
@@ -285,10 +285,5 @@ public class MyMap implements OnMapReadyCallback,ExpandableListListener,Location
 
     }
 
-    @Override
-    public void returnLatlngs(ArrayList<LatLng> latLngs) {
-        dialog.dismiss();
-        doFlags();
-    }
 }
 

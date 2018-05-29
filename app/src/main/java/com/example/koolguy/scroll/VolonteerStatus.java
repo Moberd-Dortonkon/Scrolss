@@ -260,7 +260,71 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
         return v;
 
     }
+    public void initMe()
+    {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+        ServerGetMyInformation doIt = retrofit.create(ServerGetMyInformation.class);
+        String servName = name;
+        String servlName = lName;
+        textView.setText("Лидер не назначил место");
+        Call<ResponseBody> call = doIt.getMyInfromation(servlName, servName);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        fromServer = response.body().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    meVolonteer = gson.fromJson(fromServer, Volonteer.class);
+                    firstEatSet=false;
 
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+        if (meVolonteer != null) {
+            if(!boolEat) {
+                if (meVolonteer.isEat()) {
+                    eaten.setImageResource(R.drawable.ic_thumup);
+                    //boolEat = false;
+                    eaten.setTag(R.drawable.ic_thumup);
+                    eat.setEnabled(true);
+                    //v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("eat",false).commit();
+                }
+                if (!meVolonteer.isEat()) {
+                    eaten.setImageResource(R.drawable.ic_thumdown);
+                    eaten.setTag(R.drawable.ic_thumdown);
+                    // boolEat = true;
+                    eat.setEnabled(true);
+                    //v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("eat",true).commit();
+                }
+            }
+            if(boolEat)
+            {
+                if (meVolonteer.isEat()&&!rightCheck) {
+                    eaten.setImageResource(R.drawable.ic_thumup);
+                    eaten.setTag(R.drawable.ic_thumup);
+                    //boolEat = false;
+                    eat.setEnabled(true);
+                    //v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("eat",false).commit();
+                }
+                if (!meVolonteer.isEat()&&rightCheck) {
+                    eaten.setImageResource(R.drawable.ic_thumdown);
+                    eaten.setTag(R.drawable.ic_thumdown);
+                    // boolEat = true;
+                    eat.setEnabled(true);
+                    //v.getContext().getSharedPreferences(EAT_PREFERENCES,Context.MODE_PRIVATE).edit().putBoolean("eat",true).commit();
+                }
+            }
+        }
+
+    }
     public void initMe(float distance, LatLng latLng, LatLng user) {
             Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             ServerGetMyInformation doIt = retrofit.create(ServerGetMyInformation.class);

@@ -1,17 +1,21 @@
 package com.example.koolguy.scroll.Tools;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.koolguy.scroll.R;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,50 +29,99 @@ public class ExpandableAdpter extends BaseExpandableListAdapter {
     Context context;
     Activity activity;
     ExpandableListListener listListener;
+    String[] main_dict;
      List<String>listData;
-    HashMap<String,List<String>>map;
+    String[] dictionary;
+    HashMap<String,HashMap<String,List<String>>>map;
     public ExpandableAdpter(Context context,ExpandableListListener listListener) {
         this.context = context;
+
+
+
         this.listListener = listListener;
         Resources res = context.getResources();
         map = new HashMap<>();
-            listData=Arrays.asList(res.getStringArray(R.array.Places));
-            /*ArrayList<String>list2=new ArrayList<>();
-        list2.add("poka");
-        list2.add("sorry no poka");
-        listData=new ArrayList<String>();
-        listData.add("Test");
-        listData.add("Test2");
-        map.put("Test",list);
-        map.put("Test2",list2);*/
-        for (String s:listData)
-        {
-            int resId=res.getIdentifier(s,"array",context.getPackageName());
-            List<String>strings= Arrays.asList(res.getStringArray(resId));
-            map.put(s,strings);
+         main_dict =res.getStringArray(R.array.dictionary_main);
+        dictionary = res.getStringArray(R.array.dictionary);
+        HashMap<String,List<String>> dictionarMap=new HashMap<>();
+
+        for(int i = 0;i<dictionary.length;i++)
+        {/*
+             if(i<10)
+             {
+                 int phrase_id = res.getIdentifier("dictionary_"+Integer.toString(i),"array",context.getPackageName());
+                 dictionarMap.put(dictionary[i], Arrays.asList(res.getStringArray(phrase_id)));
+                 if(i==9){
+                 map.put(main_dict[0],dictionarMap);
+                 dictionarMap.clear();
+                 }
+             }
+             if(i>9&&i<21)
+             {
+                 int phrase_id = res.getIdentifier("dictionary_"+Integer.toString(i),"array",context.getPackageName());
+                 dictionarMap.put(dictionary[i], Arrays.asList(res.getStringArray(phrase_id)));
+                 if(i==20){
+                 map.put(main_dict[1],dictionarMap);
+                 dictionarMap.clear();
+                 }
+             }
+             if(i>20&&i<40)
+             {  int phrase_id = res.getIdentifier("dictionary_"+Integer.toString(i),"array",context.getPackageName());
+                 dictionarMap.put(dictionary[i], Arrays.asList(res.getStringArray(phrase_id)));
+                 if(i==39){
+                 map.put(main_dict[2],dictionarMap);
+                 dictionarMap.clear();
+                 }}
+             if(i>39&&i<56)
+             {  int phrase_id = res.getIdentifier("dictionary_"+Integer.toString(i),"array",context.getPackageName());
+                 dictionarMap.put(dictionary[i], Arrays.asList(res.getStringArray(phrase_id)));
+                 if (i == 5) {
+
+
+                 map.put(main_dict[3],dictionarMap);
+                 dictionarMap.clear();
+                 }}
+             if(i>55&&i<88)
+             {  int phrase_id = res.getIdentifier("dictionary_"+Integer.toString(i),"array",context.getPackageName());
+                 dictionarMap.put(dictionary[i], Arrays.asList(res.getStringArray(phrase_id)));
+                 if(i==87){
+                 map.put(main_dict[4],dictionarMap);
+                 dictionarMap.clear();
+                 }}*/
+            int phrase_id = res.getIdentifier("dictionary_"+Integer.toString(i),"array",context.getPackageName());
+            dictionarMap.put(dictionary[i], Arrays.asList(res.getStringArray(phrase_id)));
 
         }
+
+
 
     }
 
     @Override
     public int getGroupCount() {
-        return map.keySet().size();
+        return main_dict.length;
     }
 
     @Override
     public int getChildrenCount(int i) {
-        return map.get(listData.get(i)).size();
+        if(i==0){return 10;}
+        if(i==1){return 21;}
+        if(i==2)return 19;
+        if(i==3)return  16;
+        else return 32;
+
     }
 
     @Override
     public Object getGroup(int i) {
-        return listData.get(i);
+        return main_dict[i];
     }
 
     @Override
     public Object getChild(int i, int i1) {
-        return map.get(listData.get(i)).get(i1);
+        String[]keys= (String[])map.get(main_dict[i]).keySet().toArray();
+
+        return keys[i1];
     }
 
     @Override
@@ -89,14 +142,14 @@ public class ExpandableAdpter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
         TextView textView = new TextView(context);
-        textView.setText(listData.get(i));
+        textView.setText(main_dict[i]);
         textView.setTextSize(25);
         return textView;
     }
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        final TextView textView = new TextView(context);
+       /* final TextView textView = new TextView(context);
         textView.setText(map.get(listData.get(i)).get(i1));
         textView.setTextSize(20);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -117,8 +170,21 @@ public class ExpandableAdpter extends BaseExpandableListAdapter {
                 }
                 listListener.returnLatlngs(latLngs);}catch (Exception e){}
             }
-        });
-        return textView;
+        });*/
+       final int test =i;
+       final TextView textViev=new TextView(context);
+       String[]keys= (String[])map.get(main_dict[i]).keySet().toArray();
+       textViev.setText(keys[i1]);
+       textViev.setTextSize(20);
+       textViev.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               List<String> testList =map.get(main_dict[test]).get(textViev.getText().toString());
+               String[] toListener=testList.toArray(new String [testList.size()]);
+               listListener.returnPhrase(toListener);
+           }
+       });
+       return textViev;
     }
 
     @Override

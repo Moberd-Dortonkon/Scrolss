@@ -5,5 +5,5 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
 public interface ExpandableListListener {
-    void returnLatlngs(ArrayList<LatLng> latLngs);
+    void returnPhrase(String[]phrase);
 }
