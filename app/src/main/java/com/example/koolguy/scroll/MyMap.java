@@ -84,7 +84,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener, GoogleApiClie
     boolean firstEnable;
     ArrayList<LatLng> list;
 
-    public MyMap(Activity activity, Context context,int layout_id) {
+    public MyMap(Activity activity, Context context) {
         this.activity = activity;
         this.context = context;
         this.layout_id = layout_id;
@@ -100,7 +100,7 @@ public class MyMap implements OnMapReadyCallback,LocationListener, GoogleApiClie
             firstEnable=true;
             testlng = new LatLng(47.236274, 39.713726);
             ft = activity.getFragmentManager().beginTransaction();
-            ft.replace(layout_id, gmap); //Единственное что не могу автоматизировать так это framelayout,его надо вручную ставить(((
+            ft.replace(R.id.frames, gmap); //Единственное что не могу автоматизировать так это framelayout,его надо вручную ставить(((
             ft.addToBackStack(null);
             ft.commit();
 

@@ -66,7 +66,7 @@ HandBookFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_hand_book, container, false);
         Resources resources = view.getResources();
 
-        map = new MyMap(activity,view.getContext(),resources.getIdentifier("frames","id",view.getContext().getPackageName()));
+       // map = new MyMap(activity,view.getContext(),resources.getIdentifier("frames","id",view.getContext().getPackageName()));
         ScrollView sv = (ScrollView) view.findViewById(R.id.handbook);
         ImageButton schBtn=(ImageButton)view.findViewById(R.id.schdBtn);
         schBtn.setOnClickListener((new View.OnClickListener() {
