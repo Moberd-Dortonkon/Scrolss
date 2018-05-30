@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -172,6 +173,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
                 startActivity(Intent.createChooser(myIntent, "Share with"));
             }
         });
+
         return v;
     }
 

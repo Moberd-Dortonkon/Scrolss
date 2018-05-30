@@ -40,5 +40,7 @@
     <string name="all">ВСЁ</string>
     <string name="my_schd">МОЁ РАСПИСАНИЕ</string>
     <string name="map_short">КАРТА</string>
+    <string name="extra">"Экстренные службы "</string>
+    <string name="trans">Перевод</string>
 
 </resources>

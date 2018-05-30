@@ -11,9 +11,11 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,7 +26,7 @@ import java.io.IOException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExtraNumbersFragment extends ListFragment {
+public class ExtraNumbersFragment extends Fragment {
 
 View view;
 
@@ -32,6 +34,7 @@ View view;
     private AssetManager myAssetManager;
     private int myButtonSound;
     private int myStreamID;
+    ListView listView;
 
     public ExtraNumbersFragment() {
         // Required empty public constructor
@@ -47,21 +50,34 @@ View view;
         myButtonSound=createSound("button_16.mp3");
         Resources res=getResources();
         String[] ExtraNumbers = res.getStringArray(R.array.ExtraNumbers);
+        listView =(ListView) view.findViewById(R.id.list);
         ArrayAdapter<String> BookAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,ExtraNumbers);
-        setListAdapter(BookAdapter);
-        return super.onCreateView(inflater, container, savedInstanceState);
+        listView.setAdapter(BookAdapter);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbarId);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playSound(myButtonSound);
+                getActivity().onBackPressed();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                playSound(myButtonSound);
+                Resources res = getResources();
+                String[] ExtraNumbers = res.getStringArray(R.array.ExtraNumbers);
+                String s = ExtraNumbers[i];
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + s));
+                startActivity(intent);
+            }
+        });
+        return view;
     }
 
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-            playSound(myButtonSound);
-            Resources res = getResources();
-            String[] ExtraNumbers = res.getStringArray(R.array.ExtraNumbers);
-            String s = ExtraNumbers[position];
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + s));
-            startActivity(intent);
-        }
 
     private void createSoundPool() {
         AudioAttributes attributes = new AudioAttributes.Builder()

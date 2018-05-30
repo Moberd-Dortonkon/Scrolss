@@ -6,7 +6,11 @@ import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.app.ListFragment;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +24,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -31,11 +37,16 @@ import java.util.TreeSet;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DictionaryFragment extends ListFragment { //Есть встроенные лист фрагмент.Я добавил метод нажатия
+public class DictionaryFragment extends Fragment {
     View view;
     TreeMap<String,String[]> dictionar;
     String[] phrases;
     private DictionaryFragment.DictionaryListener list;
+    ListView listView;
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
 
     public static interface DictionaryListener{
         void DictionaryClick(String[]phrase);
@@ -53,6 +64,9 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
 
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_dictionary, container, false);
+        createSoundPool();
+        myAssetManager = view.getContext().getAssets();
+        myButtonSound=createSound("button_16.mp3");
         Resources res=getResources();
         dictionar = new TreeMap<String,String[]>();
         int id=1;
@@ -62,8 +76,9 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
             int phrase_id = res.getIdentifier("dictionary_"+Integer.toString(i),"array",view.getContext().getPackageName());
             dictionar.put(phrases[i],res.getStringArray(phrase_id));
         }
+        listView=(ListView)view.findViewById(R.id.list);
         ArrayAdapter<String> dictAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, phrases);
-        setListAdapter(dictAdapter);
+        listView.setAdapter(dictAdapter);
 //        Arrays.sort(phrases);
 //        List<String> list = Arrays.asList(phrases);
 //        Set<String> set = new TreeSet<String>(list);
@@ -79,20 +94,49 @@ public class DictionaryFragment extends ListFragment { //Есть встроен
 //                setListAdapter(dictAdapter);
 //            }
 //        }));
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                try {
+                    list.DictionaryClick(dictionar.get(phrases[i]));
+                }catch (Exception e){}
+
+            }
+        });
+        return view;
     }
 
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
         try {
-            list.DictionaryClick(dictionar.get(phrases[position]));
-        }catch (Exception e){}
-
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(view.getContext(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
     }
 
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
+    }
 
 
 }

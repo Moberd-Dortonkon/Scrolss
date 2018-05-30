@@ -12,9 +12,11 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,9 +27,10 @@ import java.io.IOException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstHelpFragment extends ListFragment {
+public class FirstHelpFragment extends Fragment {
     View view;
     String[] FirstHelp;
+    ListView listView;
     private SoundPool mySoundPool;
     private AssetManager myAssetManager;
     private int myButtonSound;
@@ -49,29 +52,43 @@ public class FirstHelpFragment extends ListFragment {
 
         Resources res=getResources();
         String[] FirstHelp = res.getStringArray(R.array.FirstHelp);
+
+        listView =(ListView) view.findViewById(R.id.list);
         ArrayAdapter<String> BookAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,FirstHelp);
-        setListAdapter(BookAdapter);
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-    @Override
+        listView.setAdapter(BookAdapter);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbarId);
 
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        if (position==0){
-            playSound(myButtonSound);
-            extraNumbersClick();
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playSound(myButtonSound);
+                getActivity().onBackPressed();
+            }
+        });
 
-        }
-        else {
-            playSound(myButtonSound);
-            Resources res = getResources();
-            String[] FirstHelp = res.getStringArray(R.array.FirstHelp);
-            String s = FirstHelp[position];
-            Uri address = Uri.parse("https://www.google.ru/search?q=первая+помощь+при+" + s);
-            Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
-            startActivity(openlinkIntent);
-        }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i==0){
+                    playSound(myButtonSound);
+                    extraNumbersClick();
+
+                }
+                else {
+                    playSound(myButtonSound);
+                    Resources res = getResources();
+                    String[] FirstHelp = res.getStringArray(R.array.FirstHelp);
+                    String s = FirstHelp[i];
+                    Uri address = Uri.parse("https://www.google.ru/search?q=первая+помощь+при+" + s);
+                    Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
+                    startActivity(openlinkIntent);
+                }
+            }
+        });
+
+        return view;
     }
+
     public void extraNumbersClick(){
         ExtraNumbersFragment mapFragment = new ExtraNumbersFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();

@@ -55,6 +55,9 @@ public class HandBook2 extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_hand_book2, container, false);
+        createSoundPool();
+        myAssetManager = view.getContext().getAssets();
+        myButtonSound=createSound("button_16.mp3");
         Resources resources = view.getResources();
         map = new MyMap(getActivity(),view.getContext());
         ScrollView sv = (ScrollView) view.findViewById(R.id.handbook);
@@ -63,6 +66,8 @@ public class HandBook2 extends Fragment {
         listView = (ListView)view.findViewById(R.id.lv);
         ArrayAdapter<String> BookAdapter=new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,FirstHelp);
         listView.setAdapter(BookAdapter);
+
+
         Button schBtn=(Button)view.findViewById(R.id.schdBtn);
         schBtn.setOnClickListener((new View.OnClickListener() {
             @Override

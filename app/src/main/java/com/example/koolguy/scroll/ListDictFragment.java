@@ -10,9 +10,11 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.speech.tts.TextToSpeech;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,7 +26,7 @@ import java.util.Locale;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListDictFragment extends ListFragment {
+public class ListDictFragment extends Fragment {
 
 
     public ListDictFragment() {
@@ -33,6 +35,7 @@ public class ListDictFragment extends ListFragment {
     String[]phrase;
     View view;
     private TextToSpeech TTS;
+    ListView listView;
 
 
     private SoundPool mySoundPool;
@@ -45,69 +48,78 @@ public class ListDictFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_list_dict, container, false);
+        listView=(ListView)view.findViewById(R.id.list);
         ArrayAdapter<String>adapter=new ArrayAdapter<>(inflater.getContext(),android.R.layout.simple_list_item_1,phrase);
-        setListAdapter(adapter);
-
+        listView.setAdapter(adapter);
         createSoundPool();
         myAssetManager = getActivity().getAssets();
         myButtonSound=createSound("button_16.mp3");
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbarId);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playSound(myButtonSound);
+                getActivity().onBackPressed();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                playSound(myButtonSound);
+                if (i==0){
+                    String speak=phrase[0];
+                    textToSpeechRus(speak);
+                }
+
+
+                if(i==1){
+                    String needToSpeak=phrase[1];
+                    String[] makeSpeak=needToSpeak.split(":");
+                    String speak=makeSpeak[1];
+                    textToSpeechEng(speak);
+                }
+
+                if(i==2){
+                    String needToSpeak=phrase[2];
+                    String[] makeSpeak=needToSpeak.split(":");
+                    String speak=makeSpeak[1];
+                    textToSpeechGer(speak);
+                }
+
+                if(i==3){
+                    String needToSpeak=phrase[3];
+                    String[] makeSpeak=needToSpeak.split(":");
+                    String speak=makeSpeak[1];
+                    textToSpeechIsln(speak);
+                }
+                if(i==4){
+                    String needToSpeak=phrase[4];
+                    String[] makeSpeak=needToSpeak.split(":");
+                    String speak=makeSpeak[1];
+                    textToSpeechCroat(speak);
+                }
+                if(i==5){
+                    String needToSpeak=phrase[5];
+                    String[] makeSpeak=needToSpeak.split(":");
+                    String speak=makeSpeak[1];
+                    textToSpeechSpain(speak);
+                }
+                if (i==6){
+                    String needToSpeak=phrase[6];
+                    String[] makeSpeak=needToSpeak.split(":");
+                    String speak=makeSpeak[1];
+                    textToSpeechPortug(speak);
+                }
+            }
+        });
+
+        return view;
     }
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        playSound(myButtonSound);
-        if (position==0){
-            String speak=phrase[0];
-            textToSpeechRus(speak);
-        }
 
-
-        if(position==1){
-            String needToSpeak=phrase[1];
-            String[] makeSpeak=needToSpeak.split(":");
-            String speak=makeSpeak[1];
-            textToSpeechEng(speak);
-        }
-
-        if(position==2){
-            String needToSpeak=phrase[2];
-            String[] makeSpeak=needToSpeak.split(":");
-            String speak=makeSpeak[1];
-            textToSpeechGer(speak);
-        }
-
-        if(position==3){
-            String needToSpeak=phrase[3];
-            String[] makeSpeak=needToSpeak.split(":");
-            String speak=makeSpeak[1];
-            textToSpeechIsln(speak);
-        }
-        if(position==4){
-            String needToSpeak=phrase[4];
-            String[] makeSpeak=needToSpeak.split(":");
-            String speak=makeSpeak[1];
-            textToSpeechCroat(speak);
-        }
-        if(position==5){
-            String needToSpeak=phrase[5];
-            String[] makeSpeak=needToSpeak.split(":");
-            String speak=makeSpeak[1];
-            textToSpeechSpain(speak);
-        }
-        if (position==6){
-            String needToSpeak=phrase[6];
-            String[] makeSpeak=needToSpeak.split(":");
-            String speak=makeSpeak[1];
-            textToSpeechPortug(speak);
-        }
-
-
-
-
-    }
 
     public void textToSpeechEng(final String text){
         TTS = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {

@@ -45,6 +45,8 @@
     <string name="all">ALL</string>
     <string name="my_schd">My Schedule</string>
     <string name="map_short">Map</string>
+    <string name="extra">Extra Numbers</string>
+    <string name="trans">Translate</string>
 
 
 </resources>

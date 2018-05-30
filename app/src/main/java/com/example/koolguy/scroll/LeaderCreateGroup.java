@@ -9,6 +9,7 @@ import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,7 @@ public class LeaderCreateGroup extends Fragment {
         test = (TextView) v.findViewById(R.id.test);
         createGroup = (Button) v.findViewById(R.id.createGroup);
         createGroup.setEnabled(true);
+
 
         return v;
     }
