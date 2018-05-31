@@ -109,6 +109,7 @@ public class HandBook2 extends Fragment {
             @Override
             public void onClick(View view) {
                 playSound(myButtonSound);
+                getFragmentManager().beginTransaction().replace(R.id.frames,new CalendarFragment()).addToBackStack(null).commit();
             }
         });
 

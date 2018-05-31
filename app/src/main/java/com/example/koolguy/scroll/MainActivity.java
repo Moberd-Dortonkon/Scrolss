@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
     SharedPreferences preferences;
+    public static final String CALENDAR_PREFERENCES="calendar_preferences";
     public static final String SERVER = "https://vast-oasis-60477.herokuapp.com";
     CameraPosition saveCamera;
     private FusedLocationProviderApi mFusedLocation;
