@@ -42,5 +42,6 @@
     <string name="map_short">КАРТА</string>
     <string name="extra">"Экстренные службы "</string>
     <string name="trans">Перевод</string>
+    <string name="settings">О Приложении</string>
 
 </resources>

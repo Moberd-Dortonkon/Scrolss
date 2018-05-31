@@ -47,6 +47,7 @@
     <string name="map_short">Map</string>
     <string name="extra">Extra Numbers</string>
     <string name="trans">Translate</string>
+    <string name="settings">About</string>
 
 
 </resources>

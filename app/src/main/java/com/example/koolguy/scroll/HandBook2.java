@@ -134,6 +134,15 @@ public class HandBook2 extends Fragment {
             }
         });
 
+        ImageButton settings=(ImageButton) view.findViewById(R.id.settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingsClick();
+
+            }
+        });
+
 
         return view;
     }
@@ -176,6 +185,16 @@ public class HandBook2 extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    public void SettingsClick(){
+        SettingsFragment mapFragment = new SettingsFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frames, mapFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
 
 }
 
