@@ -37,6 +37,7 @@ import com.example.koolguy.scroll.ServerRequest.CreateGroup;
 import com.example.koolguy.scroll.Tools.Json.JsonData;
 import com.example.koolguy.scroll.Tools.Json.Place;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
+import com.example.koolguy.scroll.groups.GreetingsGroupFragment;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetMyInformation;
 import com.example.koolguy.scroll.serverInterfaces.ServerSetCoordinates;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements
     MyMap map;
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
+    public static final String GROUP_PREFERENCES ="groupprefferences";
     SharedPreferences preferences;
     public static final String CALENDAR_PREFERENCES="calendar_preferences";
     public static final String SERVER = "https://vast-oasis-60477.herokuapp.com";
@@ -191,6 +193,9 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    private void test(){
+        getFragmentManager().beginTransaction().replace(R.id.frames,new GreetingsGroupFragment()).addToBackStack(null).commit();
+    }
 
     private void initMenu() {
 
@@ -206,7 +211,9 @@ public class MainActivity extends AppCompatActivity implements
                     // case R.id.map:
                     //  map.makeMap(new ArrayList<LatLng>());break;
                     case R.id.account:
-                        anotherFragment(); // для сервера
+                        //anotherFragment(); // для сервера
+
+                        test();
                         break;
                     case R.id.dictionary:
                         dictionaryFragment(); //Создать метод который вызывыет словарь
