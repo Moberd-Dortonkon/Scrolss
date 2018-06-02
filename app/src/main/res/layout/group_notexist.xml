@@ -5,6 +5,8 @@
     android:layout_height="200dp">
 
     <TextView
+        android:background="@drawable/rect_back"
+        android:textColor="#000000"
         android:id="@+id/group_not_exist_name"
         android:layout_width="302dp"
         android:layout_height="49dp"
@@ -13,6 +15,8 @@
         android:text="TextView" />
 
     <TextView
+        android:background="@drawable/rect_back"
+        android:textColor="#000000"
         android:id="@+id/group_not_exist_desc"
         android:layout_width="match_parent"
         android:layout_height="98dp"
@@ -22,6 +26,8 @@
         android:text="TextView" />
 
     <TextView
+        android:background="@drawable/rect_back"
+        android:textColor="#000000"
         android:id="@+id/group_not_exist_type"
         android:layout_width="190dp"
         android:layout_height="53dp"
