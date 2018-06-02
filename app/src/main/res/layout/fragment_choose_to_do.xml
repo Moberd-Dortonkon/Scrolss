@@ -13,4 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Мои Группы" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/choose_to_jointogroup"
+        android:text="Присоединиться"
+        />
 </LinearLayout>
