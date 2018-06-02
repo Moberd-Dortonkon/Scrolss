@@ -7,13 +7,14 @@ android:layout_height="match_parent"
 tools:context=".groups.LeaderGroupFragmentShow">
 
 <!-- TODO: Update blank fragment layout -->
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.5"
-    android:gravity="center"
-    android:textSize="35dp"
-    android:text="Show other group  ->" />
+    <TextView
+        android:id="@+id/leader_group_fragemnt_show_sho_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:text="Show other group  ->"
+        android:textSize="35dp" />
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/leader_group_fragment_show_framelayout"

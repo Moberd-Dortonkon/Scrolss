@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 public class MyGroups extends Fragment {
-
+    LinearLayout linearLayout;
     View view;
     View mini_view;
     List<Group>groups;
@@ -43,7 +45,7 @@ public class MyGroups extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_my_groups, container, false);
-
+        linearLayout=view.findViewById(R.id.my_group_layout);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.TEST_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -55,7 +57,7 @@ public class MyGroups extends Fragment {
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
                 groups= response.body();
                 makeGroups(groups);
-                Toast.makeText(getActivity(),groups.get(2).getGroupid(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),groups.get(2).getGroupid(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -69,24 +71,31 @@ public class MyGroups extends Fragment {
     }
     private void makeGroups(final List<Group>groups)
     {
+        LayoutInflater inflate=LayoutInflater.from(view.getContext());
+        LinearLayout linearLayout =(LinearLayout)view.findViewById(R.id.my_group_layout);
         if(groups.isEmpty())
         {
-            for(int i=1;i<5;i++)
-            {
-                FrameLayout frameLayout=view.findViewById(view.getContext().getResources().getIdentifier("my_groups_layout"+i,"id",view.getContext().getPackageName()));
-                frameLayout.removeAllViews();
-            }
+            View view = inflate.inflate(R.layout.group_creategroup,null);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getFragmentManager().beginTransaction().disallowAddToBackStack().replace(R.id.frames,new GroupCreator()).commit();
+                }
+            });
+            linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         }
 
+        //Для материал дезигна,надо делати крутой дезигн group_notexist ии в group_creategroup,я всего лишь даю значения объектам внтри них
 
         else
             {
-                LayoutInflater inflate=LayoutInflater.from(view.getContext());
+               // LayoutInflater inflate=LayoutInflater.from(view.getContext());
+              //  LinearLayout linearLayout =(LinearLayout)view.findViewById(R.id.my_group_layout);
                 int i=1;
                 for(Group g:groups)
                 {
 
-                    FrameLayout frameLayout=view.findViewById(view.getContext().getResources().getIdentifier("my_groups_layout"+i,"id",view.getContext().getPackageName()));
+                   /* FrameLayout frameLayout=view.findViewById(view.getContext().getResources().getIdentifier("my_groups_layout"+i,"id",view.getContext().getPackageName()));
                     frameLayout.removeAllViews();
                     mini_view=inflate.inflate(R.layout.group_exist,null);
                     TextView name =(TextView)mini_view.findViewById(R.id.groupExist_name);
@@ -107,9 +116,37 @@ public class MyGroups extends Fragment {
                             Toast.makeText(getActivity(),""+group.getGroupid(),Toast.LENGTH_SHORT).show();
                         }
                     });
-                    frameLayout.addView(mini_view);
+                    frameLayout.addView(mini_view);*/
+                    View view = inflate.inflate(R.layout.group_notexist,null);
+                    TextView name =(TextView)view.findViewById(R.id.group_not_exist_name);
+                    TextView description=(TextView)view.findViewById(R.id.group_not_exist_desc);
+                    TextView type =(TextView)view.findViewById(R.id.group_not_exist_type);
+                    name.setText(g.getGroupName());
+                    description.setText(g.getGroupdescription());
+                    type.setText(g.getGroupType());
+                    view.setTag(i);
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int tag =(int)v.getTag();
+                            Group group=groups.get(tag-1);
+                            LeaderGroupFragmentShow leaderG=new LeaderGroupFragmentShow();
+                            leaderG.setGroupid(group.getGroupid());
+                            getFragmentManager().beginTransaction().replace(R.id.frames,leaderG).addToBackStack(null).commit();
+                            Toast.makeText(getActivity(),""+group.getGroupid(),Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    linearLayout.addView(view);
                     i++;
                 }
+                View view = inflate.inflate(R.layout.group_creategroup,null);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getFragmentManager().beginTransaction().disallowAddToBackStack().replace(R.id.frames,new GroupCreator()).commit();
+                    }
+                });
+                linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             }
 
