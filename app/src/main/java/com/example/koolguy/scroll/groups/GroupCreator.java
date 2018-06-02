@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.koolguy.scroll.MainActivity;
 import com.example.koolguy.scroll.R;
+import com.example.koolguy.scroll.groups.ServerInterfaces.CreateGroup;
 
 import java.io.IOException;
 
@@ -30,17 +31,7 @@ import retrofit2.http.Query;
  */
 public class GroupCreator extends Fragment {
 
-       public interface createLeader
-       {
-       @GET("/create/leader")
-           Call<ResponseBody>createLeader();
-       }
 
-       private interface  createGroup
-       {
-          @GET("/create/group")
-          Call<ResponseBody> createGroup(@Query("leaderid")String leaderid,@Query("grouptype")String groupType,@Query("leadername")String leadername,@Query("groupname")String groupname);
-       }
 
 
 
@@ -48,6 +39,7 @@ public class GroupCreator extends Fragment {
         // Required empty public constructor
     }
     View view;
+       String responsem;
     EditText name,description;
     Button button;
     String leadernid;
@@ -62,37 +54,33 @@ public class GroupCreator extends Fragment {
          button.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Retrofit retrofit = new Retrofit.Builder()
-                         .baseUrl("https://ancient-forest-80024.herokuapp.com")
-                         .addConverterFactory(GsonConverterFactory.create())
-                         .build();
-                 createLeader createLeader=retrofit.create(GroupCreator.createLeader.class);
-                 Call<ResponseBody> leadercall = createLeader.createLeader();
-                 leadercall.enqueue(new Callback<ResponseBody>() {
-                     @Override
-                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            if(response.isSuccessful())
-                            {
-
-                                try {
-                                    leadernid=response.body().string();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(getActivity(),leadernid,Toast.LENGTH_LONG).show();
-                                view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES, Context.MODE_PRIVATE).edit().putString("leaderid",leadernid).apply();
-
+                 Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER)
+                         .addConverterFactory(GsonConverterFactory.create()).build();
+                 String leaderid=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("leaderid","");
+                 String first_name=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("first_name","");
+                 String second_name=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("second_name","");
+                 String grouptype="testgroup";
+                 CreateGroup createGroup=retrofit.create(CreateGroup.class);
+                 Call<ResponseBody>call=createGroup.createGroup
+                         (leaderid,grouptype,first_name+" "+second_name,name.getText().toString(),description.getText().toString());
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.isSuccessful()) {
+                            try {
+                                responsem=response.body().string();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                     }
-                     @Override
-                     public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        }
+                    }
 
-                     }
-                 });
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-
-
-
+                    }
+                });
+                 Toast.makeText(getActivity(),responsem,Toast.LENGTH_SHORT).show();
              }
          });
 

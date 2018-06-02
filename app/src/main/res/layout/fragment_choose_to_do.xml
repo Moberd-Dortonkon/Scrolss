@@ -12,5 +12,5 @@
         android:id="@+id/chooseTo_createGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CreateGroup" />
+        android:text="Мои Группы" />
 </LinearLayout>

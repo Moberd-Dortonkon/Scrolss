@@ -37,6 +37,7 @@ import com.example.koolguy.scroll.ServerRequest.CreateGroup;
 import com.example.koolguy.scroll.Tools.Json.JsonData;
 import com.example.koolguy.scroll.Tools.Json.Place;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
+import com.example.koolguy.scroll.groups.ChooseToDo;
 import com.example.koolguy.scroll.groups.GreetingsGroupFragment;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetMyInformation;
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences preferences;
     public static final String CALENDAR_PREFERENCES="calendar_preferences";
     public static final String SERVER = "https://vast-oasis-60477.herokuapp.com";
+    public static final  String TEST_SERVER="https://ancient-forest-80024.herokuapp.com";
     CameraPosition saveCamera;
     private FusedLocationProviderApi mFusedLocation;
     GoogleApiClient mGoogleApiClient;
@@ -194,7 +196,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void test(){
+        if(!getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE).contains("leaderid"))
         getFragmentManager().beginTransaction().replace(R.id.frames,new GreetingsGroupFragment()).addToBackStack(null).commit();
+        else getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDo()).addToBackStack(null).commit();
     }
 
     private void initMenu() {

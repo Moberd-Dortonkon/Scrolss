@@ -28,7 +28,7 @@ public class ChooseToDo extends Fragment {
         createGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.frames,new GroupCreator()).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.frames,new MyGroups()).addToBackStack(null).commit();
 
             }
         });

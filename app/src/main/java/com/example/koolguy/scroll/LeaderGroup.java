@@ -296,7 +296,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         @Override
         public void run()
         {
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             ServerSetCoordinates setCoordinates = retrofit.create(ServerSetCoordinates.class);
             if(groupLatLng!=null){
             String latlngForServer=Double.toString(groupLatLng.latitude)+","+Double.toString(groupLatLng.longitude);
@@ -359,12 +359,12 @@ public class LeaderGroup extends Fragment implements GroupListener {
         public void run() {
             for (int i =0;i<4;i++) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(MainActivity.SERVER)
+                        .baseUrl(MainActivity.TEST_SERVER)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                ServerDisplayGroup group = retrofit.create(ServerDisplayGroup.class);
-
-                Call<DisplayVolonteers> call = group.getVolonteers(key);
+               // ServerDisplayGroup group = retrofit.create(ServerDisplayGroup.class);
+                com.example.koolguy.scroll.groups.ServerInterfaces.DisplayVolonteers group = retrofit.create(com.example.koolguy.scroll.groups.ServerInterfaces.DisplayVolonteers.class);
+                Call<DisplayVolonteers> call = group.display(key);
                 try {
                     Response<DisplayVolonteers> response = call.execute();
                     DisplayVolonteers d = response.body();

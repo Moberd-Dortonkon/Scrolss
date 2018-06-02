@@ -86,7 +86,8 @@ public class LeaderCreateGroup extends Fragment {
                 playSound(myButtonSound);
                 Toast.makeText(v.getContext(), "Succses", Toast.LENGTH_LONG);
               //  new MyThread().start();
-                Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER)
+                        .addConverterFactory(GsonConverterFactory.create()).build();
                 ServerCreateGroup group = retrofit.create(ServerCreateGroup.class);
                 String lName = leaderName.getText().toString();
                 Call<ResponseBody> call = group.createGroup(lName);
