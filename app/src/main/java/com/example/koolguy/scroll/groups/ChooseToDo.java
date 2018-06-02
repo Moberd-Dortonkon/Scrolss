@@ -20,6 +20,7 @@ public class ChooseToDo extends Fragment {
     }
 
     Button createGroup;
+    Button showGroups;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,7 +33,13 @@ public class ChooseToDo extends Fragment {
 
             }
         });
-
+        showGroups=view.findViewById(R.id.choose_to_jointogroup);
+        showGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.frames,new ShowAllGroups()).addToBackStack(null).commit();
+            }
+        });
 
 
         return view;
