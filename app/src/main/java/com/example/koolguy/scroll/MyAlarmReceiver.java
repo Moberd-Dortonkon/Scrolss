@@ -1,8 +1,10 @@
 package com.example.koolguy.scroll;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 /**
@@ -10,9 +12,14 @@ import android.widget.Toast;
  */
 
 public class MyAlarmReceiver extends BroadcastReceiver {
-    @Override
+    MyNotification myNotification;
+
+
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Alarm worked.", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "EHFF", Toast.LENGTH_SHORT).show();
+        MyNotification.notify(context,"Привет",1);
+
+
 
 
     }

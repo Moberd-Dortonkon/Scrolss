@@ -31,6 +31,8 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait"></activity>
 
+        <receiver android:name=".MyAlarmReceiver" />
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDe5b25iQ6VxOtrzP8JY_JOaS_Le5htU7E" />
