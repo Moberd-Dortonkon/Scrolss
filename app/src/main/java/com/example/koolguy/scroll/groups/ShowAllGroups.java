@@ -1,6 +1,8 @@
 package com.example.koolguy.scroll.groups;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,13 +31,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ShowAllGroups extends Fragment {
 
+    public interface DefineGroup {
+        void defineGroup(String groupid);
 
+    }
     public ShowAllGroups() {
         // Required empty public constructor
     }
     List<Group>groups;
     ListView listView;
     View view;
+    DefineGroup listener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        listener=(DefineGroup)activity;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,8 +73,8 @@ public class ShowAllGroups extends Fragment {
                     {
                         names[i]=groups.get(i).getGroupName();
                     }
-                    ShowGroupForVolonteerAdapter show = new ShowGroupForVolonteerAdapter(view.getContext(),groups,getActivity(),names);
-                    Toast.makeText(getActivity(),groups.get(3).getGroupid(),Toast.LENGTH_SHORT).show();
+                    ShowGroupForVolonteerAdapter show = new ShowGroupForVolonteerAdapter(view.getContext(),groups,getActivity(),names,getFragmentManager(),listener);
+                    //Toast.makeText(getActivity(),groups.get(3).getGroupid(),Toast.LENGTH_SHORT).show();
                     listView.setAdapter(show);
                 }
             }

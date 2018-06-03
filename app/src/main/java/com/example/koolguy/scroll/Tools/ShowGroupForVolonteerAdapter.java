@@ -1,6 +1,7 @@
 package com.example.koolguy.scroll.Tools;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,20 +13,36 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.koolguy.scroll.MainActivity;
 import com.example.koolguy.scroll.R;
 import com.example.koolguy.scroll.VolonteersInfo.Group;
+import com.example.koolguy.scroll.groups.ServerInterfaces.CreateVolonteer;
+import com.example.koolguy.scroll.groups.ShowAllGroups;
+import com.example.koolguy.scroll.groups.ShowOneGroup;
 
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ShowGroupForVolonteerAdapter extends ArrayAdapter<String> {
     Context context;
     Activity activity;
+    FragmentManager fm;
     List<Group>groups;
-    public ShowGroupForVolonteerAdapter(@NonNull Context context, List<Group>groups, Activity activity,String[]strings) {
+    ShowAllGroups.DefineGroup listener;
+    public ShowGroupForVolonteerAdapter(@NonNull Context context, List<Group>groups, Activity activity, String[]strings, FragmentManager fm, ShowAllGroups.DefineGroup defineGroup) {
         super(context, R.layout.adapter_group,strings);
         this.context=context;
         this.groups=groups;
         this.activity=activity;
+        this.fm = fm;
+        listener = defineGroup;
 
     }
 
@@ -44,6 +61,32 @@ public class ShowGroupForVolonteerAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 String s= (String) v.getTag();
+                getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).edit().putString("groupid",s).apply();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+                CreateVolonteer createVolonteer = retrofit.create(CreateVolonteer.class);
+                Call<ResponseBody> call = createVolonteer.createVolonteer(getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("name",""),s);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.isSuccessful()) {
+                            try {
+                                Toast.makeText(activity,response.body().string(),Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+
+
+
+                listener.defineGroup(s);
+                //fm.beginTransaction().replace(R.id.frames,new ShowOneGroup()).addToBackStack(null).commit();
                 Toast.makeText(activity,s,Toast.LENGTH_SHORT).show();
             }
         });

@@ -7,6 +7,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ServerSetCoordinates {
-    @POST("/coordinates/setCoordinates")
-    Call<ResponseBody> setCoordinates(@Query("lName")String lName,@Query("latlng")String latlng);
+    @POST("/coordinates/set")
+    Call<ResponseBody> setCoordinates(@Query("groupid")String lName,@Query("latlng")String latlng);
 }

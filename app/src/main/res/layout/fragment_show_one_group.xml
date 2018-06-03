@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".groups.ShowOneGroup">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/show_onegroup_button"
+                android:layout_marginTop="35dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp" />
+            <ImageView
+                android:id="@+id/show_onegroup_imageview"
+                android:src="@drawable/ic_thumdown"
+                android:layout_width="150dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="50dp"
+                android:layout_height="150dp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/show_onegroup_textview"
+            android:textSize="35dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
+         </LinearLayout>
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/show_onegroup_mapview"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="bottom" />
+</LinearLayout>

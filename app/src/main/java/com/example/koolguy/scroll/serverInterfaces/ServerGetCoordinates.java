@@ -7,7 +7,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ServerGetCoordinates {
-    @POST("/coordinates/getCoordinates")
-    Call<ResponseBody>getCoordinates(@Query("lName")String lName);
+    @POST("/coordinates/get")
+    Call<ResponseBody>getCoordinates(@Query("groupid")String lName);
 
 }

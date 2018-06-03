@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.example.koolguy.scroll.Tools.GroupAdapter;
 import com.example.koolguy.scroll.Tools.GroupListener;
 import com.example.koolguy.scroll.VolonteersInfo.DisplayVolonteers;
+import com.example.koolguy.scroll.VolonteersInfo.Group;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.example.koolguy.scroll.serverInterfaces.ServerDisplayGroup;
 import com.example.koolguy.scroll.serverInterfaces.ServerSetCoordinates;
@@ -85,7 +86,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
     CountDownTimer timer;
     View greetingview;
     View showGroup;
-
+    Group group;
     ViewGroup viewHolder;
 
     private SoundPool mySoundPool;
@@ -98,7 +99,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         super.onAttach(activity);
         ref = (RefreshStatus) activity;
     }
-
+    public void setGroup(Group group){this.group=group;}
     public void setlName(String key) {
         this.key = key;
     }
@@ -217,6 +218,12 @@ public class LeaderGroup extends Fragment implements GroupListener {
                     public void onMapReady(GoogleMap googleMap) {
                         gMap = googleMap;
                         final boolean circle_exist=false;
+                        if(group.getGroupcoordinates()!=null&!group.getGroupcoordinates().isEmpty())
+                        {
+                            LatLng lng = new LatLng(Double.parseDouble(group.getGroupcoordinates().split(",")[0]),Double.parseDouble(group.getGroupcoordinates().split(",")[1]));
+                            gMap.addCircle(new CircleOptions().fillColor(0x42AB2B).radius(450).clickable(true).center(lng));
+                            gMap.addMarker(new MarkerOptions().title("ваша группа сейчас здесь").position(lng).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));
+                        }
                         gMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47.236361,39.715731)));
                         gMap.moveCamera(CameraUpdateFactory.zoomTo(12));
                         if (ActivityCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -251,12 +258,13 @@ public class LeaderGroup extends Fragment implements GroupListener {
                            //String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
                            // try{
                            // sendCoordinates.start();}catch (Exception e){Toast.makeText(getActivity(),"Try again",Toast.LENGTH_LONG).show();}
-                           Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+                           Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
                            ServerSetCoordinates setCoordinates = retrofit.create(ServerSetCoordinates.class);
                            if (groupLatLng != null) {
                                String latlngForServer = Double.toString(groupLatLng.latitude) + "," + Double.toString(groupLatLng.longitude);
                                testString = "";
-                               String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE).getString("groupPassword", "");
+                              // Toast.makeText(getActivity(),""+latlngForServer+key,Toast.LENGTH_LONG).show();
+                               //String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE).getString("groupPassword", "");
                                Call<ResponseBody> call = setCoordinates.setCoordinates(key, latlngForServer);
                                call.enqueue(new Callback<ResponseBody>() {
                                    @Override
@@ -264,12 +272,13 @@ public class LeaderGroup extends Fragment implements GroupListener {
                                        if (response.isSuccessful()) {
                                            try {
                                                testString = response.body().string().toString();
-                                               Toast.makeText(activity,"коорд:"+testString,Toast.LENGTH_LONG).show();
+                                               Toast.makeText(getActivity(),"коорд:"+testString,Toast.LENGTH_LONG).show();
                                            } catch (IOException e) {
                                                e.printStackTrace();
                                            }
                                        } else {
                                            testString = "hi therre";
+                                           Toast.makeText(getActivity(),"коорд:"+testString,Toast.LENGTH_LONG).show();
                                        }
                                    }
 
@@ -301,7 +310,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
             if(groupLatLng!=null){
             String latlngForServer=Double.toString(groupLatLng.latitude)+","+Double.toString(groupLatLng.longitude);
             testString="";
-            String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
+           // String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
             Call<ResponseBody>call = setCoordinates.setCoordinates(key,latlngForServer);
                 try {
                     Response<ResponseBody>response= call.execute();

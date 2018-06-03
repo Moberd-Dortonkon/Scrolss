@@ -57,12 +57,11 @@ public class GreetingsGroupFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(!name.getText().toString().isEmpty()&&!second_name.getText().toString().isEmpty()){
-                resources.edit().putString("first_name",name.getText().toString()).apply();
-                resources.edit().putString("second_name",second_name.getText().toString()).apply();
+                    resources.edit().putString("name",name.getText().toString()+" "+second_name.getText().toString()).apply();
                     Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER)
                             .addConverterFactory(GsonConverterFactory.create()).build();
                     CreateLeader createLeader = retrofit.create(CreateLeader.class);
-                    Call<ResponseBody>call=createLeader.createLeader();
+                    Call<ResponseBody>call=createLeader.createLeader(name.getText().toString()+" "+second_name.getText().toString());
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

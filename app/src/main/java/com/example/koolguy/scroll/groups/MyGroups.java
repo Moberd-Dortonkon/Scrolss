@@ -132,6 +132,7 @@ public class MyGroups extends Fragment {
                             Group group=groups.get(tag-1);
                             LeaderGroupFragmentShow leaderG=new LeaderGroupFragmentShow();
                             leaderG.setGroupid(group.getGroupid());
+                            leaderG.setGroup(group);
                             getFragmentManager().beginTransaction().replace(R.id.frames,leaderG).addToBackStack(null).commit();
                             Toast.makeText(getActivity(),""+group.getGroupid(),Toast.LENGTH_SHORT).show();
                         }

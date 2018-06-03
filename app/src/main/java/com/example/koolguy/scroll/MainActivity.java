@@ -39,6 +39,8 @@ import com.example.koolguy.scroll.Tools.Json.Place;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.example.koolguy.scroll.groups.ChooseToDo;
 import com.example.koolguy.scroll.groups.GreetingsGroupFragment;
+import com.example.koolguy.scroll.groups.ShowAllGroups;
+import com.example.koolguy.scroll.groups.ShowOneGroup;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetMyInformation;
 import com.example.koolguy.scroll.serverInterfaces.ServerSetCoordinates;
@@ -81,10 +83,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements
         Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext
-        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer,RefreshStatus, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener {
+        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer,RefreshStatus, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener,ShowAllGroups.DefineGroup {
     BottomNavigationView menu;
     TextView textView;
     MyMap map;
+    Retrofit retrofit;
+    ShowOneGroup showOneGroup;
+    SharedPreferences group_pref;
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
     public static final String GROUP_PREFERENCES ="groupprefferences";
@@ -119,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements
        // map = new MyMap(this, this);
         Gson gson = new Gson();
         come=false;
+        showOneGroup = new ShowOneGroup();
+       retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER)
+                .addConverterFactory(GsonConverterFactory.create()).build();
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
         Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
         volonteerStatus = new VolonteerStatus();
@@ -139,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements
 
         preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = preferences.edit();
+        group_pref = getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE);
+       // group_pref.edit().clear().apply();
        /* if(preferences.getString("role","").equals("leader"))
         {
             CreateGroup createGroup=new CreateGroup();
@@ -385,12 +395,12 @@ public class MainActivity extends AppCompatActivity implements
         mGoogleApiClient.connect();
     }
     String coordinates;
-    @Override
+  /*  @Override
     public void onLocationChanged(Location location) {
-        if(getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("role","").equals("volonteer")) {
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+       // if(getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("role","").equals("volonteer")) {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
             ServerGetCoordinates setCoordinates = retrofit.create(ServerGetCoordinates.class);
-            Call<ResponseBody> call = setCoordinates.getCoordinates(getSharedPreferences(MainActivity.APP_PREFERENCES, MODE_PRIVATE).getString("groupPassword", ""));
+            Call<ResponseBody> call = setCoordinates.getCoordinates(getSharedPreferences(MainActivity.GROUP_PREFERENCES, MODE_PRIVATE).getString("volonteerGroupid", ""));
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -473,8 +483,17 @@ public class MainActivity extends AppCompatActivity implements
                }
            }
         }
-    }
+    //}*/
 
+
+    public void onLocationChanged(Location location)
+    {
+      //  if(group_pref.getString("groupid","")!=null)
+       // {
+            String groupid=group_pref.getString("groupid","");
+           Toast.makeText(this,groupid,Toast.LENGTH_SHORT).show();
+        //}
+    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -546,5 +565,10 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void defineGroup(String groupid) {
+        getFragmentManager().beginTransaction().replace(R.id.frames,showOneGroup).addToBackStack(null).commit();
     }
 }

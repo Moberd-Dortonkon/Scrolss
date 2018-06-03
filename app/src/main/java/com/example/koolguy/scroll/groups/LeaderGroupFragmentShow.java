@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import com.example.koolguy.scroll.LeaderGroup;
 import com.example.koolguy.scroll.R;
+import com.example.koolguy.scroll.VolonteersInfo.Group;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class LeaderGroupFragmentShow extends Fragment {
    View view;
-
+   Group group;
     public String getGroupid() {
         return groupid;
     }
@@ -24,7 +25,7 @@ public class LeaderGroupFragmentShow extends Fragment {
     public void setGroupid(String groupid) {
         this.groupid = groupid;
     }
-
+    public void setGroup(Group group){this.group=group;}
     String groupid;
     public LeaderGroupFragmentShow() {
         // Required empty public constructor
@@ -43,6 +44,7 @@ public class LeaderGroupFragmentShow extends Fragment {
                 getFragmentManager().beginTransaction().replace(R.id.frames,new MyGroups()).addToBackStack(null).commit();
             }
         });
+        leaderGroup.setGroup(group);
         leaderGroup.setlName(groupid);
         getChildFragmentManager().beginTransaction().replace(R.id.leader_group_fragment_show_framelayout,leaderGroup).disallowAddToBackStack().commit();
         return view;
