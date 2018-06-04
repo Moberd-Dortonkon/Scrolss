@@ -6,6 +6,14 @@
     tools:context=".LeaderCreateGroup"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <android.support.v7.widget.Toolbar
+        app:title="@string/group"
+        android:elevation="8dp"
+        android:background="@color/colorWhite_front"
+        android:id="@+id/toolbarId"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
 
     <EditText
         android:id="@+id/leadername"

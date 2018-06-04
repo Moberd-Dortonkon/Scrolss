@@ -9,13 +9,11 @@
 
     <string-array name="FirstHelp">
         <item>Экстренные службы помощи</item>
-        <item>Перелом</item>
-        <item>Инсульт</item>
-        <item>Ножевое ранение</item>
-        <item>Огнестрельное ранение</item>
-        <item>Побои</item>
-        <item>Судороги</item>
-        <item>Приступ Эпилепсии</item>
+        <item>Вера Гвоздёва:</item>
+        <item>Анастасия Пилипенко:</item>
+        <item>Алёна Ставерова:</item>
+        <item>Анастасия Крицкая:</item>
+        <item>Полина Цвенгер:</item>
     </string-array>
 
     <string-array name="ExtraNumbers">

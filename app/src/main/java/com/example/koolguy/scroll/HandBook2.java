@@ -127,9 +127,9 @@ public class HandBook2 extends Fragment {
                     Resources res = getResources();
                     String[] FirstHelp = res.getStringArray(R.array.FirstHelp);
                     String s = FirstHelp[i];
-                    Uri address = Uri.parse("https://www.google.ru/search?q=первая+помощь+при+" + s);
-                    Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
-                    startActivity(openlinkIntent);
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + s));
+                    startActivity(intent);
                 }
             }
         });

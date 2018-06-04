@@ -77,11 +77,11 @@ public class FirstHelpFragment extends Fragment {
                 else {
                     playSound(myButtonSound);
                     Resources res = getResources();
-                    String[] FirstHelp = res.getStringArray(R.array.FirstHelp);
-                    String s = FirstHelp[i];
-                    Uri address = Uri.parse("https://www.google.ru/search?q=первая+помощь+при+" + s);
-                    Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
-                    startActivity(openlinkIntent);
+                    String[] ExtraNumbers = res.getStringArray(R.array.FirstHelp);
+                    String s = ExtraNumbers[i];
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + s));
+                    startActivity(intent);
                 }
             }
         });
