@@ -39,6 +39,8 @@ import com.example.koolguy.scroll.Tools.Json.JsonData;
 import com.example.koolguy.scroll.Tools.Json.Place;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.example.koolguy.scroll.groups.ChooseToDo;
+import com.example.koolguy.scroll.groups.ChooseToDoLeader;
+import com.example.koolguy.scroll.groups.ChooseToDoVolonteer;
 import com.example.koolguy.scroll.groups.GreetingsGroupFragment;
 import com.example.koolguy.scroll.groups.ServerInterfaces.SetCome;
 import com.example.koolguy.scroll.groups.ShowAllGroups;
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements
         preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = preferences.edit();
         group_pref = getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE);
+        //group_pref.edit().clear().apply();
        // group_pref.edit().clear().apply();
        /* if(preferences.getString("role","").equals("leader"))
         {
@@ -210,9 +213,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void test(){
-        if(!getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE).contains("leaderid"))
-        getFragmentManager().beginTransaction().replace(R.id.frames,new GreetingsGroupFragment()).addToBackStack(null).commit();
-        else getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDo()).addToBackStack(null).commit();
+       // if(!getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE).contains("leaderid"))
+        //getFragmentManager().beginTransaction().replace(R.id.frames,new GreetingsGroupFragment()).addToBackStack(null).commit();
+       // else getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDo()).addToBackStack(null).commit();
+        if(!group_pref.contains("type"))getFragmentManager().beginTransaction().replace(R.id.frames,new GreetingsGroupFragment()).addToBackStack(null).commit();
+        else
+            {
+                if(group_pref.getString("type","").equals("leader"))getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoLeader()).addToBackStack(null).commit();
+                if(group_pref.getString("type","").equals("volonteer"))getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).addToBackStack(null).commit();
+            }
     }
 
     private void initMenu() {

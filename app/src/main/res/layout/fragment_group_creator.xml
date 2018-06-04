@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".groups.GroupCreator">
 
     <!-- TODO: Update blank fragment layout -->
@@ -12,17 +13,12 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/group_creator_create"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="80dp"
         android:hint="@string/name" />
 
     <EditText
         android:id="@+id/group_creator_description"
         android:layout_width="250dp"
         android:layout_height="80dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="219dp"
         android:hint="@string/group" />
 
     <Button
@@ -31,8 +27,6 @@
         android:id="@+id/group_creator_create"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/group_creator_description"
         android:text="@string/crtGroup" />
 
-</RelativeLayout>
+</LinearLayout>

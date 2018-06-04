@@ -18,6 +18,8 @@ import com.example.koolguy.scroll.R;
 import com.example.koolguy.scroll.VolonteersInfo.Group;
 import com.example.koolguy.scroll.groups.ServerInterfaces.ServerDisplayGroupForMe;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -82,7 +84,7 @@ public class MyGroups extends Fragment {
                     getFragmentManager().beginTransaction().disallowAddToBackStack().replace(R.id.frames,new GroupCreator()).commit();
                 }
             });
-            linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            //linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         }
 
         //Для материал дезигна,надо делати крутой дезигн group_notexist ии в group_creategroup,я всего лишь даю значения объектам внтри них
@@ -148,7 +150,7 @@ public class MyGroups extends Fragment {
                         getFragmentManager().beginTransaction().disallowAddToBackStack().replace(R.id.frames,new GroupCreator()).commit();
                     }
                 });
-                linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+               // linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             }
 

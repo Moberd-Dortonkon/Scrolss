@@ -33,7 +33,7 @@ public class ChooseToDoVolonteer extends Fragment {
         show_groups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.choose_to_do_volonteer_framelayout,new MyGroups()).disallowAddToBackStack().commit();
+                getChildFragmentManager().beginTransaction().replace(R.id.choose_to_do_volonteer_framelayout,new ShowAllGroups()).disallowAddToBackStack().commit();
             }
         });
         conntect_directly.setOnClickListener(new View.OnClickListener() {

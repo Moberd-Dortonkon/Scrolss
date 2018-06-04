@@ -33,13 +33,13 @@ public class ChooseToDoLeader extends Fragment {
         showGroups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.leader_group_fragment_show_framelayout,new MyGroups()).disallowAddToBackStack().commit();
+                getChildFragmentManager().beginTransaction().replace(R.id.choose_to_do_leader_framelayout,new MyGroups()).disallowAddToBackStack().commit();
             }
         });
         creategroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.leader_group_fragment_show_framelayout,new GroupCreator()).disallowAddToBackStack().commit();
+                getChildFragmentManager().beginTransaction().replace(R.id.choose_to_do_leader_framelayout,new GroupCreator()).disallowAddToBackStack().commit();
             }
         });
 
