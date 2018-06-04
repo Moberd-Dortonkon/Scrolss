@@ -355,7 +355,6 @@ public class LeaderGroup extends Fragment implements GroupListener {
 
     }
 
-
     private void firstGroupTake(){
         viewHolder = (ViewGroup) v.findViewById(R.id.groupFromStart);
         viewHolder.removeAllViews();
