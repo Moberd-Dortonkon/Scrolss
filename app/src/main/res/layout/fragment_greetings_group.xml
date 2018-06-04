@@ -17,20 +17,21 @@
             android:id="@+id/greetingf_name"
             android:layout_width="250dp"
             android:layout_height="80dp"
-            android:text="Имя" />
+           android:hint="@string/name" />
 
         <EditText
+            android:hint="@string/name_fam"
             android:id="@+id/family"
             android:layout_width="250dp"
-            android:layout_height="80dp"
-            android:text="Фамилия" />
+            android:layout_height="80dp"/>
 
         <Button
+            android:background="@drawable/rect_back"
+            android:textColor="@color/colorBlue_text"
             android:id="@+id/greetings_button"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="30dp"
+            android:layout_height="70dp"
+            android:layout_gravity="start"
             android:text="Accept" />
 
     </LinearLayout>

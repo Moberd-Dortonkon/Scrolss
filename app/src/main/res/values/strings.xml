@@ -39,7 +39,7 @@
     <string name="reset">Reset</string>
     <string name="eat">I ate</string>
     <string name="come">I came</string>
-    <string name="no_one">There is no one on ypur group</string>
+    <string name="no_one">There is no one in your group</string>
     <string name="name_gr">Name:</string>
     <string name="status">Choose status</string>
     <string name="all">ALL</string>
@@ -48,6 +48,10 @@
     <string name="extra">Extra Numbers</string>
     <string name="trans">Translate</string>
     <string name="settings">About</string>
+    <string name="my_groups">My Groups</string>
+    <string name="name_fam">Your 2nd Name</string>
+    <string name="description">Description</string>
+    <string name="show_group">Show other group  -></string>
 
     <string name="my_notification_title_template">My: %1$s</string>
 

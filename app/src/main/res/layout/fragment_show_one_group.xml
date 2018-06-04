@@ -20,6 +20,8 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:background="@drawable/rect_back"
+                android:textColor="@color/colorBlue_text"
                 android:id="@+id/show_onegroup_button"
                 android:layout_marginTop="45dp"
                 android:layout_width="100dp"

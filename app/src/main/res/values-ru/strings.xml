@@ -43,5 +43,11 @@
     <string name="extra">"Экстренные службы "</string>
     <string name="trans">Перевод</string>
     <string name="settings">О Приложении</string>
+    <string name="action_share">Поделиться</string>
+    <string name="action_reply">Отправить</string>
+    <string name="my_groups">Мои Группы</string>
+    <string name="name_fam">Фамилия</string>
+    <string name="description">Описание</string>
+    <string name="show_group">Показать другую группу  -></string>
 
 </resources>

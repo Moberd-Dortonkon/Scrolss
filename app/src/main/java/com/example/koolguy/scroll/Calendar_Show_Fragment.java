@@ -70,12 +70,17 @@ public class Calendar_Show_Fragment extends Fragment {
             calendar.set(Calendar.YEAR, 2018);
             calendar.set(Calendar.MONTH, m);
             calendar.set(Calendar.DAY_OF_MONTH, date);
-            calendar.set(Calendar.HOUR_OF_DAY, 2);
-            calendar.set(Calendar.MINUTE, 18);
+            calendar.set(Calendar.HOUR_OF_DAY, 8);
+            calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             PendingIntent pi = PendingIntent.getBroadcast(getActivity(), 0 , new Intent(getActivity(), MyAlarmReceiver.class),PendingIntent.FLAG_UPDATE_CURRENT);
-            AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),pi);
+            AlarmManager amAm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+            amAm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),pi);
+            int dateYesterday=date-1;
+            calendar.set(Calendar.DAY_OF_MONTH, dateYesterday);
+            calendar.set(Calendar.HOUR_OF_DAY, 20);
+            AlarmManager amPm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+            amPm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),pi);
 
         }
 

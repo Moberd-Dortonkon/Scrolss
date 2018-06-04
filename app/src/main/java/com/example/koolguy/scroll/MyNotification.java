@@ -52,7 +52,7 @@ public class MyNotification {
 
         final String ticker = exampleString;
         final String title = "Volunteer Helper";
-        final String text = "У Вас сегодня рабочая смена";
+        final String text = "У Вас скоро рабочая смена";
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
                 // Set appropriate defaults for the notification light, sound,

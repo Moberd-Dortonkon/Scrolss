@@ -22,7 +22,7 @@ public class MyAlarmReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mNotificationUtils = new NotificationUtils(context);
             Notification.Builder nb = mNotificationUtils.
-                    getAndroidChannelNotification("Volunteer Helper", "У Вас сегодня рабочая смена");
+                    getAndroidChannelNotification("Volunteer Helper", "У Вас скоро рабочая смена");
             mNotificationUtils.getManager().notify(1, nb.build());
 
         }

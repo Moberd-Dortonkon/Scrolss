@@ -8,13 +8,17 @@ tools:context=".groups.LeaderGroupFragmentShow">
 
 <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:layout_margin="5dp"
+        android:background="@drawable/rect_back"
+        android:textColor="#000000"
         android:id="@+id/leader_group_fragemnt_show_sho_other"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
         android:gravity="center"
-        android:text="Show other group  ->"
-        android:textSize="35dp" />
+        android:text="@string/show_group"
+        android:textSize="35sp" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/leader_group_fragment_show_framelayout"
