@@ -175,7 +175,9 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
     public void initmap(float distance,LatLng latLng)
     {
         try{
-        textView.setText("До вашей группы: "+distance+" м.");
+        String show = String.format("%.0f",distance);
+        if(distance<450)textView.setText("Вы на месте");
+        if(distance>450)textView.setText("До вашей группы: "+show+" м.");
         map.addCircle(new CircleOptions().fillColor(0x42AB2B).radius(450).clickable(true).center(latLng));
         map.addMarker(new MarkerOptions().title("ваша группа сейчас здесь").position(latLng).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));}catch (Exception e){}
 

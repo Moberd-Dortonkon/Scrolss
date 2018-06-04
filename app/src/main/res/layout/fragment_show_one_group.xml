@@ -36,12 +36,13 @@
                 android:layout_marginLeft="50dp"
                 android:layout_height="100dp" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/show_onegroup_textview"
-            android:textSize="35dp"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="70dp"/>
+            android:layout_height="105dp"
+            android:gravity="center"
+            android:textSize="35dp" />
          </LinearLayout>
 
     <com.google.android.gms.maps.MapView

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.koolguy.scroll.MainActivity;
 import com.example.koolguy.scroll.R;
+import com.example.koolguy.scroll.VolonteersInfo.Group;
 import com.example.koolguy.scroll.groups.ServerInterfaces.CreateGroup;
 
 import java.io.IOException;
@@ -69,6 +70,12 @@ public class GroupCreator extends Fragment {
                         if(response.isSuccessful()) {
                             try {
                                 responsem=response.body().string();
+                                String myName=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("name","");
+                                Group group = new Group("testGRoup",myName,responsem,name.getText().toString(),description.getText().toString(),"");
+                                LeaderGroupFragmentShow lg=new LeaderGroupFragmentShow();
+                                lg.setGroupid(responsem);
+                                lg.setGroup(group);
+                                getFragmentManager().beginTransaction().replace(R.id.frames,lg).disallowAddToBackStack().commit();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

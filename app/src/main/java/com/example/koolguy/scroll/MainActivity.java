@@ -13,6 +13,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.location.LocationManager;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.support.annotation.NonNull;
@@ -39,6 +40,7 @@ import com.example.koolguy.scroll.Tools.Json.Place;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.example.koolguy.scroll.groups.ChooseToDo;
 import com.example.koolguy.scroll.groups.GreetingsGroupFragment;
+import com.example.koolguy.scroll.groups.ServerInterfaces.SetCome;
 import com.example.koolguy.scroll.groups.ShowAllGroups;
 import com.example.koolguy.scroll.groups.ShowOneGroup;
 import com.example.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
@@ -507,7 +509,6 @@ public class MainActivity extends AppCompatActivity implements
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
                         if(!resp.equals(""))
                         {
                             Location locationl = new Location("test");
@@ -516,7 +517,7 @@ public class MainActivity extends AppCompatActivity implements
                             LatLng lng = new LatLng(Double.parseDouble(resp.split(",")[0]),Double.parseDouble(resp.split(",")[1]));
                             float distance = locationr.distanceTo(locationl);
                             if(showOneGroup.isVisible()) showOneGroup.initmap(distance,lng);
-                            sendCome();
+                            sendCome(distance);
                         }
                         if(resp.equals(""))if(showOneGroup.isVisible())showOneGroup.noGroup();
                         //else{if(showOneGroup.isVisible())showOneGroup.noGroup();}
@@ -531,8 +532,40 @@ public class MainActivity extends AppCompatActivity implements
 
         }
     }
-    private void sendCome()
+    private void sendCome(float distance)
     {
+        String id=group_pref.getString("leaderid","");
+        String groupid=group_pref.getString("groupid","");
+        if(distance>450)
+        {
+            Call<ResponseBody>setCome=retrofit.create(SetCome.class).setCome(id,groupid,"false");
+            setCome.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }
+        if(distance<450)
+        {
+            Call<ResponseBody>setCome=retrofit.create(SetCome.class).setCome(id,groupid,"true");
+            setCome.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                 //Сделать уведомление?
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }
 
     }
     @Override
