@@ -57,12 +57,12 @@ public class GroupCreator extends Fragment {
                  Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER)
                          .addConverterFactory(GsonConverterFactory.create()).build();
                  String leaderid=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("leaderid","");
-                 String first_name=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("first_name","");
-                 String second_name=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("second_name","");
+                 String name_leader=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("name","");
+
                  String grouptype="testgroup";
                  CreateGroup createGroup=retrofit.create(CreateGroup.class);
                  Call<ResponseBody>call=createGroup.createGroup
-                         (leaderid,grouptype,first_name+" "+second_name,name.getText().toString(),description.getText().toString());
+                         (leaderid,grouptype,name_leader,name.getText().toString(),description.getText().toString());
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

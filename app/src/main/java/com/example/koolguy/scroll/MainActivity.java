@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements
     Retrofit retrofit;
     ShowOneGroup showOneGroup;
     SharedPreferences group_pref;
+    Activity activity;
+    String getCoordinates;
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
     public static final String GROUP_PREFERENCES ="groupprefferences";
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         buildGoogleApiClient();
-
+        activity=this;
         menu = (BottomNavigationView) findViewById(R.id.menu);
         textView = (TextView) findViewById(R.id.text);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999);
@@ -485,20 +487,58 @@ public class MainActivity extends AppCompatActivity implements
         }
     //}*/
 
-
+    Location locationr;
     public void onLocationChanged(Location location)
     {
-      //  if(group_pref.getString("groupid","")!=null)
-       // {
+        this.locationr=location;
+        if(group_pref.getString("groupid","")!=null)
+        {
             String groupid=group_pref.getString("groupid","");
-           Toast.makeText(this,groupid,Toast.LENGTH_SHORT).show();
-        //}
-    }
+            Call<ResponseBody>call=retrofit.create(ServerGetCoordinates.class).getCoordinates(groupid);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if(response.isSuccessful())
+                    {
+                        String resp="";
+                        try {
+                           resp=response.body().string();
+                           //Toast.makeText(activity,resp,Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
+                        if(!resp.equals(""))
+                        {
+                            Location locationl = new Location("test");
+                            locationl.setLatitude(Double.parseDouble(resp.split(",")[0]));
+                            locationl.setLongitude(Double.parseDouble(resp.split(",")[1]));
+                            LatLng lng = new LatLng(Double.parseDouble(resp.split(",")[0]),Double.parseDouble(resp.split(",")[1]));
+                            float distance = locationr.distanceTo(locationl);
+                            if(showOneGroup.isVisible()) showOneGroup.initmap(distance,lng);
+                            sendCome();
+                        }
+                        if(resp.equals(""))if(showOneGroup.isVisible())showOneGroup.noGroup();
+                        //else{if(showOneGroup.isVisible())showOneGroup.noGroup();}
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+        }
+    }
+    private void sendCome()
+    {
+
+    }
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(500);
+        mLocationRequest.setInterval(1500);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(this,

@@ -37,6 +37,7 @@ import com.example.koolguy.scroll.Tools.GroupListener;
 import com.example.koolguy.scroll.VolonteersInfo.DisplayVolonteers;
 import com.example.koolguy.scroll.VolonteersInfo.Group;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
+import com.example.koolguy.scroll.groups.ServerInterfaces.GetMyVolonteers;
 import com.example.koolguy.scroll.serverInterfaces.ServerDisplayGroup;
 import com.example.koolguy.scroll.serverInterfaces.ServerSetCoordinates;
 import com.google.android.gms.maps.CameraUpdate;
@@ -53,7 +54,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -218,11 +221,11 @@ public class LeaderGroup extends Fragment implements GroupListener {
                     public void onMapReady(GoogleMap googleMap) {
                         gMap = googleMap;
                         final boolean circle_exist=false;
-                        if(group.getGroupcoordinates()!=null&!group.getGroupcoordinates().isEmpty())
-                        {
+                        if(group.getGroupcoordinates()!=null){
+                          if(!group.getGroupcoordinates().isEmpty()){
                             LatLng lng = new LatLng(Double.parseDouble(group.getGroupcoordinates().split(",")[0]),Double.parseDouble(group.getGroupcoordinates().split(",")[1]));
                             gMap.addCircle(new CircleOptions().fillColor(0x42AB2B).radius(450).clickable(true).center(lng));
-                            gMap.addMarker(new MarkerOptions().title("ваша группа сейчас здесь").position(lng).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));
+                            gMap.addMarker(new MarkerOptions().title("ваша группа сейчас здесь").position(lng).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));}
                         }
                         gMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47.236361,39.715731)));
                         gMap.moveCamera(CameraUpdateFactory.zoomTo(12));
@@ -372,27 +375,29 @@ public class LeaderGroup extends Fragment implements GroupListener {
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                // ServerDisplayGroup group = retrofit.create(ServerDisplayGroup.class);
-                com.example.koolguy.scroll.groups.ServerInterfaces.DisplayVolonteers group = retrofit.create(com.example.koolguy.scroll.groups.ServerInterfaces.DisplayVolonteers.class);
-                Call<DisplayVolonteers> call = group.display(key);
-                try {
-                    Response<DisplayVolonteers> response = call.execute();
-                    DisplayVolonteers d = response.body();
-                    try {
-                        vGroup = d.getVolonteers();
+                Call<List<Volonteer>> call =retrofit.create(GetMyVolonteers.class).getMyVolonteer(group.getGroupid());
+                List<Volonteer>volonteers = new ArrayList<>();
 
-                    } catch (Exception e) {
-                    }
+                try {
+                    Response<List<Volonteer>> response = call.execute();
+                    volonteers=response.body();
                 } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
-                if (vGroup != null&&!vGroup.isEmpty()) {
+                if(volonteers!=null&&!volonteers.isEmpty())
+                {
                     String s="";
-
+                    final HashMap<String,Volonteer>vgroup=new HashMap<>();
+                    for(Volonteer v:volonteers)
+                    {
+                        vgroup.put(v.getName(),v);
+                    }
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if(!preferences.contains("groupExist")){editor.putString("groupExist","yes");editor.commit();firstGroupTake();}
-                            try { groupView.setAdapter(new GroupAdapter(v.getContext(),vGroup));}catch (Exception e){}
+                            try { groupView.setAdapter(new GroupAdapter(v.getContext(),vgroup));}catch (Exception e){}
                         }
                     });}
                 try {

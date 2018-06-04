@@ -64,7 +64,7 @@ public class ShowGroupForVolonteerAdapter extends ArrayAdapter<String> {
                 getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).edit().putString("groupid",s).apply();
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
                 CreateVolonteer createVolonteer = retrofit.create(CreateVolonteer.class);
-                Call<ResponseBody> call = createVolonteer.createVolonteer(getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("name",""),s);
+                Call<ResponseBody> call = createVolonteer.createVolonteer(getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("leaderid",""),s);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

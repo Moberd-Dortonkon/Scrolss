@@ -46,6 +46,7 @@ public class LeaderGroupFragmentShow extends Fragment {
         });
         leaderGroup.setGroup(group);
         leaderGroup.setlName(groupid);
+        leaderGroup.setActivity(getActivity());
         getChildFragmentManager().beginTransaction().replace(R.id.leader_group_fragment_show_framelayout,leaderGroup).disallowAddToBackStack().commit();
         return view;
     }

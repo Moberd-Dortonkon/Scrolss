@@ -21,16 +21,18 @@
 
             <Button
                 android:id="@+id/show_onegroup_button"
-                android:layout_marginTop="35dp"
-                android:layout_width="150dp"
-                android:layout_height="150dp" />
+                android:layout_marginTop="45dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="35dp"
+                />
             <ImageView
                 android:id="@+id/show_onegroup_imageview"
                 android:src="@drawable/ic_thumdown"
-                android:layout_width="150dp"
-                android:layout_marginTop="35dp"
+                android:layout_width="100dp"
+                android:layout_marginTop="45dp"
                 android:layout_marginLeft="50dp"
-                android:layout_height="150dp" />
+                android:layout_height="100dp" />
         </LinearLayout>
         <TextView
             android:id="@+id/show_onegroup_textview"

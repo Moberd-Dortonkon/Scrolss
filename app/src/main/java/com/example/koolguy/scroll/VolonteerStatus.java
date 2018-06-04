@@ -283,6 +283,7 @@ public class VolonteerStatus extends Fragment implements OnMapReadyCallback {
                 }
             }
 
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
