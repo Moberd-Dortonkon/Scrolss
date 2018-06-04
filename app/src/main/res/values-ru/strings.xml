@@ -49,5 +49,6 @@
     <string name="name_fam">Фамилия</string>
     <string name="description">Описание</string>
     <string name="show_group">Показать другую группу  -></string>
+    <string name="soon_work">У Вас скоро рабочая смена</string>
 
 </resources>

@@ -19,17 +19,19 @@ public class MyAlarmReceiver extends BroadcastReceiver {
 
 
     public void onReceive(Context context, Intent intent) {
+        final String title =Integer.toString(R.string.app_name);
+        final String text = Integer.toString(R.string.soon_work);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mNotificationUtils = new NotificationUtils(context);
             Notification.Builder nb = mNotificationUtils.
-                    getAndroidChannelNotification("Volunteer Helper", "У Вас скоро рабочая смена");
+                    getAndroidChannelNotification(title, text);
             mNotificationUtils.getManager().notify(1, nb.build());
 
         }
 
 
 
-        else MyNotification.notify(context,"Привет",1);
+        else MyNotification.notify(context,title,1);
 
 
 
