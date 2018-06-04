@@ -3,30 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".groups.GroupCreator">
+    tools:context=".groups.GroupCreator"
+    android:layout_gravity="center|start">
 
-    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.Toolbar
+        app:title="@string/group"
+        android:elevation="8dp"
+        android:background="@color/colorWhite_front"
+        android:id="@+id/toolbarId"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
 
-    <EditText
-        android:id="@+id/group_creator_name"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/group_creator_create"
-        android:hint="@string/name" />
 
-    <EditText
-        android:id="@+id/group_creator_description"
-        android:layout_width="250dp"
-        android:layout_height="80dp"
-        android:hint="@string/group" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="75dp">
 
-    <Button
+        <EditText
+            android:id="@+id/group_creator_name"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:hint="@string/name" />
+
+
+        <EditText
+            android:id="@+id/group_creator_description"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:hint="@string/group" />
+
+
+        <Button
         android:background="@drawable/rect_back"
         android:textColor="@color/colorBlue_text"
         android:id="@+id/group_creator_create"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:text="@string/crtGroup" />
+
+    </LinearLayout>
 
 </LinearLayout>
