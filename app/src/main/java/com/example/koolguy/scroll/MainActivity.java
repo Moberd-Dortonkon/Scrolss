@@ -252,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
     private void initMenu() {
+        playSound(myButtonSound);
 
         handBookFragment();
         menu.setSelectedItemId(R.id.book);
@@ -678,8 +679,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void defineGroup(String groupid) {
-
-
+        playSound(myButtonSound);
         group_pref.edit().putString("lastgroupid",groupid).apply();
         getFragmentManager().beginTransaction().replace(R.id.frames,showOneGroup).addToBackStack(null).commit();
     }
