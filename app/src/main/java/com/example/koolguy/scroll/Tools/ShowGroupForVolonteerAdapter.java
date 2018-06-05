@@ -53,7 +53,7 @@ public class ShowGroupForVolonteerAdapter extends ArrayAdapter<String> {
         TextView name=(TextView)convertView.findViewById(R.id.adapter_group_name);
         TextView description=(TextView)convertView.findViewById(R.id.adapter_group_description);
         TextView type =(TextView)convertView.findViewById(R.id.adapter_group_type);
-        name.setText(groups.get(groups.size()-1-position).getGroupName());
+        name.setText(groups.get(groups.size()-1-position).getLeaderName());
         description.setText(groups.get(groups.size()-1-position).getGroupdescription());
         type.setText(groups.get(groups.size()-1-position).getGroupdate());
         convertView.setTag(groups.get(groups.size()-1-position).getGroupid());
