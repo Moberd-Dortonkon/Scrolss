@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.koolguy.scroll.R;
@@ -27,7 +28,7 @@ public class ChooseToDoVolonteer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_chooset_to_do__volonteer, container, false);
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         show_groups=(Button)view.findViewById(R.id.choose_to_do_showgroups);
         conntect_directly=(Button)view.findViewById(R.id.chooset_to_do_coonnect_directly);
         show_groups.setOnClickListener(new View.OnClickListener() {

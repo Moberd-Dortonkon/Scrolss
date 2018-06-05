@@ -1,13 +1,17 @@
 package com.example.koolguy.scroll.groups;
 
 
+import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,10 +20,12 @@ import android.widget.Toast;
 import com.example.koolguy.scroll.MainActivity;
 import com.example.koolguy.scroll.R;
 import com.example.koolguy.scroll.VolonteersInfo.Group;
+import com.example.koolguy.scroll.groups.ServerInterfaces.DeleteGRoup;
 import com.example.koolguy.scroll.groups.ServerInterfaces.ServerDisplayGroupForMe;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -34,9 +40,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class MyGroups extends Fragment {
     LinearLayout linearLayout;
-    View view;
+    View viewTrue;
     View mini_view;
     List<Group>groups;
+    Retrofit retrofit;
+    public void setFragmentManager(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+    }
+
+    FragmentManager fragmentManager;
     public MyGroups() {
         // Required empty public constructor
     }
@@ -46,18 +58,18 @@ public class MyGroups extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_my_groups, container, false);
-        linearLayout=view.findViewById(R.id.my_group_layout);
-        Retrofit retrofit = new Retrofit.Builder()
+        viewTrue = inflater.inflate(R.layout.fragment_my_groups, container, false);
+        linearLayout = viewTrue.findViewById(R.id.my_group_layout);
+        retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.TEST_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ServerDisplayGroupForMe displayGroupForMe=retrofit.create(ServerDisplayGroupForMe.class);
-        Call<List<Group>> call = displayGroupForMe.downloadgroups(view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES, Context.MODE_PRIVATE).getString("leaderid",""));
+        ServerDisplayGroupForMe displayGroupForMe = retrofit.create(ServerDisplayGroupForMe.class);
+        Call<List<Group>> call = displayGroupForMe.downloadgroups(viewTrue.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES, Context.MODE_PRIVATE).getString("leaderid", ""));
         call.enqueue(new Callback<List<Group>>() {
             @Override
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
-                groups= response.body();
+                groups = response.body();
                 makeGroups(groups);
                 //Toast.makeText(getActivity(),groups.get(2).getGroupid(),Toast.LENGTH_SHORT).show();
             }
@@ -69,12 +81,13 @@ public class MyGroups extends Fragment {
         });
 
 
-        return view;
+        return viewTrue;
     }
-    private void makeGroups(final List<Group>groups)
+    private void makeGroups(final List<Group>test)
     {
-        LayoutInflater inflate=LayoutInflater.from(view.getContext());
-        LinearLayout linearLayout =(LinearLayout)view.findViewById(R.id.my_group_layout);
+
+        LayoutInflater inflate=LayoutInflater.from(viewTrue.getContext());
+        final LinearLayout linearLayout =(LinearLayout)viewTrue.findViewById(R.id.my_group_layout);
         if(groups.isEmpty())
         {
             View view = inflate.inflate(R.layout.group_creategroup,null);
@@ -87,16 +100,16 @@ public class MyGroups extends Fragment {
             //linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         }
 
-        //Для материал дезигна,надо делати крутой дезигн group_notexist ии в group_creategroup,я всего лишь даю значения объектам внтри них
+        //Для материал дезигна,надо д
+        //елати крутой дезигн group_notexist ии в group_creategroup,я всего лишь даю значения объектам внтри них
 
         else
             {
                // LayoutInflater inflate=LayoutInflater.from(view.getContext());
               //  LinearLayout linearLayout =(LinearLayout)view.findViewById(R.id.my_group_layout);
-                int i=1;
-                for(Group g:groups)
-                {
 
+                for(int i = test.size()-1;i>0;i--)
+                {
                    /* FrameLayout frameLayout=view.findViewById(view.getContext().getResources().getIdentifier("my_groups_layout"+i,"id",view.getContext().getPackageName()));
                     frameLayout.removeAllViews();
                     mini_view=inflate.inflate(R.layout.group_exist,null);
@@ -119,14 +132,55 @@ public class MyGroups extends Fragment {
                         }
                     });
                     frameLayout.addView(mini_view);*/
-                    View view = inflate.inflate(R.layout.group_notexist,null);
-                    TextView name =(TextView)view.findViewById(R.id.group_not_exist_name);
-                    TextView description=(TextView)view.findViewById(R.id.group_not_exist_desc);
-                    TextView type =(TextView)view.findViewById(R.id.group_not_exist_type);
+                    Group g=groups.get(i);
+                    View view = inflate.inflate(R.layout.group_exist,null);
+                    TextView name =(TextView)view.findViewById(R.id.group_exist_name);
+                    TextView description=(TextView)view.findViewById(R.id.group_exist_desc);
+                    TextView date =(TextView)view.findViewById(R.id.group_exist_date);
                     name.setText(g.getGroupName());
                     description.setText(g.getGroupdescription());
-                    type.setText(g.getGroupType());
+                    date.setText(g.getGroupdate());
                     view.setTag(i);
+                    final ImageButton imageButton = (ImageButton)view.findViewById(R.id.deletegroup);
+                    imageButton.setTag(i);
+                    imageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder=new AlertDialog.Builder(viewTrue.getContext());
+                            builder.setCancelable(true).setTitle("Do you want to delete this group?").setPositiveButton("delete", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    int tag =(int)imageButton.getTag();
+                                   // int tag2=(int)tag+1;
+                                    linearLayout.removeView(linearLayout.findViewWithTag(tag));
+                                    //linearLayout.removeView(linearLayout.findViewWithTag(tag2));
+                                    Call<ResponseBody>call=retrofit.create(DeleteGRoup.class).deleteGroup(groups.get(tag).getGroupid());
+                                    call.enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            if(response.isSuccessful())
+                                            {
+                                                try {
+                                                    Toast.makeText(getActivity(),response.body().string(),Toast.LENGTH_SHORT).show();
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                        }
+                                    });
+
+                                    dialog.dismiss();
+                                }
+                            }).show();
+
+                        }
+                    });
+
                     view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -136,18 +190,20 @@ public class MyGroups extends Fragment {
                             leaderG.setGroupid(group.getGroupid());
                             Toast.makeText(getActivity(),group.getGroupcoordinates(),Toast.LENGTH_SHORT).show();
                             leaderG.setGroup(group);
-                            getFragmentManager().beginTransaction().replace(R.id.frames,leaderG).addToBackStack(null).commit();
+                            fragmentManager.beginTransaction().replace(R.id.frames,leaderG).addToBackStack(null).commit();
                             Toast.makeText(getActivity(),""+group.getGroupid(),Toast.LENGTH_SHORT).show();
                         }
                     });
                     linearLayout.addView(view);
-                    i++;
+                  //  view=inflate.inflate(R.layout.add_backsp,null);
+                   // view.setTag(i+1);
+                    //linearLayout.addView(view);
                 }
                 View view = inflate.inflate(R.layout.group_creategroup,null);
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getFragmentManager().beginTransaction().disallowAddToBackStack().replace(R.id.frames,new GroupCreator()).commit();
+                        fragmentManager.beginTransaction().disallowAddToBackStack().replace(R.id.frames,new GroupCreator()).commit();
                     }
                 });
                // linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

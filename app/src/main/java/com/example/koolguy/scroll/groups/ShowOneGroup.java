@@ -62,6 +62,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47.249365, 39.696464)));
         map.moveCamera(CameraUpdateFactory.zoomTo(9));
+
         if (ActivityCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         }
@@ -90,6 +91,13 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
         mapView=(MapView)view.findViewById(R.id.show_onegroup_mapview);
         textView=(TextView)view.findViewById(R.id.show_onegroup_textview);
         textView.setText("Connecting");
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) view.findViewById(R.id.toolbarId);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).addToBackStack(null).commit();
+            }
+        });
         imageView.setImageResource(R.drawable.ic_loading);
         group_pref=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES, Context.MODE_PRIVATE);
         retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(MainActivity.TEST_SERVER).build();

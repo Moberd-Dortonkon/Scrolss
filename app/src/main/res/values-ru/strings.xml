@@ -26,6 +26,8 @@
     <string name="joinGroup">Присоединиться</string>
     <string name="groupId">ID Группы</string>
     <string name="name">Ваше Имя</string>
+    <string name="group_name">Название группы?</string>
+    <string name="group_desct">Описание?</string>
     <string name="leader">Лидер</string>
     <string name="volunteer">Волонтёр</string>
     <string name="crtGroup">Создать Группу</string>

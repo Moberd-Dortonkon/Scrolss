@@ -2,12 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/my_group_layout"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".groups.MyGroups">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/my_group_layout">
 
-    <!-- TODO: Update blank fragment layout -->
+        </LinearLayout>
+
+    </ScrollView>
+
 
 
 </LinearLayout>

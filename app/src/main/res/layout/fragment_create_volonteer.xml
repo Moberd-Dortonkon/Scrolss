@@ -7,14 +7,6 @@
     android:orientation="vertical"
     tools:context=".CreateVolonteer">
 
-    <android.support.v7.widget.Toolbar
-        app:title="@string/group"
-        android:elevation="8dp"
-        android:background="@color/colorWhite_front"
-        android:id="@+id/toolbarId"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
-
 
     <LinearLayout
         android:layout_width="315dp"

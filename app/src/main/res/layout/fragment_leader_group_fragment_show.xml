@@ -7,25 +7,17 @@
     android:orientation="vertical"
     tools:context=".groups.LeaderGroupFragmentShow">
 
+<!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.Toolbar
-        app:title="@string/group"
+        app:title="Ваша Группа"
         android:elevation="8dp"
         android:background="@color/colorWhite_front"
         android:id="@+id/toolbarId"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
-    <TextView
-        android:layout_margin="5dp"
-        android:background="@drawable/rect_back"
-        android:textColor="#000000"
-        android:id="@+id/leader_group_fragemnt_show_sho_other"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:gravity="center"
-        android:text="@string/show_group"
-        android:textSize="35sp" />
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:layout_height="?attr/actionBarSize">
 
+    </android.support.v7.widget.Toolbar>
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/leader_group_fragment_show_framelayout"

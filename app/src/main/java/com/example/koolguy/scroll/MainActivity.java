@@ -212,18 +212,22 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private void test(){
-       // if(!getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE).contains("leaderid"))
+    private void test() {
+        // if(!getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE).contains("leaderid"))
         //getFragmentManager().beginTransaction().replace(R.id.frames,new GreetingsGroupFragment()).addToBackStack(null).commit();
-       // else getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDo()).addToBackStack(null).commit();
-        if(!group_pref.contains("type"))getFragmentManager().beginTransaction().replace(R.id.frames,new GreetingsGroupFragment()).addToBackStack(null).commit();
-        else
-            {
-                if(group_pref.getString("type","").equals("leader"))getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoLeader()).addToBackStack(null).commit();
-                if(group_pref.getString("type","").equals("volonteer"))getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).addToBackStack(null).commit();
+        // else getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDo()).addToBackStack(null).commit();
+        if (!group_pref.contains("type"))
+            getFragmentManager().beginTransaction().replace(R.id.frames, new GreetingsGroupFragment()).addToBackStack(null).commit();
+        else {
+            if (group_pref.getString("type", "").equals("leader"))
+                getFragmentManager().beginTransaction().replace(R.id.frames, new ChooseToDoLeader()).addToBackStack(null).commit();
+            if (group_pref.getString("type", "").equals("volonteer")) {
+                if(group_pref.contains("lastgroupid")){ getFragmentManager().beginTransaction().replace(R.id.frames,showOneGroup).addToBackStack(null).commit();}
+                if(!group_pref.contains("lastgroupid")){getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).addToBackStack(null).commit();}
+               // getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).addToBackStack(null).commit();
             }
+        }
     }
-
     private void initMenu() {
 
         handBookFragment();
@@ -651,6 +655,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void defineGroup(String groupid) {
+
+
+        group_pref.edit().putString("lastgroupid",groupid).apply();
         getFragmentManager().beginTransaction().replace(R.id.frames,showOneGroup).addToBackStack(null).commit();
     }
 }

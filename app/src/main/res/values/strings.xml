@@ -31,6 +31,8 @@
     <string name="joinGroup">Join Group</string>
     <string name="groupId">GroupId</string>
     <string name="name">Your name</string>
+    <string name="group_name">Group Name?</string>
+    <string name="group_desct">Descriprion?</string>
     <string name="leader">Leader</string>
     <string name="volunteer">Volunteer</string>
     <string name="crtGroup">Create Group</string>

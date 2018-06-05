@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class GreetingsGroupFragment extends Fragment {
         // Inflate the layout for this fragment
        // ViewGroup viewGroup = new ViewGroup();
         //viewGroup.e
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         resources =view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES, Context.MODE_PRIVATE);
         name = view.findViewById(R.id.greetingf_name);
         volonteer=(Button)view.findViewById(R.id.greetings_button_volonteer);

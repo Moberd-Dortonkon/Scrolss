@@ -2,24 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_gravity="center_vertical"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".groups.GreetingsGroupFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarId"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorWhite_front"
-        android:elevation="8dp"
-        app:title="@string/group" />
-
     <LinearLayout
-        android:layout_gravity="center_vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="75dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
         android:orientation="vertical">
 
         <EditText
@@ -34,11 +26,17 @@
             android:layout_height="80dp"
             android:hint="@string/name_fam" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <Button
             android:layout_gravity="bottom"
             android:id="@+id/greetings_button_leader"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_margin="5dp"
             android:background="@drawable/rect_back"
@@ -48,11 +46,12 @@
         <Button
             android:layout_gravity="bottom"
             android:id="@+id/greetings_button_volonteer"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_margin="5dp"
-            android:background="@drawable/rect_back"
             android:text="@string/volunteer"
+            android:background="@drawable/rect_back"
+
             android:textColor="@color/colorBlue_text" />
 
     </LinearLayout>

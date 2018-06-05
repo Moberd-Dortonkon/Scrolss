@@ -11,6 +11,7 @@
         android:elevation="8dp"
         android:background="@color/colorWhite_front"
         android:id="@+id/toolbarId"
+        app:navigationIcon="?attr/homeAsUpIndicator"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
@@ -21,41 +22,50 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Вы поели?"
+            android:textSize="35dp"
+            android:gravity="center"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
-                android:background="@drawable/rect_back"
-                android:textColor="@color/colorBlue_text"
                 android:id="@+id/show_onegroup_button"
-                android:layout_marginTop="45dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginLeft="35dp"
-                />
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rect_back"
+                android:textColor="@color/colorBlue_text" />
+
             <ImageView
                 android:id="@+id/show_onegroup_imageview"
-                android:src="@drawable/ic_thumdown"
                 android:layout_width="100dp"
-                android:layout_marginTop="45dp"
+                android:layout_height="100dp"
                 android:layout_marginLeft="50dp"
-                android:layout_height="100dp" />
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_thumdown" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/show_onegroup_textview"
             android:layout_width="match_parent"
-            android:layout_height="105dp"
+            android:layout_height="120dp"
             android:gravity="center"
+            android:layout_gravity="bottom"
             android:textSize="35dp" />
          </LinearLayout>
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/show_onegroup_mapview"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="220dp"
         android:layout_gravity="bottom" />
 </LinearLayout>

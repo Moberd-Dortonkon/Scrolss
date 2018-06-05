@@ -53,10 +53,10 @@ public class ShowGroupForVolonteerAdapter extends ArrayAdapter<String> {
         TextView name=(TextView)convertView.findViewById(R.id.adapter_group_name);
         TextView description=(TextView)convertView.findViewById(R.id.adapter_group_description);
         TextView type =(TextView)convertView.findViewById(R.id.adapter_group_type);
-        name.setText(groups.get(position).getGroupName());
-        description.setText(groups.get(position).getGroupdescription());
-        type.setText(groups.get(position).getGroupType());
-        convertView.setTag(groups.get(position).getGroupid());
+        name.setText(groups.get(groups.size()-1-position).getGroupName());
+        description.setText(groups.get(groups.size()-1-position).getGroupdescription());
+        type.setText(groups.get(groups.size()-1-position).getGroupdate());
+        convertView.setTag(groups.get(groups.size()-1-position).getGroupid());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,13 +68,13 @@ public class ShowGroupForVolonteerAdapter extends ArrayAdapter<String> {
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(response.isSuccessful()) {
-                            try {
-                                Toast.makeText(activity,response.body().string(),Toast.LENGTH_SHORT).show();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                      //  if(response.isSuccessful()) {
+                        //    try {
+                              //  Toast.makeText(activity,response.body().string(),Toast.LENGTH_SHORT).show();
+                        //    } catch (IOException e) {
+                           //     e.printStackTrace();
+                          //  }
+                      //  }
                     }
 
                     @Override
@@ -87,7 +87,7 @@ public class ShowGroupForVolonteerAdapter extends ArrayAdapter<String> {
 
                 listener.defineGroup(s);
                 //fm.beginTransaction().replace(R.id.frames,new ShowOneGroup()).addToBackStack(null).commit();
-                Toast.makeText(activity,s,Toast.LENGTH_SHORT).show();
+               // Toast.makeText(activity,s,Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;
