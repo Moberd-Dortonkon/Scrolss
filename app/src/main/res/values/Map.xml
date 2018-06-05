@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="place_names">
+        <item>Автовокзал</item>
+        <item>Аэропорт Платов</item>
+        <item>Волонтерский центр</item>
+        <item>Городской пресс-центр</item>
+        <item>Ж/д вокзал(главный)</item>
+        <item>Фестиваль болельщиков</item>
+        <item>Шаттл,тц МЕГА</item>
+        <item>Шаттл,старый аэропорт</item>
+        <item>Штаб возле "Ростов Арена"</item>
+        <item>Центр выдчи паспорта болельщика</item>
+        <item>Центр выдчи паспорта болельщика</item>
+        <item>Главный билетный центр FIFA</item>
+    </string-array>
+    <string-array name="place_latlngs">
+        <item>47.241693, 39.763769</item>
+        <item>47.490727, 39.926777</item>
+        <item>47.221974, 39.715207</item>
+        <item>47.237288, 39.712142</item>
+        <item>47.218520, 39.690541</item>
+        <item>47.226482, 39.745920</item>
+        <item>47.289889, 39.847359</item>
+        <item>47.254816, 39.803668</item>
+        <item>47.207927, 39.728859</item>
+        <item>47.217757, 39.723580</item>
+        <item>47.231443, 39.726055</item>
+        <item>47.205393, 39.728695</item>
+    </string-array>
+    <string-array name="place_types">
+        <item>eat</item>
+        <item>eat</item>
+        <item>eat</item>
+        <item>eat</item>
+        <item>eat</item>
+        <item>eat</item>
+        <item>eat</item>
+        <item>eat</item>
+        <item>eat</item>
+        <item>pass</item>
+        <item>pass</item>
+        <item>pass</item>
+    </string-array>
+
+
+</resources>

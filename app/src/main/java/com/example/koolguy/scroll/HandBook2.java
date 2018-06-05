@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.MapFragment;
+
 import java.io.IOException;
 
 /**
@@ -86,8 +88,7 @@ public class HandBook2 extends Fragment {
             @Override
             public void onClick(View view) {
                 playSound(myButtonSound);
-                map.makeMap();
-
+                getFragmentManager().beginTransaction().replace(R.id.frames,new NewMap()).addToBackStack(null).commit();
             }
         });
 

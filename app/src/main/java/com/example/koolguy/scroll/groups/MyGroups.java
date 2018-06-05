@@ -108,7 +108,7 @@ public class MyGroups extends Fragment {
                // LayoutInflater inflate=LayoutInflater.from(view.getContext());
               //  LinearLayout linearLayout =(LinearLayout)view.findViewById(R.id.my_group_layout);
 
-                for(int i = test.size()-1;i>0;i--)
+                for(int i = test.size()-1;i>=0;i--)
                 {
                    /* FrameLayout frameLayout=view.findViewById(view.getContext().getResources().getIdentifier("my_groups_layout"+i,"id",view.getContext().getPackageName()));
                     frameLayout.removeAllViews();
@@ -160,11 +160,7 @@ public class MyGroups extends Fragment {
                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                             if(response.isSuccessful())
                                             {
-                                                try {
-                                                    Toast.makeText(getActivity(),response.body().string(),Toast.LENGTH_SHORT).show();
-                                                } catch (IOException e) {
-                                                    e.printStackTrace();
-                                                }
+
                                             }
                                         }
 
@@ -188,10 +184,10 @@ public class MyGroups extends Fragment {
                             Group group=groups.get(tag);
                             LeaderGroupFragmentShow leaderG=new LeaderGroupFragmentShow();
                             leaderG.setGroupid(group.getGroupid());
-                            Toast.makeText(getActivity(),group.getGroupcoordinates(),Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(),group.getGroupcoordinates(),Toast.LENGTH_SHORT).show();
                             leaderG.setGroup(group);
                             fragmentManager.beginTransaction().replace(R.id.frames,leaderG).addToBackStack(null).commit();
-                            Toast.makeText(getActivity(),""+group.getGroupid(),Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(),""+group.getGroupid(),Toast.LENGTH_SHORT).show();
                         }
                     });
                     linearLayout.addView(view);

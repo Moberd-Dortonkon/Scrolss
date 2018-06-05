@@ -138,11 +138,11 @@ public class MainActivity extends AppCompatActivity implements
        retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
-        Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
         volonteerStatus = new VolonteerStatus();
         initSharedPreferences();
         initMenu();
-        getMapCoordinates(this);
+       // getMapCoordinates(this);
         createSoundPool();
         myAssetManager = getAssets();
         myButtonSound=createSound("button_16.mp3");
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements
             public void onResponse(Call<List<MapCoordinates>> call, Response<List<MapCoordinates>> response) {
                 if(response.isSuccessful())
                 {
-                    Toast.makeText(activity,response.body().get(2).getName(),Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(activity,response.body().get(2).getName(),Toast.LENGTH_LONG).show();
                 }
             }
 

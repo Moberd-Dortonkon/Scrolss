@@ -71,7 +71,7 @@ public class GreetingsGroupFragment extends Fragment {
                             {
                                 try {
                                     leaderid=response.body().string();
-                                    Toast.makeText(getActivity(),leaderid,Toast.LENGTH_SHORT).show();
+                                  //  Toast.makeText(getActivity(),leaderid,Toast.LENGTH_SHORT).show();
                                     resources.edit().putString("leaderid",leaderid).apply();
                                     resources.edit().putString("type","volonteer").apply();
                                    // getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDo()).disallowAddToBackStack().commit();
@@ -109,7 +109,7 @@ public class GreetingsGroupFragment extends Fragment {
                             {
                                 try {
                                     leaderid=response.body().string();
-                                    Toast.makeText(getActivity(),leaderid,Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(getActivity(),leaderid,Toast.LENGTH_SHORT).show();
                                     resources.edit().putString("leaderid",leaderid).apply();
                                     resources.edit().putString("type","leader").apply();
                                    // getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDo()).disallowAddToBackStack().commit();
