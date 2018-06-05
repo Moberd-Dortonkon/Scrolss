@@ -37,11 +37,13 @@ import com.darwindeveloper.horizontalscrollmenulibrary.extras.MenuItem;
 import com.example.koolguy.scroll.ServerRequest.CreateGroup;
 import com.example.koolguy.scroll.Tools.Json.JsonData;
 import com.example.koolguy.scroll.Tools.Json.Place;
+import com.example.koolguy.scroll.VolonteersInfo.MapCoordinates;
 import com.example.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.example.koolguy.scroll.groups.ChooseToDo;
 import com.example.koolguy.scroll.groups.ChooseToDoLeader;
 import com.example.koolguy.scroll.groups.ChooseToDoVolonteer;
 import com.example.koolguy.scroll.groups.GreetingsGroupFragment;
+import com.example.koolguy.scroll.groups.ServerInterfaces.GetMapCoordinates;
 import com.example.koolguy.scroll.groups.ServerInterfaces.SetCome;
 import com.example.koolguy.scroll.groups.ShowAllGroups;
 import com.example.koolguy.scroll.groups.ShowOneGroup;
@@ -73,6 +75,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -114,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements
     private int myStreamID;
     private boolean come;
     private Gson gson;
+    private List<MapCoordinates>mapCoordinates;
 
 
 
@@ -138,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements
         volonteerStatus = new VolonteerStatus();
         initSharedPreferences();
         initMenu();
-
+        getMapCoordinates(this);
         createSoundPool();
         myAssetManager = getAssets();
         myButtonSound=createSound("button_16.mp3");
@@ -175,6 +179,25 @@ public class MainActivity extends AppCompatActivity implements
         }*/
     }
 
+    private  void getMapCoordinates(final Activity activity)
+    {
+        Call<List<MapCoordinates>>call=retrofit.create(GetMapCoordinates.class).getMapCoordinates();
+        call.enqueue(new Callback<List<MapCoordinates>>() {
+            @Override
+            public void onResponse(Call<List<MapCoordinates>> call, Response<List<MapCoordinates>> response) {
+                if(response.isSuccessful())
+                {
+                    Toast.makeText(activity,response.body().get(2).getName(),Toast.LENGTH_LONG).show();
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<List<MapCoordinates>> call, Throwable t) {
+
+            }
+        });
+    }
 
     private void mateToast(String position) {
 //        Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
