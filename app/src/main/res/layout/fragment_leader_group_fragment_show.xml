@@ -14,7 +14,6 @@
         android:background="@color/colorWhite_front"
         android:id="@+id/toolbarId"
         android:layout_width="match_parent"
-        app:navigationIcon="?attr/homeAsUpIndicator"
         android:layout_height="?attr/actionBarSize">
 
     </android.support.v7.widget.Toolbar>

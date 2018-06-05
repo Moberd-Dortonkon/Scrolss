@@ -91,7 +91,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
     View showGroup;
     Group group;
     ViewGroup viewHolder;
-
+    private LatLng created;
     private SoundPool mySoundPool;
     private AssetManager myAssetManager;
     private int myButtonSound;
@@ -227,6 +227,8 @@ public class LeaderGroup extends Fragment implements GroupListener {
                             gMap.addCircle(new CircleOptions().fillColor(0x42AB2B).radius(450).clickable(true).center(lng));
                             gMap.addMarker(new MarkerOptions().title("ваша группа сейчас здесь").position(lng).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));}
                         }
+                        if(created!=null){gMap.addCircle(new CircleOptions().fillColor(0x42AB2B).radius(450).clickable(true).center(created));
+                            gMap.addMarker(new MarkerOptions().title("ваша группа сейчас здесь").position(created).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));}
                         gMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47.236361,39.715731)));
                         gMap.moveCamera(CameraUpdateFactory.zoomTo(12));
                         if (ActivityCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(view.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -264,6 +266,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
                            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
                            ServerSetCoordinates setCoordinates = retrofit.create(ServerSetCoordinates.class);
                            if (groupLatLng != null) {
+                               created=groupLatLng;
                                String latlngForServer = Double.toString(groupLatLng.latitude) + "," + Double.toString(groupLatLng.longitude);
                                testString = "";
                               // Toast.makeText(getActivity(),""+latlngForServer+key,Toast.LENGTH_LONG).show();
@@ -275,13 +278,13 @@ public class LeaderGroup extends Fragment implements GroupListener {
                                        if (response.isSuccessful()) {
                                            try {
                                                testString = response.body().string().toString();
-                                               Toast.makeText(getActivity(),"коорд:"+testString,Toast.LENGTH_LONG).show();
+                                               //Toast.makeText(getActivity(),"коорд:"+testString,Toast.LENGTH_LONG).show();
                                            } catch (IOException e) {
                                                e.printStackTrace();
                                            }
                                        } else {
                                            testString = "hi therre";
-                                           Toast.makeText(getActivity(),"коорд:"+testString,Toast.LENGTH_LONG).show();
+                                           //Toast.makeText(getActivity(),"коорд:"+testString,Toast.LENGTH_LONG).show();
                                        }
                                    }
 

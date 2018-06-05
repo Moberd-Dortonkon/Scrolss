@@ -130,11 +130,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
                        @Override
                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                            if(response.isSuccessful()) {
-                               try {
-                                   Toast.makeText(getActivity(),response.body().string(),Toast.LENGTH_SHORT);
-                               } catch (IOException e) {
-                                   e.printStackTrace();
-                               }
+
                            }
                        }
 
@@ -153,11 +149,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
                        @Override
                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                            if(response.isSuccessful()) {
-                               try {
-                                   Toast.makeText(getActivity(),response.body().string(),Toast.LENGTH_SHORT);
-                               } catch (IOException e) {
-                                   e.printStackTrace();
-                               }
+
                            }
                        }
 

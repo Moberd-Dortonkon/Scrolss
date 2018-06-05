@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
 
 import java.io.IOException;
 
@@ -110,7 +111,10 @@ public class HandBook2 extends Fragment {
             @Override
             public void onClick(View view) {
                 playSound(myButtonSound);
+                if(!view.getContext().getSharedPreferences(MainActivity.CALENDAR_PREFERENCES,Context.MODE_PRIVATE).contains("Days"))
                 getFragmentManager().beginTransaction().replace(R.id.frames,new CalendarFragment()).addToBackStack(null).commit();
+                if(view.getContext().getSharedPreferences(MainActivity.CALENDAR_PREFERENCES,Context.MODE_PRIVATE).contains("Days"))
+                    getFragmentManager().beginTransaction().replace(R.id.frames,new Calendar_Show_Fragment()).addToBackStack(null).commit();
             }
         });
 

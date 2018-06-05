@@ -77,7 +77,7 @@ public class GroupCreator extends Fragment {
                  //Date date = Calendar.getInstance().getTime();
                  StringDate = DateFormat.getDateInstance(DateFormat.SHORT).format(Calendar.getInstance().getTime());
 
-                 Toast.makeText(getActivity(),StringDate,Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(),StringDate,Toast.LENGTH_SHORT).show();
                  String grouptype="testgroup";
                  CreateGroup createGroup=retrofit.create(CreateGroup.class);
                  Call<ResponseBody>call=createGroup.createGroup
@@ -107,7 +107,7 @@ public class GroupCreator extends Fragment {
                     }
                 });
 
-                 Toast.makeText(getActivity(),responsem,Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(),responsem,Toast.LENGTH_SHORT).show();
              }
          });
 

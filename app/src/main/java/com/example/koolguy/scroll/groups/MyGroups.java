@@ -88,16 +88,10 @@ public class MyGroups extends Fragment {
 
         LayoutInflater inflate=LayoutInflater.from(viewTrue.getContext());
         final LinearLayout linearLayout =(LinearLayout)viewTrue.findViewById(R.id.my_group_layout);
-        if(groups.isEmpty())
+        if(groups.isEmpty()||groups==null)
         {
-            View view = inflate.inflate(R.layout.group_creategroup,null);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getFragmentManager().beginTransaction().disallowAddToBackStack().replace(R.id.frames,new GroupCreator()).commit();
-                }
-            });
-            //linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            View view = inflate.inflate(R.layout.group_nogroup,null);
+            linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         }
 
         //Для материал дезигна,надо д

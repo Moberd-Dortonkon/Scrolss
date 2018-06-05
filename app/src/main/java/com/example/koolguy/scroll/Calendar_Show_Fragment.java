@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
@@ -56,6 +57,7 @@ public class Calendar_Show_Fragment extends Fragment {
         calendarView.setSelectionColor(Color.GREEN);
        for (String d:days)
         {
+           // Toast.makeText(getActivity(),d,Toast.LENGTH_SHORT).show();
             int y=Integer.valueOf(d.split(":")[0]);
             int m =Integer.valueOf(d.split(":")[1]);
             int date =Integer.valueOf(d.split(":")[2]);

@@ -64,7 +64,7 @@ ShowAllGroups.DefineGroup listener;
             public void onClick(View v) {
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
-                Toast.makeText(getActivity(),"Connecting...",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(),"Connecting...",Toast.LENGTH_SHORT).show();
                 Call<ResponseBody>call=retrofit.create(CreateVolonteer.class).createVolonteer(view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES, Context.MODE_PRIVATE).getString("leaderid",
                         ""),editText.getText().toString());
                 call.enqueue(new Callback<ResponseBody>() {
