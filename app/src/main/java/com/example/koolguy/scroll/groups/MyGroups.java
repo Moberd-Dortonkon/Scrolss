@@ -185,7 +185,7 @@ public class MyGroups extends Fragment {
                         @Override
                         public void onClick(View v) {
                             int tag =(int)v.getTag();
-                            Group group=groups.get(tag-1);
+                            Group group=groups.get(tag);
                             LeaderGroupFragmentShow leaderG=new LeaderGroupFragmentShow();
                             leaderG.setGroupid(group.getGroupid());
                             Toast.makeText(getActivity(),group.getGroupcoordinates(),Toast.LENGTH_SHORT).show();
