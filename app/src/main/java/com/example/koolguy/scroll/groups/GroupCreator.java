@@ -20,6 +20,7 @@ import com.example.koolguy.scroll.VolonteersInfo.Group;
 import com.example.koolguy.scroll.groups.ServerInterfaces.CreateGroup;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,9 +74,8 @@ public class GroupCreator extends Fragment {
                          .addConverterFactory(GsonConverterFactory.create()).build();
                  String leaderid=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("leaderid","");
                  String name_leader=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("name","");
-                 Date date = Calendar.getInstance().getTime();
-                 SimpleDateFormat dateFormat=new SimpleDateFormat("dd.mm.yyyy");
-                 StringDate = dateFormat.format(date);
+                 //Date date = Calendar.getInstance().getTime();
+                 StringDate = DateFormat.getDateInstance(DateFormat.SHORT).format(Calendar.getInstance().getTime());
 
                  Toast.makeText(getActivity(),StringDate,Toast.LENGTH_SHORT).show();
                  String grouptype="testgroup";

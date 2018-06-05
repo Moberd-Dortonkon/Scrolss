@@ -136,13 +136,13 @@ public class LeaderGroup extends Fragment implements GroupListener {
         myAssetManager = getActivity().getAssets();
         myButtonSound=createSound("button_16.mp3");
 
-        refresh = (Button) v.findViewById(R.id.reset);
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ref.refrsh();
-            }
-        });
+      //  refresh = (Button) v.findViewById(R.id.reset);
+       // refresh.setOnClickListener(new View.OnClickListener() {
+         //   @Override
+        //    public void onClick(View view) {
+        //        ref.refrsh();
+        //    }
+      //  });
         setHasOptionsMenu(true);
         sendCoordinates = new sendCoordinates();
         map = (Button) v.findViewById(R.id.MAP);
@@ -161,7 +161,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
             showGroup = LayoutInflater.from(v.getContext()).inflate(R.layout.group_show, null);
             viewHolder.addView(showGroup);
             groupView = (ListView) v.findViewById(R.id.groupView);
-            refresh = (Button) v.findViewById(R.id.reset);
+          //  refresh = (Button) v.findViewById(R.id.reset);
         }
         textView = (TextView) v.findViewById(R.id.refreshGroup);
         textView.setText(key);
@@ -355,13 +355,14 @@ public class LeaderGroup extends Fragment implements GroupListener {
 
     }
 
-    private void firstGroupTake(){
+    private void firstGroupTake() {
         viewHolder = (ViewGroup) v.findViewById(R.id.groupFromStart);
         viewHolder.removeAllViews();
-        showGroup= LayoutInflater.from(v.getContext()).inflate(R.layout.group_show, null);
+        showGroup = LayoutInflater.from(v.getContext()).inflate(R.layout.group_show, null);
         viewHolder.addView(showGroup);
-        groupView =(ListView)v.findViewById(R.id.groupView);
-        refresh=(Button)v.findViewById(R.id.reset);}
+        groupView = (ListView) v.findViewById(R.id.groupView);
+        // refresh=(Button)v.findViewById(R.id.reset);}
+    }
     class MyThread extends Thread {
         GroupListener listener;
         public MyThread(GroupListener listener){this.listener=listener;}
