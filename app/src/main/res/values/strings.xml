@@ -55,6 +55,14 @@
     <string name="description">Description</string>
     <string name="show_group">Show other group  -></string>
     <string name="soon_work">It is tour work time soon</string>
+    <string name="eaten">Have you eaten?</string>
+    <string name="all_grp">All Groups</string>
+    <string name="code">Code</string>
+    <string name="no_groups">You don`t have any groups</string>
+    <string name="time">Time</string>
+    <string name="your_days">Your Days</string>
+    <string name="your_time">Your Time:</string>
+    <string name="yes">Yes</string>
 
     <string name="my_notification_title_template">My: %1$s</string>
 

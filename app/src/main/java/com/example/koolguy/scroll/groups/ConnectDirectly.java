@@ -3,6 +3,10 @@ package com.example.koolguy.scroll.groups;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -39,6 +43,10 @@ Button button;
 EditText editText;
 Retrofit retrofit;
 ShowAllGroups.DefineGroup listener;
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
 
     @Override
     public void onAttach(Activity activity) {
@@ -62,6 +70,7 @@ ShowAllGroups.DefineGroup listener;
 
             @Override
             public void onClick(View v) {
+                playSound(myButtonSound);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
                // Toast.makeText(getActivity(),"Connecting...",Toast.LENGTH_SHORT).show();
@@ -91,5 +100,33 @@ ShowAllGroups.DefineGroup listener;
         });
         return view;
     }
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
 
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
+        try {
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
+    }
 }

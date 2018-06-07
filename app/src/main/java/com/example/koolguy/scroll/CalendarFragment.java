@@ -51,6 +51,7 @@ public class CalendarFragment extends Fragment {
     Spinner spinner;
     int count;
     String[] time;
+    static boolean ready;
     public CalendarFragment() {
         // Required empty public constructor
     }

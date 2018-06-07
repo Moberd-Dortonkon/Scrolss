@@ -26,8 +26,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="19dp"
         android:gravity="center"
-        android:text="Выберите дату и время смен"
-        android:textSize="20dp" />
+        android:text="@string/your_days"
+        android:textSize="20sp" />
 
     <Button
         android:textColor="@color/colorBlue_text"
@@ -39,20 +39,21 @@
         android:layout_alignParentEnd="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="33dp"
-        android:text="Принять" />
+        android:text="@string/accept" />
 
     <TextView
+        android:textSize="20sp"
         android:textColor="#000000"
         android:id="@+id/textView"
         android:layout_width="171dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/calendar"
-        android:text="Время" />
+        android:text="@string/time" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="155dp"
+        android:layout_width="130dp"
         android:layout_height="42dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"

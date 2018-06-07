@@ -34,7 +34,7 @@
         android:layout_marginStart="8dp"
         android:text="@string/accept"
 
-        android:background="@drawable/rect_back"
+        android:background="@drawable/button"
         android:textColor="@color/colorBlue_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

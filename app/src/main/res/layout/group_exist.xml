@@ -19,7 +19,7 @@
             android:id="@+id/group_exist_name"
             android:layout_width="302dp"
             android:layout_height="56dp"
-            android:text="Давид Хабибулинп"
+            android:text="Example Text"
             android:textColor="#000000"
             android:textSize="30dp" />
 

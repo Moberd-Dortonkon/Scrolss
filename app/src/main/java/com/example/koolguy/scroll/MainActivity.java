@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements
         // if(!getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE).contains("leaderid"))
         //getFragmentManager().beginTransaction().replace(R.id.frames,new GreetingsGroupFragment()).addToBackStack(null).commit();
         // else getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDo()).addToBackStack(null).commit();
+        playSound(myButtonSound);
         if (!group_pref.contains("type"))
             getFragmentManager().beginTransaction().replace(R.id.frames, new GreetingsGroupFragment()).addToBackStack(null).commit();
         else {

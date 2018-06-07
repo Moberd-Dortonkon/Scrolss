@@ -22,8 +22,8 @@ public class MyNotification {
 
 
         final String ticker = exampleString;
-        final String title =Integer.toString(R.string.app_name);
-        final String text = Integer.toString(R.string.soon_work);
+        final String title = res.getString(R.string.app_name);
+        final String text = res.getString(R.string.soon_work);
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.mipmap.ic_launcher)

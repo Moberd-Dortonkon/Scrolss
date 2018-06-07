@@ -4,6 +4,10 @@ package com.example.koolguy.scroll.groups;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.TestLooperManager;
@@ -53,6 +57,10 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
     GoogleMap map;
     Retrofit retrofit;
     SharedPreferences group_pref;
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
     public ShowOneGroup() {
         // Required empty public constructor
     }
@@ -83,6 +91,10 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        createSoundPool();
+        myAssetManager = view.getContext().getAssets();
+        myButtonSound=createSound("button_16.mp3");
+        view=inflater.inflate(R.layout.fragment_choose_to_do_leader, container, false);
         // Inflate the layout for this fragment
         view =inflater.inflate(R.layout.fragment_show_one_group, container, false);
         imageView=(ImageView)view.findViewById(R.id.show_onegroup_imageview);
@@ -95,6 +107,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                playSound(myButtonSound);
                 getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).addToBackStack(null).commit();
             }
         });
@@ -122,6 +135,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
        button.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               playSound(myButtonSound);
 
                if(booleat)
                {    Call<ResponseBody>setEat=retrofit.create(SetEat.class).setEat(group_pref.getString("leaderid",""),group_pref.getString("groupid",""),
@@ -183,5 +197,33 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
 
     }
 
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
 
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
+        try {
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
+    }
 }

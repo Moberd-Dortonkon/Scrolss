@@ -9,7 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.Toolbar
-        app:title="Вы - Волонтер"
+        app:title="@string/volunteer"
         android:elevation="8dp"
         android:background="@color/colorWhite_front"
         android:id="@+id/toolbarId"
@@ -33,7 +33,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="По коду"
+        android:text="@string/code"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.034"
@@ -51,7 +51,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Все группы"
+        android:text="@string/all_grp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.892"

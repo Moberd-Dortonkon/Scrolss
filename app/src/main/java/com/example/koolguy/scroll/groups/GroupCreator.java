@@ -3,6 +3,10 @@ package com.example.koolguy.scroll.groups;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -51,6 +55,10 @@ public class GroupCreator extends Fragment {
        String responsem;
     EditText name,description;
     Button button;
+    private SoundPool mySoundPool;
+    private AssetManager myAssetManager;
+    private int myButtonSound;
+    private int myStreamID;
 
     public void setFragmentManager(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
@@ -63,6 +71,9 @@ public class GroupCreator extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        createSoundPool();
+        myAssetManager = view.getContext().getAssets();
+        myButtonSound=createSound("button_16.mp3");
          view =inflater.inflate(R.layout.fragment_group_creator, container, false);
          name = view.findViewById(R.id.group_creator_name);
          description=view.findViewById(R.id.group_creator_description);
@@ -70,6 +81,7 @@ public class GroupCreator extends Fragment {
          button.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 playSound(myButtonSound);
                  Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER)
                          .addConverterFactory(GsonConverterFactory.create()).build();
                  String leaderid=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("leaderid","");
@@ -114,5 +126,33 @@ public class GroupCreator extends Fragment {
 
         return view;
     }
+    private void createSoundPool() {
+        AudioAttributes attributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+        mySoundPool = new SoundPool.Builder()
+                .setAudioAttributes(attributes)
+                .build();
+    }
 
+    private int createSound(String fileName) {
+        AssetFileDescriptor AsFileDesc;
+        try {
+            AsFileDesc = myAssetManager.openFd(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Не смог загрузить звук " + fileName,
+                    Toast.LENGTH_SHORT).show();
+            return -1;
+        }
+        return mySoundPool.load(AsFileDesc, 1);
+    }
+
+    private int playSound(int sound) {
+        if (sound > 0) {
+            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
+        }
+        return myStreamID;
+    }
 }

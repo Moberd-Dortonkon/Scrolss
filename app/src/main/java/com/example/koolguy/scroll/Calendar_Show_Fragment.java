@@ -15,6 +15,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,7 @@ public class Calendar_Show_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v= inflater.inflate(R.layout.fragment_calendar__show_, container, false);
-        SharedPreferences sharedPreferences=v.getContext().getSharedPreferences(MainActivity.CALENDAR_PREFERENCES,Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences=v.getContext().getSharedPreferences(MainActivity.CALENDAR_PREFERENCES,Context.MODE_PRIVATE);
         textView=(TextView)v.findViewById(R.id.time_show);
         textView.setText(sharedPreferences.getString("Time","Время не назначено"));
         Set<String>days=sharedPreferences.getStringSet("Days",new TreeSet<String>());
@@ -86,6 +87,12 @@ public class Calendar_Show_Fragment extends Fragment {
 
         }
 
+        ImageButton settings=(ImageButton) v.findViewById(R.id.settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
 
 
