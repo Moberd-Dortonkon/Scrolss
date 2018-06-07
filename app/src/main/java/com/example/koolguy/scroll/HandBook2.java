@@ -143,6 +143,7 @@ public class HandBook2 extends Fragment {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                playSound(myButtonSound);
                 SettingsClick();
 
             }
