@@ -30,6 +30,10 @@
             android:background="@drawable/button"
             android:text="@string/crtGroup"
             android:textColor="@color/colorBlue_text" />
+        <FrameLayout
+            android:id="@+id/group_create_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></FrameLayout>
 
 
 </LinearLayout>

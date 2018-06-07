@@ -90,7 +90,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements
         Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext
-        ,ChooseStatus.ChooseStatusClick,CreateVolonteer.createVolonteer,RefreshStatus, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener,ShowAllGroups.DefineGroup {
+        ,ChooseStatus.ChooseStatusClick,RefreshStatus, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener,ShowAllGroups.DefineGroup {
     BottomNavigationView menu;
     TextView textView;
     MyMap map;
@@ -105,12 +105,13 @@ public class MainActivity extends AppCompatActivity implements
     SharedPreferences preferences;
     public static final String CALENDAR_PREFERENCES="calendar_preferences";
     public static final String SERVER = "https://vast-oasis-60477.herokuapp.com";
-    public static final  String TEST_SERVER="https://ancient-forest-80024.herokuapp.com";
+    //public static final  String TEST_SERVER="https://ancient-forest-80024.herokuapp.com"; это на конксурс
+    public static final  String TEST_SERVER="https://dry-depths-40841.herokuapp.com"; //это для волонтеров
     CameraPosition saveCamera;
     private FusedLocationProviderApi mFusedLocation;
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
-    VolonteerStatus volonteerStatus;
+    //VolonteerStatus volonteerStatus;
     private SoundPool mySoundPool;
     private AssetManager myAssetManager;
     private int myButtonSound;
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements
                 .addConverterFactory(GsonConverterFactory.create()).build();
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
        // Toast.makeText(this, " ", Toast.LENGTH_LONG).show();
-        volonteerStatus = new VolonteerStatus();
+        //volonteerStatus = new VolonteerStatus();
         initSharedPreferences();
         initMenu();
        // getMapCoordinates(this);
@@ -220,15 +221,6 @@ public class MainActivity extends AppCompatActivity implements
             mapFragment.setlName(preferences.getString("groupPassword", ""));
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frames, mapFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-
-        }
-        if (preferences.getString("role", "").equals("volonteer")) {
-            volonteerStatus.setlName(preferences.getString("groupPassword", ""));
-            volonteerStatus.setName(preferences.getString("name", ""));
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.frames, volonteerStatus);
             transaction.addToBackStack(null);
             transaction.commit();
 
@@ -408,25 +400,6 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void createVolonteerCLick(String lName, String name) {
-        playSound(myButtonSound);
-        editor.putString("role", "volonteer");
-        editor.putString("groupPassword", lName);
-        editor.putString("name", name);
-        editor.commit();
-       //l Toast.makeText(this, "" + lName + name, Toast.LENGTH_LONG).show();
-        volonteerStatus.setBoolCome(false);
-        volonteerStatus.setBoolEat(false);
-        volonteerStatus.setlName(lName);
-        volonteerStatus.setName(name);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frames, volonteerStatus);
-        //transaction.addToBackStack(null);
-        transaction.commit();
-
-
-    }
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)

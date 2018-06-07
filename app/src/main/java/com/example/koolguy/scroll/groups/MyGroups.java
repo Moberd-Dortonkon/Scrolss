@@ -60,6 +60,8 @@ public class MyGroups extends Fragment {
         // Inflate the layout for this fragment
         viewTrue = inflater.inflate(R.layout.fragment_my_groups, container, false);
         linearLayout = viewTrue.findViewById(R.id.my_group_layout);
+        //inflater.inflate(R.layout.progress_view,null);
+        linearLayout.addView(inflater.inflate(R.layout.progress_view,null));
         retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.TEST_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -85,7 +87,7 @@ public class MyGroups extends Fragment {
     }
     private void makeGroups(final List<Group>test)
     {
-
+        linearLayout.removeAllViews();
         LayoutInflater inflate=LayoutInflater.from(viewTrue.getContext());
         final LinearLayout linearLayout =(LinearLayout)viewTrue.findViewById(R.id.my_group_layout);
         if(groups.isEmpty()||groups==null)

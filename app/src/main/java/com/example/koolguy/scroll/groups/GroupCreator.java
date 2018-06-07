@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.koolguy.scroll.Check;
@@ -65,10 +66,11 @@ public class GroupCreator extends Fragment {
     }
 
     FragmentManager fragmentManager;
+    FrameLayout frameLayout;
     String leadernid;
     String StringDate;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         createSoundPool();
@@ -77,6 +79,7 @@ public class GroupCreator extends Fragment {
          view =inflater.inflate(R.layout.fragment_group_creator, container, false);
          name = view.findViewById(R.id.group_creator_name);
          description=view.findViewById(R.id.group_creator_description);
+         frameLayout=(FrameLayout)view.findViewById(R.id.group_create_loading);
          button=view.findViewById(R.id.group_creator_create);
          button.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -84,6 +87,7 @@ public class GroupCreator extends Fragment {
                  playSound(myButtonSound);
                  Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER)
                          .addConverterFactory(GsonConverterFactory.create()).build();
+                 frameLayout.addView(inflater.inflate(R.layout.progress_view,null));
                  String leaderid=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("leaderid","");
                  String name_leader=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("name","");
                  //Date date = Calendar.getInstance().getTime();

@@ -37,6 +37,13 @@ public class LeaderGroupFragmentShow extends Fragment {
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_leader_group_fragment_show, container, false);
         LeaderGroup leaderGroup = new LeaderGroup();
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) view.findViewById(R.id.toolbarId);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoLeader()).addToBackStack(null).commit();
+            }
+        });
        // TextView textView =(TextView)view.findViewById(R.id.leader_group_fragemnt_show_sho_other);
      // textView.setOnClickListener(new View.OnClickListener() {
      //       @Override

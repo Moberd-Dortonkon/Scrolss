@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class ShowAllGroups extends Fragment {
     List<Group>groups;
     ListView listView;
     View view;
+    FrameLayout frameLayout;
     DefineGroup listener;
 
     @Override
@@ -54,6 +56,9 @@ public class ShowAllGroups extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_show_all_groups, container, false);
+        frameLayout=(FrameLayout)view.findViewWithTag("test");
+        frameLayout.addView(inflater.inflate(R.layout.progress_view,null));
+
         listView=(ListView)view.findViewById(R.id.show_all_groups_listview);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MainActivity.TEST_SERVER)
@@ -66,6 +71,8 @@ public class ShowAllGroups extends Fragment {
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
                 if(response.isSuccessful())
                 {
+                    frameLayout.removeAllViews();
+                    frameLayout.setVisibility(View.GONE);
                     groups=response.body();
 
                     String[] names = new String[groups.size()];

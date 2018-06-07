@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +35,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -50,9 +57,13 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
 
     View view;
     ImageView imageView;
+    ImageButton thum_up,thump_down;
     Button button;
+    Date date;
+    TextView didyoueat;
     MapView mapView;
     TextView textView;
+    FrameLayout frameLayout;
     boolean booleat;
     GoogleMap map;
     Retrofit retrofit;
@@ -97,9 +108,18 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
         view=inflater.inflate(R.layout.fragment_choose_to_do_leader, container, false);
         // Inflate the layout for this fragment
         view =inflater.inflate(R.layout.fragment_show_one_group, container, false);
-        imageView=(ImageView)view.findViewById(R.id.show_onegroup_imageview);
-        button=(Button)view.findViewById(R.id.show_onegroup_button);
-        button.setEnabled(false);
+        //imageView=(ImageView)view.findViewById(R.id.show_onegroup_imageview);
+        // imageView.setImageResource(R.drawable.ic_loading);
+        retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(MainActivity.TEST_SERVER).build();
+        //button=(Button)view.findViewById(R.id.show_onegroup_button);
+        //button.setEnabled(false);
+        didyoueat=(TextView)view.findViewById(R.id.did_you_eat);
+        group_pref=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES, Context.MODE_PRIVATE);
+        frameLayout=(FrameLayout)view.findViewById(R.id.show_one_group);
+        frameLayout.removeAllViews();
+        frameLayout.addView(inflater.inflate(R.layout.progress_view,null));
+        //frameLayout.addView(inflater.inflate(R.layout.group_eat_check_view,null));
+       // initializedate(inflater);
         mapView=(MapView)view.findViewById(R.id.show_onegroup_mapview);
         textView=(TextView)view.findViewById(R.id.show_onegroup_textview);
         textView.setText("Connecting");
@@ -111,19 +131,21 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
                 getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).addToBackStack(null).commit();
             }
         });
-        imageView.setImageResource(R.drawable.ic_loading);
-        group_pref=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES, Context.MODE_PRIVATE);
-        retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(MainActivity.TEST_SERVER).build();
-        Call<Volonteer>call =retrofit.create(ShowOneGroupInformation.class).getInfo(group_pref.getString("groupid",""),group_pref.getString("leaderid",""));
+
+      Call<Volonteer>call =retrofit.create(ShowOneGroupInformation.class).getInfo(group_pref.getString("groupid",""),group_pref.getString("leaderid",""));
         call.enqueue(new Callback<Volonteer>() {
             @Override
             public void onResponse(Call<Volonteer> call, Response<Volonteer> response) {
                 if(response.isSuccessful())
                 {
                     Volonteer volonteer=response.body();
-                    button.setEnabled(true);
-                    if(volonteer.isEat()){imageView.setImageResource(R.drawable.ic_thumup);booleat=true;}
-                    if(!volonteer.isEat()){imageView.setImageResource(R.drawable.ic_thumdown);booleat=false;}
+                    Toast.makeText(getActivity(),volonteer.getEattime(),Toast.LENGTH_LONG);
+                    try {
+                        initializedate(inflater,volonteer);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -132,7 +154,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
 
             }
         });
-       button.setOnClickListener(new View.OnClickListener() {
+      /* button.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                playSound(myButtonSound);
@@ -177,11 +199,110 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
 
                booleat=!booleat;
            }
-       });
+       });*/
        mapView.onCreate(savedInstanceState);
        mapView.getMapAsync(this);
        return view;
     }
+    SimpleDateFormat format2;
+    String dateFormated;
+    private void initializedate(final LayoutInflater inflater,Volonteer volonteer) throws ParseException {
+
+
+        SimpleDateFormat format2=new SimpleDateFormat("dd.MM:yyyy/HH:mm:ss");
+        String fromServer=volonteer.getEattime();
+        TextView textView=(TextView)view.findViewById(R.id.did_you_eat);
+        Date date=Calendar.getInstance().getTime();
+        dateFormated=format2.format(date);
+        long test=format2.parse(dateFormated).getTime();
+        long serverTime=format2.parse(fromServer).getTime();
+        if(test-serverTime<25200*1000)
+        {    frameLayout.removeAllViews();
+            frameLayout.addView(inflater.inflate(R.layout.group_check_today_eated,null));
+            didyoueat.setText("Вы сегодня кушали:3");
+        }
+        else
+            {
+                didyoueat.setText("Вы кушали?");
+                frameLayout.removeAllViews();
+                View view=inflater.inflate(R.layout.group_eat_check_view,null);
+                thump_down=(ImageButton)view.findViewById(R.id.thum_down);
+                thum_up=(ImageButton)view.findViewById(R.id.thum_up);
+                thum_up.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        frameLayout.removeAllViews();
+                        frameLayout.addView(inflater.inflate(R.layout.group_check_today_eated,null));
+                        didyoueat.setText("Вы сегодня кушали:3");
+                        Call<ResponseBody> setEat = retrofit.create(SetEat.class).setEat(group_pref.getString("leaderid", ""), group_pref.getString("groupid", ""),
+                                dateFormated);
+                        setEat.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if (response.isSuccessful()) {
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                            }
+                        });
+                    }});
+                thump_down.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(),"Покушайте и возвращайтесь",Toast.LENGTH_LONG).show();
+                    }
+                });
+                frameLayout.addView(view);
+
+            }
+            //Toast.makeText(getActivity(),""+dateFormated,Toast.LENGTH_LONG).show();
+    }
+
+    private void firstTimeOpen()
+    {
+        final TextView textView=(TextView)view.findViewById(R.id.did_you_eat);
+        final LayoutInflater inflater=LayoutInflater.from(view.getContext());
+        textView.setText("Вы кушали?");
+        frameLayout.removeAllViews();
+        View view=inflater.inflate(R.layout.group_eat_check_view,null);
+        thump_down=(ImageButton)view.findViewById(R.id.thum_down);
+        thum_up=(ImageButton)view.findViewById(R.id.thum_up);
+        thum_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                frameLayout.addView(inflater.inflate(R.layout.group_check_today_eated,null));
+                textView.setText("Вы сегодня кушали:3");
+                Call<ResponseBody> setEat = retrofit.create(SetEat.class).setEat(group_pref.getString("leaderid", ""), group_pref.getString("groupid", ""),
+                        "true");
+                setEat.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            }});
+        thump_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),"Покушайте и возвращайтесь",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
+
     public void noGroup()
     {
         textView.setText("Лидер не назначил место");
@@ -192,6 +313,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
         String show = String.format("%.0f",distance);
         if(distance<450)textView.setText("Вы на месте");
         if(distance>450)textView.setText("До вашей группы: "+show+" м.");
+        map.clear();
         map.addCircle(new CircleOptions().fillColor(0x42AB2B).radius(450).clickable(true).center(latLng));
         map.addMarker(new MarkerOptions().title("ваша группа сейчас здесь").position(latLng).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));}catch (Exception e){}
 

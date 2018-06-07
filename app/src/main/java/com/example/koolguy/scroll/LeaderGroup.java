@@ -227,7 +227,9 @@ public class LeaderGroup extends Fragment implements GroupListener {
                             gMap.addCircle(new CircleOptions().fillColor(0x42AB2B).radius(450).clickable(true).center(lng));
                             gMap.addMarker(new MarkerOptions().title("ваша группа сейчас здесь").position(lng).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));}
                         }
-                        if(created!=null){gMap.addCircle(new CircleOptions().fillColor(0x42AB2B).radius(450).clickable(true).center(created));
+                        if(created!=null&&group.getGroupcoordinates()==null)
+                        {
+                            gMap.addCircle(new CircleOptions().fillColor(0x42AB2B).radius(450).clickable(true).center(created));
                             gMap.addMarker(new MarkerOptions().title("ваша группа сейчас здесь").position(created).draggable(false).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_flag)));}
                         gMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(47.236361,39.715731)));
                         gMap.moveCamera(CameraUpdateFactory.zoomTo(12));
@@ -266,6 +268,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
                            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
                            ServerSetCoordinates setCoordinates = retrofit.create(ServerSetCoordinates.class);
                            if (groupLatLng != null) {
+                               if(group!=null){group.setGroupcoordinates((String.valueOf(groupLatLng.latitude)+","+String.valueOf(groupLatLng.longitude)));}
                                created=groupLatLng;
                                String latlngForServer = Double.toString(groupLatLng.latitude) + "," + Double.toString(groupLatLng.longitude);
                                testString = "";
@@ -372,7 +375,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         synchronized
         @Override
         public void run() {
-            for (int i =0;i<4;i++) {
+            for (int i =0;i<8;i++) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(MainActivity.TEST_SERVER)
                         .addConverterFactory(GsonConverterFactory.create())
@@ -404,7 +407,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
                         }
                     });}
                 try {
-                    sleep(5000);
+                    sleep(15000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

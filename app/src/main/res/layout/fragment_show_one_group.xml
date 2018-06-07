@@ -16,7 +16,6 @@
         android:layout_height="?attr/actionBarSize" />
 
     <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,39 +23,41 @@
         android:orientation="vertical">
 
         <TextView
-            android:textColor="#000000"
+            android:id="@+id/did_you_eat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/eaten"
+            android:text=""
             android:textSize="35dp"
             android:gravity="center"
             />
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:id="@+id/show_one_group"
+          android:layout_height="wrap_content">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="105dp"
+              android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+              <Button
+                  android:id="@+id/show_onegroup_button"
+                  android:layout_width="100dp"
+                  android:layout_height="100dp"
+                  android:layout_marginLeft="60dp"
+                  android:layout_marginTop="5dp"
+                  android:background="@drawable/rect_back"
+                  android:textColor="@color/colorBlue_text" />
 
-            <Button
-                android:id="@+id/show_onegroup_button"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/button"
-                android:textColor="@color/colorBlue_text" />
-
-            <ImageView
-                android:id="@+id/show_onegroup_imageview"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/ic_thumdown" />
-        </LinearLayout>
-
+              <ImageView
+                  android:id="@+id/show_onegroup_imageview"
+                  android:layout_width="100dp"
+                  android:layout_height="100dp"
+                  android:layout_marginLeft="50dp"
+                  android:layout_marginTop="5dp"
+                  android:src="@drawable/ic_thumdown" />
+          </LinearLayout>
+      </FrameLayout>
         <TextView
-            android:textColor="#000000"
             android:id="@+id/show_onegroup_textview"
             android:layout_width="match_parent"
             android:layout_height="120dp"
@@ -68,6 +69,6 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/show_onegroup_mapview"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="232dp"
         android:layout_gravity="bottom" />
 </LinearLayout>
