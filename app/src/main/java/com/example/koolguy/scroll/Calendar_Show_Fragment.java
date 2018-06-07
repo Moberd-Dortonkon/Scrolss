@@ -2,9 +2,11 @@ package com.example.koolguy.scroll;
 
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -50,6 +52,19 @@ public class Calendar_Show_Fragment extends Fragment {
         final SharedPreferences sharedPreferences=v.getContext().getSharedPreferences(MainActivity.CALENDAR_PREFERENCES,Context.MODE_PRIVATE);
         textView=(TextView)v.findViewById(R.id.time_show);
         textView.setText(sharedPreferences.getString("Time","Время не назначено"));
+        ImageButton imageButton = (ImageButton)v.findViewById(R.id.settings);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(v.getContext());
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getFragmentManager().beginTransaction().replace(R.id.frames,new CalendarFragment()).addToBackStack(null).commit();
+                    }
+                }).setTitle(R.string.reset_calendar).setCancelable(true).show();
+            }
+        });
         Set<String>days=sharedPreferences.getStringSet("Days",new TreeSet<String>());
         calendarView=(MaterialCalendarView)v.findViewById(R.id.calendarShow);
         calendarView.state().edit().setMinimumDate(CalendarDay.from(2018,5,1)).setMaximumDate(CalendarDay.from(2018,6,31))

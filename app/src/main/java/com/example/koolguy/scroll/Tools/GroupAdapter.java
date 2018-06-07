@@ -24,7 +24,7 @@ public class GroupAdapter extends ArrayAdapter<String> {
     HashMap<String,Volonteer> vGroup;
     Context context;
     String[]group;
-    long serverTime;
+    long test; long serverTime;
 
     public GroupAdapter(@NonNull Context context, HashMap<String,Volonteer> vGroup) {
         super(context, R.layout.group_apadter,vGroup.keySet().toArray(new String[vGroup.size()])) ;
@@ -43,18 +43,22 @@ public class GroupAdapter extends ArrayAdapter<String> {
         textView.setText(group[position]);
         SimpleDateFormat format2=new SimpleDateFormat("dd.MM:yyyy/HH:mm:ss");
         String fromServer=vGroup.get(group[position]).getEattime();
-         Date date= Calendar.getInstance().getTime();
-         String dateFormated=format2.format(date);
-
+        Date date= Calendar.getInstance().getTime();
+        String dateFormated=format2.format(date);
         try {
-            long serverTime=format2.parse(fromServer).getTime();
+            test=format2.parse(dateFormated).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try {
+            serverTime=format2.parse(fromServer).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }
         if(vGroup.get(group[position]).isCome())isCame.setImageResource(R.drawable.ic_thumup);
         if(!vGroup.get(group[position]).isCome())isCame.setImageResource(R.drawable.ic_thumdown);
-        if((Math.abs(date.getTime()-serverTime)<25200*1000))isEated.setImageResource(R.drawable.ic_thumup);
-        if((Math.abs(date.getTime()-serverTime)>25200*1000))isEated.setImageResource(R.drawable.ic_thumdown);
+        if(test-serverTime<25200*1000)isEated.setImageResource(R.drawable.ic_thumup);
+        if(test-serverTime>25200*1000)isEated.setImageResource(R.drawable.ic_thumdown);
         return convertView;
 
     }

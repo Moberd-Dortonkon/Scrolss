@@ -45,6 +45,7 @@
     <string name="name_gr">Name:</string>
     <string name="status">Choose status</string>
     <string name="all">ALL</string>
+    <string name="reset_calendar">Change your calendar?</string>
     <string name="my_schd">My Schedule</string>
     <string name="map_short">Map</string>
     <string name="extra">Extra Numbers</string>
