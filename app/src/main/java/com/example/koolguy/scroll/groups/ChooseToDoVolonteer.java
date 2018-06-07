@@ -42,11 +42,12 @@ public class ChooseToDoVolonteer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // Inflate the layout for this fragment
+        view=inflater.inflate(R.layout.fragment_chooset_to_do__volonteer, container, false);
         createSoundPool();
         myAssetManager = view.getContext().getAssets();
         myButtonSound=createSound("button_16.mp3");
-        // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_chooset_to_do__volonteer, container, false);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         show_groups=(Button)view.findViewById(R.id.choose_to_do_showgroups);
         conntect_directly=(Button)view.findViewById(R.id.chooset_to_do_coonnect_directly);

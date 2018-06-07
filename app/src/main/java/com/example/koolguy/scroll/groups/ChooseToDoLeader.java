@@ -45,10 +45,11 @@ public class ChooseToDoLeader extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+
+        view=inflater.inflate(R.layout.fragment_choose_to_do_leader, container, false);
         createSoundPool();
         myAssetManager = view.getContext().getAssets();
         myButtonSound=createSound("button_16.mp3");
-        view=inflater.inflate(R.layout.fragment_choose_to_do_leader, container, false);
         final MyGroups myGroups=new MyGroups();
         final GroupCreator groupCreator = new GroupCreator();
         groupCreator.setFragmentManager(getFragmentManager());

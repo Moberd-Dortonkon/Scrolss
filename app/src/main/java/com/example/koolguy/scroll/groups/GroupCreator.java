@@ -73,10 +73,11 @@ public class GroupCreator extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+         view =inflater.inflate(R.layout.fragment_group_creator, container, false);
         createSoundPool();
         myAssetManager = view.getContext().getAssets();
         myButtonSound=createSound("button_16.mp3");
-         view =inflater.inflate(R.layout.fragment_group_creator, container, false);
          name = view.findViewById(R.id.group_creator_name);
          description=view.findViewById(R.id.group_creator_description);
          frameLayout=(FrameLayout)view.findViewById(R.id.group_create_loading);
