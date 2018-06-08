@@ -1,4 +1,4 @@
-package com.example.koolguy.scroll;
+package com.moberd.koolguy.scroll;
 
 
 import android.app.Activity;
@@ -19,8 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.koolguy.scroll.serverInterfaces.ServerCreateGroup;
-import com.example.koolguy.scroll.serverInterfaces.ServerCreateVolonteer;
+import com.moberd.koolguy.scroll.serverInterfaces.ServerCreateGroup;
+import com.moberd.koolguy.scroll.serverInterfaces.ServerCreateVolonteer;
 
 import java.io.IOException;
 

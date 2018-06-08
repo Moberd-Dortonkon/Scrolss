@@ -1,4 +1,4 @@
-package com.example.koolguy.scroll.Tools;
+package com.moberd.koolguy.scroll.Tools;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -12,7 +12,7 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.koolguy.scroll.R;
+import com.moberd.koolguy.scroll.R;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.lang.reflect.Array;
