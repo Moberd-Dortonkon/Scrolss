@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "999546263268",
+    "firebase_url": "https://mapblin.firebaseio.com",
+    "project_id": "mapblin",
+    "storage_bucket": "mapblin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999546263268:android:c3984875108512ec",
+        "android_client_info": {
+          "package_name": "com.moberd.koolguy.scroll"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999546263268-lreshgpek5lc9grjkgq12vkp0tpjl9ve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moberd.koolguy.scroll",
+            "certificate_hash": "96e524a22e5705347371913db164b0453a19b00f"
+          }
+        },
+        {
+          "client_id": "999546263268-qc9ig4me1u1thbmf2o9ro3lg79o26c4f.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "999546263268-qc9ig4me1u1thbmf2o9ro3lg79o26c4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMGMy0Z8IEFIGXQqFSOXKkBuW_iIO3wBg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999546263268-qc9ig4me1u1thbmf2o9ro3lg79o26c4f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
