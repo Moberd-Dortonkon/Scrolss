@@ -34,10 +34,13 @@ import android.widget.Toast;
 
 import com.moberd.koolguy.scroll.Tools.GroupAdapter;
 import com.moberd.koolguy.scroll.Tools.GroupListener;
+import com.moberd.koolguy.scroll.VolonteersInfo.DisplayVolonteers;
 import com.moberd.koolguy.scroll.VolonteersInfo.Group;
 import com.moberd.koolguy.scroll.VolonteersInfo.Volonteer;
 import com.moberd.koolguy.scroll.groups.ServerInterfaces.GetMyVolonteers;
+import com.moberd.koolguy.scroll.serverInterfaces.ServerDisplayGroup;
 import com.moberd.koolguy.scroll.serverInterfaces.ServerSetCoordinates;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
