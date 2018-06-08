@@ -1,5 +1,9 @@
 package com.moberd.koolguy.scroll.VolonteersInfo;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+
+@IgnoreExtraProperties
 public class Volonteer {
 
     String name;
@@ -29,5 +33,5 @@ public class Volonteer {
         this.come = come;
         this.eattime = eattime;
     }
-
+        public Volonteer(){}
 }

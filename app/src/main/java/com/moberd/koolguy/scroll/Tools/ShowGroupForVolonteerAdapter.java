@@ -17,6 +17,7 @@ import com.moberd.koolguy.scroll.VolonteersInfo.Group;
 import com.moberd.koolguy.scroll.groups.ServerInterfaces.CreateVolonteer;
 import com.moberd.koolguy.scroll.groups.ShowAllGroups;
 
+import java.io.IOException;
 import java.util.List;
 
 import okhttp3.ResponseBody;
