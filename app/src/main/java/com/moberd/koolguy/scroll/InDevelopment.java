@@ -33,7 +33,7 @@ public class InDevelopment extends Fragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref=database.getReference("message");
         ref.setValue("Hello world2");
-        ref.setValue("volonteer",new Volonteer("test",false,"19.12.2018/12:12:34"));
+        ref.setValue(new Volonteer("test",false,"19.12.2018/12:12:34"));
         return view;
     }
 

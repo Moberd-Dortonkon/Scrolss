@@ -1,5 +1,9 @@
 package com.moberd.koolguy.scroll.VolonteersInfo;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+
+@IgnoreExtraProperties
 public class Volonteer {
 
     String name;
