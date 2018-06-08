@@ -260,8 +260,9 @@ public class MainActivity extends AppCompatActivity implements
                     //  map.makeMap(new ArrayList<LatLng>());break;
                     case R.id.account:
                         //anotherFragment(); // для сервера
-
-                        test();
+                        playSound(myButtonSound);
+                         getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frames,new InDevelopment()).commit();
+                        //test();
                         break;
                     case R.id.dictionary:
                         dictionaryFragment(); //Создать метод который вызывыет словарь
