@@ -55,7 +55,7 @@
     <string name="name_fam">Your 2nd Name</string>
     <string name="description">Description</string>
     <string name="show_group">Show other group  -></string>
-    <string name="soon_work">It is tour work time soon</string>
+    <string name="soon_work">It is your work time soon</string>
     <string name="eaten">Have you eaten?</string>
     <string name="all_grp">All Groups</string>
     <string name="code">Code</string>
@@ -64,6 +64,7 @@
     <string name="your_days">Your Days</string>
     <string name="your_time">Your Time:</string>
     <string name="yes">Yes</string>
+    <string name="app">Volunteer Helper</string>
 
     <string name="my_notification_title_template">My: %1$s</string>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.koolguy.scroll">
+    package="com.moberd.koolguy.scroll">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <permission
-        android:name="com.example.koolguy.mymap.permissiom.MAPS_RECEIVE"
+        android:name="com.moberd.koolguy.mymap.permissiom.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.example.koolguy.mymap.permissiom.MAPS_RECEIVE" />
@@ -28,10 +28,10 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.moberd.koolguy.scroll.MainActivity"
             android:screenOrientation="portrait"></activity>
 
-        <receiver android:name=".MyAlarmReceiver" />
+        <receiver android:name="com.moberd.koolguy.scroll.MyAlarmReceiver" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
@@ -41,7 +41,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".SplashActivity"
+            android:name="com.moberd.koolguy.scroll.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

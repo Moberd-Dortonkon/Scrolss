@@ -22,7 +22,7 @@
     <string name="july2">2 Июля 21:00</string>
     <string name="inf">Справочник</string>
     <string name="group">Группа</string>
-    <string name="reset_calendar">Изменить ваше календарь?</string>
+    <string name="reset_calendar">Изменить ваш календарь?</string>
     <string name="Dictionary">Словарь</string>
     <string name="joinGroup">Присоединиться</string>
     <string name="groupId">ID Группы</string>
@@ -61,5 +61,6 @@
     <string name="your_days">Ваши Дни</string>
     <string name="your_time">Ваше Время:</string>
     <string name="yes">Да</string>
+    <string name="app">Помощник Волонтёра</string>
 
 </resources>

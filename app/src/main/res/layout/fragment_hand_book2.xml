@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.koolguy.scroll.HandBook2"
+    tools:context="com.moberd.koolguy.scroll.HandBook2"
     android:orientation="vertical">
 <LinearLayout
     android:orientation="vertical"
@@ -32,7 +32,7 @@
         android:id="@+id/teamlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="com.example.koolguy.scroll.TeamList2">
+        tools:context="com.moberd.koolguy.scroll.TeamList2">
 
         <LinearLayout
             android:layout_width="match_parent"

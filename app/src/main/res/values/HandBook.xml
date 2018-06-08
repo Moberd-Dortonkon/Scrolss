@@ -9,17 +9,17 @@
 
     <string-array name="FirstHelp">
         <item>Экстренные службы помощи</item>
-        <item>Вера Гвоздёва:</item>
-        <item>Анастасия Пилипенко:</item>
-        <item>Алёна Ставерова:</item>
-        <item>Анастасия Крицкая:</item>
-        <item>Полина Цвенгер:</item>
+        <item>Волонтёрский центр:3332854</item>
+        <item>Анастасия Пилипенко:89889925376</item>
+        <item>Алёна Ставерова:89198833581</item>
+        <item>Анастасия Крицкая:89281705070</item>
+        <item>Полина Цвенгер:89054860884</item>
     </string-array>
 
     <string-array name="ExtraNumbers">
         <item>112 "Экстренная служба помощи"</item>
         <item>010 Пожарные</item>
-        <item>020 Скорая помощ</item>
+        <item>020 Скорая помощь</item>
         <item>030 Полиция</item>
     </string-array>
     <string-array name="Places">
@@ -58,12 +58,21 @@
     </string-array>
 
     <string-array name="time">
+        <item>6:00-14:00</item>
+        <item>14:00-22:00</item>
+        <item>22:00-06:00</item>
         <item>10:00-16:00</item>
         <item>16:00-22:00</item>
-        <item>22:00-04:00</item>
-        <item>04:00-10:00</item>
-        <item>14:00-20:00</item>
-        <item>20:00-02:00</item>
+        <item>12:00-18:30</item>
+        <item>18:30-00:30</item>
+        <item>18:30-01:15</item>
+        <item>11:00-18:30</item>
+        <item>15:00-02:00</item>
+        <item>18:30-00:30</item>
+        <item>12:00-18:30</item>
+        <item>16:00-02:00</item>
+        <item>14:00-00:00</item>
+
 
     </string-array>
 </resources>
