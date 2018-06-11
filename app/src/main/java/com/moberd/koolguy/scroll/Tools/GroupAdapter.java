@@ -3,6 +3,7 @@ package com.moberd.koolguy.scroll.Tools;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class GroupAdapter extends ArrayAdapter<String> {
         ImageView isCame=(ImageView) convertView.findViewById(R.id.isCame);
         ImageView isEated=(ImageView) convertView.findViewById(R.id.isEated);
         textView.setText(group[position]);
-        SimpleDateFormat format2=new SimpleDateFormat("dd.MM:yyyy/HH:mm:ss");
+        SimpleDateFormat format2=new SimpleDateFormat("dd.MM.yyyy/HH:mm:ss");
         String fromServer=vGroup.get(group[position]).getEattime();
         Date date= Calendar.getInstance().getTime();
         String dateFormated=format2.format(date);
@@ -54,6 +55,7 @@ public class GroupAdapter extends ArrayAdapter<String> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Log.d("time",""+(test-serverTime));
         if(vGroup.get(group[position]).isCome())isCame.setImageResource(R.drawable.ic_thumup);
         if(!vGroup.get(group[position]).isCome())isCame.setImageResource(R.drawable.ic_thumdown);
         if(test-serverTime<25200*1000)isEated.setImageResource(R.drawable.ic_thumup);

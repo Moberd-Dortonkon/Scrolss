@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".groups2.LeaderConfirm">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.Toolbar
+        app:title="@string/leader_confirm_toolbar"
+        android:elevation="8dp"
+        android:background="@color/colorWhite_front"
+        android:id="@+id/toolbarId"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="?attr/homeAsUpIndicator"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="99dp"
+        android:gravity="center"
+        android:text="@string/leader_confirm"
+        android:textSize="35dp" />
+
+    <EditText
+        android:layout_width="212dp"
+        android:id="@+id/login"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="231dp"
+        android:hint="@string/leader_login" />
+
+    <EditText
+        android:layout_width="213dp"
+        android:id="@+id/password"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="229dp"
+        android:hint="@string/leader_password" />
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="123dp"
+        android:text="@string/leader_confirm_button" />
+</RelativeLayout>

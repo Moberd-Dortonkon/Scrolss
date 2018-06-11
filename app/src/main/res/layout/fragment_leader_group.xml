@@ -31,7 +31,6 @@
             android:focusable="true"
             android:gravity="center"
             android:longClickable="true"
-            android:text="@string/refresh"
             android:textIsSelectable="true"
             android:textSize="24sp" />
 

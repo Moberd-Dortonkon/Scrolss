@@ -32,8 +32,8 @@ public class ShowGroupForVolonteerAdapter extends ArrayAdapter<String> {
     Activity activity;
     FragmentManager fm;
     List<Group>groups;
-    ShowAllGroups.DefineGroup listener;
-    public ShowGroupForVolonteerAdapter(@NonNull Context context, List<Group>groups, Activity activity, String[]strings, FragmentManager fm, ShowAllGroups.DefineGroup defineGroup) {
+    com.moberd.koolguy.scroll.groups2.ShowAllGroups.DefineGroup listener;
+    public ShowGroupForVolonteerAdapter(@NonNull Context context, List<Group>groups, Activity activity, String[]strings, FragmentManager fm, com.moberd.koolguy.scroll.groups2.ShowAllGroups.DefineGroup defineGroup) {
         super(context, R.layout.adapter_group,strings);
         this.context=context;
         this.groups=groups;
@@ -59,26 +59,7 @@ public class ShowGroupForVolonteerAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 String s= (String) v.getTag();
                 getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).edit().putString("groupid",s).apply();
-                Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
-                CreateVolonteer createVolonteer = retrofit.create(CreateVolonteer.class);
-                Call<ResponseBody> call = createVolonteer.createVolonteer(getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("leaderid",""),s);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                      //  if(response.isSuccessful()) {
-                        //    try {
-                              //  Toast.makeText(activity,response.body().string(),Toast.LENGTH_SHORT).show();
-                        //    } catch (IOException e) {
-                           //     e.printStackTrace();
-                          //  }
-                      //  }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                    }
-                });
 
 
 

@@ -32,7 +32,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.moberd.koolguy.scroll.ServerRequest.CreateGroup;
+import com.moberd.koolguy.scroll.Tools.Json.JsonData;
+import com.moberd.koolguy.scroll.Tools.Json.Place;
 import com.moberd.koolguy.scroll.VolonteersInfo.MapCoordinates;
+import com.moberd.koolguy.scroll.VolonteersInfo.Volonteer;
+import com.moberd.koolguy.scroll.groups.ChooseToDo;
 import com.moberd.koolguy.scroll.groups.ChooseToDoLeader;
 import com.moberd.koolguy.scroll.groups.ChooseToDoVolonteer;
 import com.moberd.koolguy.scroll.groups.GreetingsGroupFragment;
@@ -41,7 +53,11 @@ import com.moberd.koolguy.scroll.groups.ServerInterfaces.SetCome;
 import com.moberd.koolguy.scroll.groups.ShowAllGroups;
 import com.moberd.koolguy.scroll.groups.ShowOneGroup;
 import com.moberd.koolguy.scroll.serverInterfaces.ServerGetCoordinates;
+import com.moberd.koolguy.scroll.serverInterfaces.ServerGetMyInformation;
+import com.moberd.koolguy.scroll.serverInterfaces.ServerSetCoordinates;
+import com.moberd.koolguy.scroll.serverInterfaces.ServerVolonteerStatus;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationListener;
@@ -79,14 +95,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements
         Check.Listener,DictionaryFragment.DictionaryListener,HandBookFragment.HandbookListener,LeaderCreateGroup.LeaderCreateGroupNext
-        ,ChooseStatus.ChooseStatusClick,RefreshStatus, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener,ShowAllGroups.DefineGroup {
+        ,ChooseStatus.ChooseStatusClick,RefreshStatus, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener, com.moberd.koolguy.scroll.groups2.ShowAllGroups.DefineGroup {
     BottomNavigationView menu;
     TextView textView;
     MyMap map;
     Retrofit retrofit;
-    ShowOneGroup showOneGroup;
+    com.moberd.koolguy.scroll.groups2.ShowOneGroup showOneGroup;
     SharedPreferences group_pref;
     Activity activity;
+    FirebaseDatabase db;
     String getCoordinates;
     SharedPreferences.Editor editor;
     public static final String APP_PREFERENCES = "mysettings";
@@ -117,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         buildGoogleApiClient();
         activity=this;
+        db=FirebaseDatabase.getInstance();
         menu = (BottomNavigationView) findViewById(R.id.menu);
         textView = (TextView) findViewById(R.id.text);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999);
@@ -124,7 +142,8 @@ public class MainActivity extends AppCompatActivity implements
        // map = new MyMap(this, this);
         Gson gson = new Gson();
         come=false;
-        showOneGroup = new ShowOneGroup();
+
+        showOneGroup = new com.moberd.koolguy.scroll.groups2.ShowOneGroup();
        retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         //Place[] places = gson.fromJson(String.valueOf(R.raw.data),Place.class);
@@ -132,10 +151,11 @@ public class MainActivity extends AppCompatActivity implements
         //volonteerStatus = new VolonteerStatus();
         initSharedPreferences();
         initMenu();
+
        // getMapCoordinates(this);
-        createSoundPool();
+        //createSoundPool();
         myAssetManager = getAssets();
-        myButtonSound=createSound("button_16.mp3");
+        //myButtonSound=createSound("button_16.mp3");
 
 
 
@@ -148,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements
         preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = preferences.edit();
         group_pref = getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE);
-        //group_pref.edit().clear().apply();
+        group_pref.edit().clear().apply();
        // group_pref.edit().clear().apply();
        /* if(preferences.getString("role","").equals("leader"))
         {
@@ -221,17 +241,25 @@ public class MainActivity extends AppCompatActivity implements
         //getFragmentManager().beginTransaction().replace(R.id.frames,new GreetingsGroupFragment()).addToBackStack(null).commit();
         // else getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDo()).addToBackStack(null).commit();
         playSound(myButtonSound);
-        if (!group_pref.contains("type"))
-            getFragmentManager().beginTransaction().replace(R.id.frames, new GreetingsGroupFragment()).addToBackStack(null).commit();
-        else {
-            if (group_pref.getString("type", "").equals("leader"))
-                getFragmentManager().beginTransaction().replace(R.id.frames, new ChooseToDoLeader()).addToBackStack(null).commit();
-            if (group_pref.getString("type", "").equals("volonteer")) {
-                if(group_pref.contains("lastgroupid")){ getFragmentManager().beginTransaction().replace(R.id.frames,showOneGroup).addToBackStack(null).commit();}
-                if(!group_pref.contains("lastgroupid")){getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).addToBackStack(null).commit();}
-               // getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).addToBackStack(null).commit();
-            }
+        if(!group_pref.contains("role"))
+        {
+            getFragmentManager().beginTransaction().replace(R.id.frames,new com.moberd.koolguy.scroll.groups2.GreetingsGroupFragment()).addToBackStack(null).commit();
         }
+        else
+            {
+
+                if(group_pref.getString("role","").equals("leader"))getFragmentManager().beginTransaction().replace(R.id.frames,new com.moberd.koolguy.scroll.groups2.ChooseToDoLeader())
+                        .addToBackStack(null).commit();
+
+
+                if (group_pref.getString("role","").equals("volonteer"))
+                {
+                   if(!group_pref.contains("lastgroupid"))getFragmentManager().beginTransaction().replace(R.id.frames,new com.moberd.koolguy.scroll.groups2.ChooseToDoVolonteer()).addToBackStack(null).commit();
+                    else getFragmentManager().beginTransaction().replace(R.id.frames,showOneGroup).addToBackStack(null).commit();
+
+                }
+
+            }
     }
     private void initMenu() {
         playSound(myButtonSound);
@@ -250,8 +278,8 @@ public class MainActivity extends AppCompatActivity implements
                     case R.id.account:
                         //anotherFragment(); // для сервера
                         playSound(myButtonSound);
-                         getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frames,new InDevelopment()).commit();
-                        //test();
+                         //getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frames,new InDevelopment()).commit();
+                        test();
                         break;
                     case R.id.dictionary:
                         dictionaryFragment(); //Создать метод который вызывыет словарь
@@ -491,81 +519,53 @@ public class MainActivity extends AppCompatActivity implements
     //}*/
 
     Location locationr;
+    LatLng fromDb;
+    DatabaseReference coordRef;
     public void onLocationChanged(Location location)
     {
         this.locationr=location;
-        if(group_pref.getString("groupid","")!=null)
-        {
-            String groupid=group_pref.getString("groupid","");
-            Call<ResponseBody>call=retrofit.create(ServerGetCoordinates.class).getCoordinates(groupid);
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if(response.isSuccessful())
-                    {
-                        String resp="";
-                        try {
-                           resp=response.body().string();
-                           //Toast.makeText(activity,resp,Toast.LENGTH_SHORT).show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        if(!resp.equals(""))
-                        {
-                            Location locationl = new Location("test");
-                            locationl.setLatitude(Double.parseDouble(resp.split(",")[0]));
-                            locationl.setLongitude(Double.parseDouble(resp.split(",")[1]));
-                            LatLng lng = new LatLng(Double.parseDouble(resp.split(",")[0]),Double.parseDouble(resp.split(",")[1]));
-                            float distance = locationr.distanceTo(locationl);
-                            if(showOneGroup.isVisible()) showOneGroup.initmap(distance,lng);
-                            sendCome(distance);
-                        }
-                        if(resp.equals(""))if(showOneGroup.isVisible())showOneGroup.noGroup();
-                        //else{if(showOneGroup.isVisible())showOneGroup.noGroup();}
-                    }
+        String groupid=group_pref.getString("groupid","");
+        // Toast.makeText(MainActivity.this,groupid,Toast.LENGTH_SHORT).show();
+        coordRef = db.getReference("Groups").child(groupid).child("Coordinates");
+        coordRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    String latlng = dataSnapshot.getValue(String.class);
+                    fromDb = new LatLng(Double.parseDouble(latlng.split(",")[0]), Double.parseDouble(latlng.split(",")[1]));
+                    //Toast.makeText(MainActivity.this,latlng,Toast.LENGTH_SHORT).show();
                 }
+            }
 
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+            }
+        });
 
-        }
+            if(fromDb!=null)
+            {
+                locationr=new Location("test");
+                locationr.setLongitude(fromDb.longitude);
+                locationr.setLatitude(fromDb.latitude);
+                float distance = location.distanceTo(locationr);
+                if(showOneGroup.isVisible()) showOneGroup.initmap(distance,fromDb);
+                sendCome(distance);
+            }
+            if(fromDb==null)if(showOneGroup.isVisible())showOneGroup.noGroup();
+
     }
     private void sendCome(float distance)
     {
-        String id=group_pref.getString("leaderid","");
+        String id=group_pref.getString("name","");
         String groupid=group_pref.getString("groupid","");
         if(distance>450)
         {
-            Call<ResponseBody>setCome=retrofit.create(SetCome.class).setCome(id,groupid,"false");
-            setCome.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
+              db.getReference("Groups").child(groupid).child("Volonteers").child(id).child("Come").setValue(false);
         }
         if(distance<450)
         {
-            Call<ResponseBody>setCome=retrofit.create(SetCome.class).setCome(id,groupid,"true");
-            setCome.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                 //Сделать уведомление?
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
+            db.getReference("Groups").child(groupid).child("Volonteers").child(id).child("Come").setValue(true);
         }
 
     }
@@ -605,7 +605,7 @@ public class MainActivity extends AppCompatActivity implements
         transaction.commit();
     }
 
-    private void createSoundPool() {
+  /*  private void createSoundPool() {
         AudioAttributes attributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -613,7 +613,7 @@ public class MainActivity extends AppCompatActivity implements
         mySoundPool = new SoundPool.Builder()
                 .setAudioAttributes(attributes)
                 .build();
-    }
+    }*/
 
     private int createSound(String fileName) {
         AssetFileDescriptor AsFileDesc;
@@ -645,6 +645,12 @@ public class MainActivity extends AppCompatActivity implements
     public void defineGroup(String groupid) {
         playSound(myButtonSound);
         group_pref.edit().putString("lastgroupid",groupid).apply();
+        group_pref.edit().putString("groupid",groupid).apply();
+        String name =group_pref.getString("name","");
+        DatabaseReference reference = db.getReference("Groups").child(groupid).child("Volonteers").child(name);
+        reference.child("Come").setValue(false);
+        reference.child("EatTime").setValue("11.05.2018/17:18:19");
+       // Toast.makeText(MainActivity.this,groupid,Toast.LENGTH_SHORT).show();
         getFragmentManager().beginTransaction().replace(R.id.frames,showOneGroup).addToBackStack(null).commit();
     }
 }

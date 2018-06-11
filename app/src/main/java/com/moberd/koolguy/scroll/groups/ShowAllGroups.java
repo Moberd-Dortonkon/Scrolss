@@ -77,9 +77,9 @@ public class ShowAllGroups extends Fragment {
                     {
                         names[i]=groups.get(i).getGroupName();
                     }
-                    ShowGroupForVolonteerAdapter show = new ShowGroupForVolonteerAdapter(view.getContext(),groups,getActivity(),names,getFragmentManager(),listener);
+                    //ShowGroupForVolonteerAdapter show = new ShowGroupForVolonteerAdapter(view.getContext(),groups,getActivity(),names,getFragmentManager(),listener);
                     //Toast.makeText(getActivity(),groups.get(3).getGroupid(),Toast.LENGTH_SHORT).show();
-                    listView.setAdapter(show);
+                   // listView.setAdapter(show);
                 }
             }
 

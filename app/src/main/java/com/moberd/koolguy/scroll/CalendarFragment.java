@@ -2,13 +2,10 @@ package com.moberd.koolguy.scroll;
 
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.media.AudioAttributes;
-import android.media.SoundPool;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +14,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+
+import com.google.android.gms.common.SignInButton;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 
-import java.io.IOException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
+
 
 
 /**
@@ -42,12 +46,7 @@ public class CalendarFragment extends Fragment {
     Spinner spinner;
     int count;
     String[] time;
-    private SoundPool mySoundPool;
-    private AssetManager myAssetManager;
-    private int myButtonSound;
-    private int myStreamID;
-    Resources res;
-    String text;
+    static boolean ready;
     public CalendarFragment() {
         // Required empty public constructor
     }
@@ -57,15 +56,11 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         v =inflater.inflate(R.layout.fragment_calendar, container, false);
-        createSoundPool();
-        myAssetManager = v.getContext().getAssets();
-        myButtonSound=createSound("button_16.mp3");
+        // Inflate the layout for this fragment
         button = (Button)v.findViewById(R.id.calendarButton);
         textView=(TextView)v.findViewById(R.id.calendarTextView);
         count=0;
-        res=v.getContext().getResources();
-        text=res.getString(R.string.your_days);
-        textView.setText(text);
+        textView.setText("Выберите дни ваших смен");
         calendarView = (MaterialCalendarView) v.findViewById(R.id.calendar);
         calendarView.state().edit().setMinimumDate(CalendarDay.from(2018,5,1)).setMaximumDate(CalendarDay.from(2018,6,19))
                 .setFirstDayOfWeek(Calendar.MONDAY).setCalendarDisplayMode(CalendarMode.MONTHS).commit();
@@ -78,7 +73,6 @@ public class CalendarFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
-                playSound(myButtonSound);
 
 
 
@@ -90,7 +84,6 @@ public class CalendarFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playSound(myButtonSound);
                // v.getContext().getSharedPreferences(MainActivity.CALENDAR_PREFERENCES,Context.MODE_PRIVATE).edit().
                 TreeSet<String>dates=new TreeSet<>();
                 List<CalendarDay>datesList=calendarView.getSelectedDates();
@@ -106,33 +99,5 @@ public class CalendarFragment extends Fragment {
         });
          return v;
     }
-    private void createSoundPool() {
-        AudioAttributes attributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_GAME)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build();
-        mySoundPool = new SoundPool.Builder()
-                .setAudioAttributes(attributes)
-                .build();
-    }
 
-    private int createSound(String fileName) {
-        AssetFileDescriptor AsFileDesc;
-        try {
-            AsFileDesc = myAssetManager.openFd(fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(getActivity(), "Не смог загрузить звук " + fileName,
-                    Toast.LENGTH_SHORT).show();
-            return -1;
-        }
-        return mySoundPool.load(AsFileDesc, 1);
-    }
-
-    private int playSound(int sound) {
-        if (sound > 0) {
-            myStreamID = mySoundPool.play(sound, 1, 1, 1, 0, 1);
-        }
-        return myStreamID;
-    }
 }

@@ -37,7 +37,13 @@
     <string name="reset">Сбросить</string>
     <string name="eat">Я поел</string>
     <string name="come">Я пришел</string>
+    <string name="pass">Пожалуйста,авторизируйтесь</string>
     <string name="no_one">В вашей группе никого нет</string>
+    <string name="leader_login">Логин лидера</string>
+    <string name="leader_password">Пароль лидера</string>
+    <string name="leader_confirm">Вы точно лидер?</string>
+    <string name="leader_confirm_button">Войти</string>
+    <string name="leader_confirm_toolbar">Вы точно лидер?</string>
     <string name="name_gr">Имя:</string>
     <string name="status">Выберете статус</string>
     <string name="all">ВСЁ</string>

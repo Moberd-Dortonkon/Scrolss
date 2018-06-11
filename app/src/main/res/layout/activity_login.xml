@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gold"
+    tools:context=".LoginActivity">
+    <android.support.v7.widget.Toolbar
+        app:title="@string/pass"
+        android:elevation="8dp"
+        android:background="@color/colorWhite_front"
+        android:id="@+id/toolbarId"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="184dp"
+        android:layout_height="71dp"
+        android:layout_centerInParent="true"></com.google.android.gms.common.SignInButton>
+
+
+</RelativeLayout>

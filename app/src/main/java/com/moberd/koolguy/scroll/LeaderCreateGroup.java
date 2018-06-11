@@ -67,7 +67,7 @@ public class LeaderCreateGroup extends Fragment {
         myButtonSound=createSound("button_16.mp3");
         v = inflater.inflate(R.layout.fragment_leader_create_group, container, false);
         leaderName = (EditText) v.findViewById(R.id.leadername);
-        test = (TextView) v.findViewById(R.id.test);
+        //test = (TextView) v.findViewById(R.id.test);
         createGroup = (Button) v.findViewById(R.id.createGroup);
         createGroup.setEnabled(true);
 
