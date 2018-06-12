@@ -7,16 +7,20 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.TestLooperManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +33,7 @@ import com.moberd.koolguy.scroll.groups.ServerInterfaces.DeleteGRoup;
 import com.moberd.koolguy.scroll.groups.ServerInterfaces.ServerDisplayGroupForMe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -49,7 +54,10 @@ public class MyGroups extends Fragment {
     View mini_view;
     DatabaseReference reference;
     List<Group>groups;
+    HashMap<String,Group>groupHashMap;
     Retrofit retrofit;
+    LayoutInflater inflater;
+    View loadingView;
     public void setFragmentManager(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
     }
@@ -61,155 +69,126 @@ public class MyGroups extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         viewTrue = inflater.inflate(R.layout.fragment_my_groups, container, false);
         linearLayout = viewTrue.findViewById(R.id.my_group_layout);
+        this.inflater=inflater;
+        groupHashMap = new HashMap<>();
         //inflater.inflate(R.layout.progress_view,null);
         check=true;
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        linearLayout.addView(inflater.inflate(R.layout.progress_view,null));
+        loadingView=inflater.inflate(R.layout.progress_view,null);
+        loadingView.setTag("Loading");
+        linearLayout.addView(loadingView);
         groups = new ArrayList<>();
         String userName=viewTrue.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("name","test");
         db = FirebaseDatabase.getInstance();
 
         reference = db.getReference("Leaders").child(userName).child("Groups");
-        //Toast.makeText(getActivity(),"here3",Toast.LENGTH_SHORT).show();
-        reference.addValueEventListener(new ValueEventListener() {
+        //Toast.makeText(getActivity(),"here3",Toast.LENGTH_SHORT).show()
+        reference.getParent().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                for(DataSnapshot test:dataSnapshot.getChildren())
-                {
+                if(!dataSnapshot.hasChild("Groups")){
 
-                            String desck = test.child("Description").getValue(String.class);
-                            String name = test.child("Name").getValue(String.class);
-                            String time = test.child("Time").getValue(String.class);
-                            String groupid = test.getRef().getKey();
-                            Group group = new Group(time, "test", groupid, name, desck, null);
-                            groups.add(group);
-                            if(check)makeGroups(groups);
+
+                    linearLayout.removeAllViews();
+                    View view = inflater.inflate(R.layout.group_nogroup,null);
+                    linearLayout.addView(view);
+
                 }
-                else{makeGroups(groups);}
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-               // Toast.makeText(getActivity(),"here4",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        reference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
+            {
+                try{
+                linearLayout.removeView(viewTrue.findViewWithTag("Loading"));}catch (Exception e){}
+               // Toast.makeText(getActivity(),dataSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+
+                String key = dataSnapshot.getKey();
+                String name = dataSnapshot.child("Name").getValue(String.class);
+                String desc = dataSnapshot.child("Description").getValue(String.class);
+                String time = dataSnapshot.child("Time").getValue(String.class);
+                Group group = new Group(time,name,key,name,desc,null);
+                groupHashMap.put(group.getGroupid(),group);
+                addGroup(group);
+
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                //Toast.makeText(getActivity(),dataSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
 
         return viewTrue;
     }
-    private void makeGroups(final List<Group>test)
+    private void addGroup(Group g)
     {
-        linearLayout.removeAllViews();
-//        Toast.makeText(getActivity(),"",Toast.LENGTH_SHORT).show();
-        final LayoutInflater inflate=LayoutInflater.from(viewTrue.getContext());
-        final LinearLayout linearLayout =(LinearLayout)viewTrue.findViewById(R.id.my_group_layout);
-        if(groups.isEmpty()||groups==null)
-        {
-            View view = inflate.inflate(R.layout.group_nogroup,null);
-            linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        }
-        //Для материал дезигна,надо д
-        //елати крутой дезигн group_notexist ии в group_creategroup,я всего лишь даю значения объектам внтри них
-        else
-            {
-               // LayoutInflater inflate=LayoutInflater.from(view.getContext());
-              //  LinearLayout linearLayout =(LinearLayout)view.findViewById(R.id.my_group_layout);
+        final View view = inflater.inflate(R.layout.group_exist,null);
+        TextView name=(TextView)view.findViewById(R.id.group_exist_name);
+        TextView desc=(TextView)view.findViewById(R.id.group_exist_desc);
+        TextView date=(TextView)view.findViewById(R.id.group_exist_date);
+        name.setText(g.getGroupName());
+        desc.setText(g.getGroupdescription());
+        date.setText(g.getGroupdate());
+        view.setTag(g.getGroupid());
+        ImageButton imageButton = (ImageButton)view.findViewById(R.id.deletegroup);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteGroup((String)view.getTag());
+            }
+        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LeaderGroupFragmentShow leaderGroupFragmentShow= new LeaderGroupFragmentShow();
+                leaderGroupFragmentShow.setGroupid((String)view.getTag());
+                leaderGroupFragmentShow.setGroup(groupHashMap.get((String)view.getTag()));
+                fragmentManager.beginTransaction().replace(R.id.frames,leaderGroupFragmentShow).addToBackStack(null).commit();
 
-                for(int i = test.size()-1;i>=0;i--)
-                {
-                   /* FrameLayout frameLayout=view.findViewById(view.getContext().getResources().getIdentifier("my_groups_layout"+i,"id",view.getContext().getPackageName()));
-                    frameLayout.removeAllViews();
-                    mini_view=inflate.inflate(R.layout.group_exist,null);
-                    TextView name =(TextView)mini_view.findViewById(R.id.groupExist_name);
-                    TextView description=(TextView)mini_view.findViewById(R.id.groupExist_descriptyp);
-                    TextView type =(TextView)mini_view.findViewById(R.id.groupexist_type);
-                    name.setText(g.getGroupName());
-                    description.setText(g.getGroupdescription());
-                    type.setText(g.getGroupType());
-                    frameLayout.setTag(i);
-                    frameLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            int tag =(int)v.getTag();
-                            Group group=groups.get(tag-1);
-                            LeaderGroupFragmentShow leaderG=new LeaderGroupFragmentShow();
-                            leaderG.setGroupid(group.getGroupid());
-                            getFragmentManager().beginTransaction().replace(R.id.frames,leaderG).addToBackStack(null).commit();
-                            Toast.makeText(getActivity(),""+group.getGroupid(),Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    frameLayout.addView(mini_view);*/
-                    Group g=groups.get(i);
-                    View view = inflate.inflate(R.layout.group_exist,null);
-                    TextView name =(TextView)view.findViewById(R.id.group_exist_name);
-                    TextView description=(TextView)view.findViewById(R.id.group_exist_desc);
-                    TextView date =(TextView)view.findViewById(R.id.group_exist_date);
-                    name.setText(g.getGroupName());
-                    description.setText(g.getGroupdescription());
-                    date.setText(g.getGroupdate());
-                    view.setTag(i);
-                    final ImageButton imageButton = (ImageButton)view.findViewById(R.id.deletegroup);
-                    imageButton.setTag(i);
-                    imageButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            AlertDialog.Builder builder=new AlertDialog.Builder(viewTrue.getContext());
-                            builder.setCancelable(true).setTitle("Do you want to delete this group?").setPositiveButton("delete", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    int tag =(int)imageButton.getTag();
-                                   // int tag2=(int)tag+1;
-                                    linearLayout.removeView(linearLayout.findViewWithTag(tag));
-                                    //linearLayout.removeView(linearLayout.findViewWithTag(tag2));
-                                           if(groups.size()==1){linearLayout.removeAllViews();linearLayout.addView(inflate.inflate(R.layout.group_nogroup,null));}
-                                           String groupid=groups.get(tag).getGroupid();
-                                           groups.remove(tag);
-                                    //Toast.makeText(getActivity(),groupid,Toast.LENGTH_SHORT).show();
-                                           db.getReference("Groups").child(groupid).removeValue();
-                                           reference.child(groupid).removeValue();
-                                      //     makeGroups(groups);
-                                           check=false;
-                                    dialog.dismiss();
-                                }
-                            }).show();
 
-                        }
-                    });
-
-                    view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            int tag =(int)v.getTag();
-                            Group group=groups.get(tag);
-                            LeaderGroupFragmentShow leaderG=new LeaderGroupFragmentShow();
-                            leaderG.setGroupid(group.getGroupid());
-                           // Toast.makeText(getActivity(),group.getGroupcoordinates(),Toast.LENGTH_SHORT).show();
-                            leaderG.setGroup(group);
-                            fragmentManager.beginTransaction().replace(R.id.frames,leaderG).addToBackStack(null).commit();
-                           // Toast.makeText(getActivity(),""+group.getGroupid(),Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    linearLayout.addView(view);
-                  //  view=inflate.inflate(R.layout.add_backsp,null);
-                   // view.setTag(i+1);
-                    //linearLayout.addView(view);
-                }
-                View view = inflate.inflate(R.layout.group_creategroup,null);
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        fragmentManager.beginTransaction().disallowAddToBackStack().replace(R.id.frames,new GroupCreator()).commit();
-                    }
-                });
-               // linearLayout.addView(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             }
+        });
+        linearLayout.addView(view);
+
+    }
+    private void deleteGroup(String groupid)
+    {
+        reference.child(groupid).removeValue();
+        linearLayout.removeView(viewTrue.findViewWithTag(groupid));
+        db.getReference("Groups").child(groupid).removeValue();
+        if(linearLayout.getChildCount()==0)linearLayout.addView(inflater.inflate(R.layout.group_nogroup,null));
+    }
+    private void showNoGroups()
+    {
 
     }
 

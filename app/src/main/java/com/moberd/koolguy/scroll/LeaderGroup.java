@@ -132,9 +132,9 @@ public class LeaderGroup extends Fragment implements GroupListener {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_leader_group, container, false);
 
-        createSoundPool();
+      //  createSoundPool();
         myAssetManager = getActivity().getAssets();
-        myButtonSound=createSound("button_16.mp3");
+        //myButtonSound=createSound("button_16.mp3");
 
       //  refresh = (Button) v.findViewById(R.id.reset);
        // refresh.setOnClickListener(new View.OnClickListener() {
@@ -442,7 +442,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
 
     }
 
-    private void createSoundPool() {
+  /*  private void createSoundPool() {
         AudioAttributes attributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -450,7 +450,7 @@ public class LeaderGroup extends Fragment implements GroupListener {
         mySoundPool = new SoundPool.Builder()
                 .setAudioAttributes(attributes)
                 .build();
-    }
+    }*/
 
     private int createSound(String fileName) {
         AssetFileDescriptor AsFileDesc;

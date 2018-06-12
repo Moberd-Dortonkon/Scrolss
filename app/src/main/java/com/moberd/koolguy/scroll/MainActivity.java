@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements
         preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         editor = preferences.edit();
         group_pref = getSharedPreferences(GROUP_PREFERENCES,MODE_PRIVATE);
-        group_pref.edit().clear().apply();
+       // group_pref.edit().clear().apply();
        // group_pref.edit().clear().apply();
        /* if(preferences.getString("role","").equals("leader"))
         {
@@ -255,7 +256,27 @@ public class MainActivity extends AppCompatActivity implements
                 if (group_pref.getString("role","").equals("volonteer"))
                 {
                    if(!group_pref.contains("lastgroupid"))getFragmentManager().beginTransaction().replace(R.id.frames,new com.moberd.koolguy.scroll.groups2.ChooseToDoVolonteer()).addToBackStack(null).commit();
-                    else getFragmentManager().beginTransaction().replace(R.id.frames,showOneGroup).addToBackStack(null).commit();
+                    else
+                        {
+                            db.getReference("Groups").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.hasChild(group_pref.getString("lastgroupid","")))getFragmentManager().beginTransaction().replace(R.id.frames,showOneGroup).addToBackStack(null).commit();
+                                    else {
+
+                                        Toast.makeText(MainActivity.this,"Ваша группа была удалена",Toast.LENGTH_LONG).show();
+                                        getFragmentManager().beginTransaction().replace(R.id.frames,new com.moberd.koolguy.scroll.groups2.ChooseToDoVolonteer()).addToBackStack(null).commit();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                        }
 
                 }
 
@@ -531,8 +552,10 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
+                    try{
                     String latlng = dataSnapshot.getValue(String.class);
                     fromDb = new LatLng(Double.parseDouble(latlng.split(",")[0]), Double.parseDouble(latlng.split(",")[1]));
+                    }catch (DatabaseException e){}
                     //Toast.makeText(MainActivity.this,latlng,Toast.LENGTH_SHORT).show();
                 }
             }
@@ -559,14 +582,14 @@ public class MainActivity extends AppCompatActivity implements
     {
         String id=group_pref.getString("name","");
         String groupid=group_pref.getString("groupid","");
-        if(distance>450)
-        {
-              db.getReference("Groups").child(groupid).child("Volonteers").child(id).child("Come").setValue(false);
-        }
-        if(distance<450)
-        {
-            db.getReference("Groups").child(groupid).child("Volonteers").child(id).child("Come").setValue(true);
-        }
+        try {
+            if (distance > 450) {
+                db.getReference("Groups").child(groupid).child("Volonteers").child(id).child("Come").setValue(false);
+            }
+            if (distance < 450) {
+                db.getReference("Groups").child(groupid).child("Volonteers").child(id).child("Come").setValue(true);
+            }
+        }catch (Exception e ){}
 
     }
     @Override
@@ -644,6 +667,12 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void defineGroup(String groupid) {
         playSound(myButtonSound);
+        if(group_pref.contains("groupid"))
+        {
+            db.getReference("Groups").child(group_pref.getString("groupid",""))
+                    .child("Volonteers").child(group_pref.getString("name","")).removeValue();
+
+        }
         group_pref.edit().putString("lastgroupid",groupid).apply();
         group_pref.edit().putString("groupid",groupid).apply();
         String name =group_pref.getString("name","");

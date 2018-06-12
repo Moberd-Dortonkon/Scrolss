@@ -63,10 +63,15 @@ public class GreetingsGroupFragment extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         FirebaseUser user=auth.getCurrentUser();
         String name1 = user.getDisplayName();
+
         name=(EditText)view.findViewById(R.id.greetingf_name);
-        name.setText(name1.split(" ")[0]);
         second_name=(EditText)view.findViewById(R.id.family);
-        second_name.setText(name1.split(" ")[1]);
+        try {
+
+
+        name.setText(name1.split(" ")[0]);
+        second_name.setText(name1.split(" ")[1]);}
+        catch (Exception e){}
         leader=(Button)view.findViewById(R.id.greetings_button_leader);
         volonteer=(Button)view.findViewById(R.id.greetings_button_volonteer);
         leader.setOnClickListener(new View.OnClickListener() {

@@ -5,13 +5,18 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +52,8 @@ public class ShowAllGroups extends Fragment {
     List<Group>groups;
     ListView listView;
     View view;
+    LayoutInflater inflater;
+    LinearLayout linearLayout;
     FrameLayout frameLayout;
     DefineGroup listener;
     DatabaseReference ref;
@@ -58,43 +65,40 @@ public class ShowAllGroups extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view=inflater.inflate(R.layout.fragment_show_all_groups, container, false);
-        frameLayout=(FrameLayout)view.findViewWithTag("test");
+        view=inflater.inflate(R.layout.fragment_my_groups, container, false);
+        this.inflater = inflater;
+        linearLayout = (LinearLayout)view.findViewById(R.id.my_group_layout);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        frameLayout.addView(inflater.inflate(R.layout.progress_view,null));
-        groups = new ArrayList<>();
-
-        listView=(ListView)view.findViewById(R.id.show_all_groups_listview);
+        //frameLayout.addView(inflater.inflate(R.layout.progress_view,null));
         ref= FirebaseDatabase.getInstance().getReference("Groups");
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long count = dataSnapshot.getChildrenCount();
-                for(DataSnapshot group:dataSnapshot.getChildren())
-                {
-                    String desck = group.child("Description").getValue(String.class);
-                    String name = group.child("LeaderName").getValue(String.class);
-                    String time = group.child("Time").getValue(String.class);
-                    String groupid = group.getRef().getKey();
-                   Group group1 = new Group(time,name,groupid,"test",desck,"test");
-                   groups.add(group1);
-                    count--;
-                    if(count==0)
-                    {
-                        frameLayout.removeAllViews();
-                        frameLayout.setVisibility(View.GONE);
-                        for(int i=0;i<groups.size();i++)
-                        {
-                            String[] names = new String[groups.size()];
-                            names[i]=groups.get(i).getGroupName();
-                            ShowGroupForVolonteerAdapter show = new ShowGroupForVolonteerAdapter(view.getContext(),groups,getActivity(),names,getFragmentManager(), listener);
-                            listView.setAdapter(show);
-                        }
-                    }
-                }
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String key = dataSnapshot.getKey();
+                String name=dataSnapshot.child("LeaderName").getValue(String.class);
+                String description=dataSnapshot.child("Description").getValue(String.class);
+                String date=dataSnapshot.child("Time").getValue(String.class);
+                Group group = new Group(date,name,key,name,description,null);
+                addGroup(group);
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                  deletegroup(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
             }
 
             @Override
@@ -102,9 +106,32 @@ public class ShowAllGroups extends Fragment {
 
             }
         });
-       // ShowGroupForVolonteerAdapter showGroupForVolonteerAdapter = new ShowGroupForVolonteerAdapter(view.getContext())
         return view;
     }
+    private  void deletegroup(String groupid)
+    {
+        linearLayout.removeView(view.findViewWithTag(groupid));
 
+    }
+    private  void addGroup(Group g)
+    {
+        final View view = inflater.inflate(R.layout.group_exist,null);
+        TextView name=(TextView)view.findViewById(R.id.group_exist_name);
+        TextView desc=(TextView)view.findViewById(R.id.group_exist_desc);
+        TextView date=(TextView)view.findViewById(R.id.group_exist_date);
+        name.setText(g.getLeaderName());
+        desc.setText(g.getGroupdescription());
+        date.setText(g.getGroupdate());
+        view.setTag(g.getGroupid());
+        ImageButton imageButton = (ImageButton)view.findViewById(R.id.deletegroup);
+        imageButton.setVisibility(View.GONE);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.defineGroup((String)view.getTag());
+            }
+        });
+        linearLayout.addView(view);
+    }
 
 }

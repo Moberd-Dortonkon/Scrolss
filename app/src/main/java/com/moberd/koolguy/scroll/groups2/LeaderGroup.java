@@ -44,6 +44,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.moberd.koolguy.scroll.MainActivity;
 import com.moberd.koolguy.scroll.R;
 import com.moberd.koolguy.scroll.RefreshStatus;
@@ -211,14 +212,26 @@ public class LeaderGroup extends Fragment implements GroupListener {
 
             }
         });
+        ref.getParent().child("Coordinates").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())group.setGroupcoordinates(dataSnapshot.getValue(String.class));
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         return v;
     }
+
     private void updateUi(HashMap<String,Volonteer> volonteers)
     {
-        if(vGroup.isEmpty()){viewHolder.removeAllViews();viewHolder.addView(layoutInflater.inflate(R.layout.group_greetings,null));}
+        if(vGroup.isEmpty()||vGroup==null){viewHolder.removeAllViews();viewHolder.addView(layoutInflater.inflate(R.layout.group_greetings,null));}
         else{
+            viewHolder.removeAllViews();
             showGroup = LayoutInflater.from(v.getContext()).inflate(R.layout.group_show, null);
             viewHolder.addView(showGroup);
             groupView = (ListView) v.findViewById(R.id.groupView);
@@ -230,24 +243,6 @@ public class LeaderGroup extends Fragment implements GroupListener {
             @Override
             public void onClick(final View view) {
                 playSound(myButtonSound);
-               /* AlertDialog.Builder alertDiaolog = new AlertDialog.Builder(v.getContext());
-                alertDiaolog.setView(R.layout.gmap_diaolg_icon);
-                alertDiaolog.setCancelable(true);
-                AlertDialog realDialog=alertDiaolog.create();
-                realDialog.show();
-                MapView mapView =(MapView)realDialog.findViewById(R.id.mapView);
-                MapsInitializer.initialize(getActivity());
-                mapView.onCreate(realDialog.onSaveInstanceState());
-                mapView.onResume();
-                mapView.getMapAsync(new OnMapReadyCallback() {
-                    @Override
-                    public void onMapReady(GoogleMap googleMap) {
-                        gMap=googleMap;
-                    }
-                });
-         */
-
-
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setContentView(R.layout.gmap_diaolg_icon);
                 Window w = dialog.getWindow();
@@ -329,49 +324,6 @@ public class LeaderGroup extends Fragment implements GroupListener {
             }
         });
     }
-    class sendCoordinates extends Thread
-    {
-
-        @Override
-        public void run()
-        {
-            Retrofit retrofit = new Retrofit.Builder().baseUrl(MainActivity.TEST_SERVER).addConverterFactory(GsonConverterFactory.create()).build();
-            ServerSetCoordinates setCoordinates = retrofit.create(ServerSetCoordinates.class);
-            if(groupLatLng!=null){
-            String latlngForServer=Double.toString(groupLatLng.latitude)+","+Double.toString(groupLatLng.longitude);
-            testString="";
-           // String key = v.getContext().getSharedPreferences(MainActivity.APP_PREFERENCES,Context.MODE_PRIVATE).getString("groupPassword","");
-            Call<ResponseBody>call = setCoordinates.setCoordinates(key,latlngForServer);
-                try {
-                    Response<ResponseBody>response= call.execute();
-                    if(response.isSuccessful()){
-                        testString=response.body().string().toString();}
-                        else{testString="hi therre";}
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if(!testString.equals(""))
-                {activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(activity,"коорд:"+testString,Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                }
-
-            }
-
-        }
-    }
-
-
     @Override
     public void listener(HashMap<String, Volonteer> vGroup) {
       groupView.setAdapter(new GroupAdapter(v.getContext(),vGroup));
@@ -381,64 +333,6 @@ public class LeaderGroup extends Fragment implements GroupListener {
     {
 
     }
-
-    private void firstGroupTake() {
-        viewHolder = (ViewGroup) v.findViewById(R.id.groupFromStart);
-        viewHolder.removeAllViews();
-        showGroup = LayoutInflater.from(v.getContext()).inflate(R.layout.group_show, null);
-        viewHolder.addView(showGroup);
-        groupView = (ListView) v.findViewById(R.id.groupView);
-        // refresh=(Button)v.findViewById(R.id.reset);}
-    }
-   /* class MyThread extends Thread {
-        GroupListener listener;
-        public MyThread(GroupListener listener){this.listener=listener;}
-        synchronized
-        @Override
-        public void run() {
-            for (int i =0;i<8;i++) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(MainActivity.TEST_SERVER)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-               // ServerDisplayGroup group = retrofit.create(ServerDisplayGroup.class);
-                Call<List<Volonteer>> call =retrofit.create(GetMyVolonteers.class).getMyVolonteer(group.getGroupid());
-                List<Volonteer>volonteers = new ArrayList<>();
-
-                try {
-                    Response<List<Volonteer>> response = call.execute();
-                    volonteers=response.body();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if(volonteers!=null&&!volonteers.isEmpty())
-                {
-                    String s="";
-                    final HashMap<String,Volonteer>vgroup=new HashMap<>();
-                    for(Volonteer v:volonteers)
-                    {
-                        vgroup.put(v.getName(),v);
-                    }
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(!preferences.contains("groupExist")){editor.putString("groupExist","yes");editor.commit();firstGroupTake();}
-                            try { groupView.setAdapter(new GroupAdapter(v.getContext(),vgroup));}catch (Exception e){}
-                        }
-                    });}
-                try {
-                    sleep(15000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
-
-        }
-    }*/
-
     @Override
     public void onStart() {
         super.onStart();

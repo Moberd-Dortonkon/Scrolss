@@ -11,6 +11,7 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -145,7 +147,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
         groupid=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("groupid","");
         name=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("name","");
       reference = FirebaseDatabase.getInstance().getReference("Groups").child(groupid).child("Volonteers").child(name);
-        reference.addValueEventListener(new ValueEventListener() {
+        /*reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                String eattime= dataSnapshot.child("EatTime").getValue(String.class);
@@ -166,7 +168,24 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+        });*/
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    initializedate(inflater,dataSnapshot.child("EatTime").getValue(String.class));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
+
 
       /* button.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -220,11 +239,11 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
     }
     SimpleDateFormat format2;
     String dateFormated;
-    private void initializedate(final LayoutInflater inflater,Volonteer volonteer) throws ParseException {
+    private void initializedate(final LayoutInflater inflater,String eattime) throws ParseException {
 
 
         SimpleDateFormat format2 = new SimpleDateFormat("dd.MM.yyyy/HH:mm:ss");
-        String fromServer = volonteer.getEattime();
+        String fromServer = eattime;
         TextView textView = (TextView) view.findViewById(R.id.did_you_eat);
         Date date = Calendar.getInstance().getTime();
         dateFormated = format2.format(date);

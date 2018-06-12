@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+       // Toast.makeText(this,currentUser.getDisplayName(),Toast.LENGTH_LONG).show();
         if(currentUser!=null)
         {   Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -64,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn() {
+        Toast.makeText(this,"lol",Toast.LENGTH_LONG).show();
         Intent signInIntent = mGoogleSignin.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
