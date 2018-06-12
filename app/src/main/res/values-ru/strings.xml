@@ -31,6 +31,8 @@
     <string name="group_desct">Описание?</string>
     <string name="leader">Лидер</string>
     <string name="volunteer">Волонтёр</string>
+    <string name="leader_come">Стать лидером</string>
+    <string name="volonteer_come">Стать волонтером</string>
     <string name="crtGroup">Создать Группу</string>
     <string name="refresh">Сбросить</string>
     <string name="share">Поделиться</string>
@@ -43,6 +45,7 @@
     <string name="leader_password">Пароль лидера</string>
     <string name="leader_confirm">Вы точно лидер?</string>
     <string name="leader_confirm_button">Войти</string>
+    <string name="confirm">Принять</string>
     <string name="leader_confirm_toolbar">Вы точно лидер?</string>
     <string name="name_gr">Имя:</string>
     <string name="status">Выберете статус</string>
@@ -53,6 +56,7 @@
     <string name="trans">Перевод</string>
     <string name="settings">О Приложении</string>
     <string name="action_share">Поделиться</string>
+    <string name="change_status">Вы хотите стать лидером?</string>
     <string name="action_reply">Отправить</string>
     <string name="my_groups">Мои Группы</string>
     <string name="name_fam">Фамилия</string>

@@ -44,6 +44,7 @@ public class ConnectDirectly extends Fragment {
     }
 View view;
 Button button;
+boolean check;
 EditText editText;
 Retrofit retrofit;
 FrameLayout frameLayout;
@@ -66,6 +67,7 @@ ShowAllGroups.DefineGroup listener;
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         frameLayout=(FrameLayout)view.findViewById(R.id.LoadingFrame);
+        check=true;
         editText = (EditText)view.findViewById(R.id.connect_direcltly);
         button =(Button)view.findViewById(R.id.connect_directly_buton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +79,13 @@ ShowAllGroups.DefineGroup listener;
                 button.setVisibility(View.INVISIBLE);
                 frameLayout.addView(inflater.inflate(R.layout.progress_view,null));
                // Toast.makeText(getActivity(),"Connecting...",Toast.LENGTH_SHORT).show();
-                DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Groups");
+                DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Groups").child(editText.getText().toString());
                 ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.hasChild(editText.getText().toString()))listener.defineGroup(editText.getText().toString());
-                        else{button.setEnabled(true);button.setVisibility(View.VISIBLE);frameLayout.setVisibility(View.INVISIBLE);}
+                        if(check)
+                        if(dataSnapshot.exists()&&check){check =false; listener.defineGroup(editText.getText().toString());}
+                        else{button.setEnabled(true);button.setVisibility(View.VISIBLE);frameLayout.setVisibility(View.INVISIBLE);check =false;}
                     }
 
                     @Override

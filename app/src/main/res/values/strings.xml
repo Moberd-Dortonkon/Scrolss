@@ -54,6 +54,9 @@
     <string name="leader_confirm_button">Confirm</string>
     <string name="trans">Translate</string>
     <string name="settings">About</string>
+    <string name="confirm">Confirm</string>
+    <string name="leader_come">Become Leader</string>
+    <string name="volonteer_come">Become volonteer</string>
     <string name="leader_login">Leader Login</string>
     <string name="leader_password">Leader Password</string>
     <string name="leader_confirm">Are YOU really leader?</string>
@@ -61,6 +64,7 @@
     <string name="my_groups">My Groups</string>
     <string name="name_fam">Your 2nd Name</string>
     <string name="description">Description</string>
+    <string name="change_status">Do you want to become a Volonteer Leader?</string>
     <string name="show_group">Show other group  -></string>
     <string name="soon_work">It is your work time soon</string>
     <string name="eaten">Have you eaten?</string>
