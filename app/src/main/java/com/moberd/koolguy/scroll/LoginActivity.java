@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-        Toast.makeText(this,"lol",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"lol",Toast.LENGTH_LONG).show();
         Intent signInIntent = mGoogleSignin.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }

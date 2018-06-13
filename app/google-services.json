@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "999546263268-4mit6nu76pkbm76phauq8n58q28cvasg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moberd.koolguy.scroll",
+            "certificate_hash": "bf0981be64dfe4f99a414691cee9059aef1c3668"
+          }
+        },
+        {
           "client_id": "999546263268-lreshgpek5lc9grjkgq12vkp0tpjl9ve.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
