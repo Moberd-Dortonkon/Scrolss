@@ -48,6 +48,7 @@
     <string name="confirm">Принять</string>
     <string name="leader_confirm_toolbar">Вы точно лидер?</string>
     <string name="name_gr">Имя:</string>
+    <string name="groups_not_exist">Еще не было создано групп</string>
     <string name="status">Выберете статус</string>
     <string name="all">ВСЁ</string>
     <string name="my_schd">МОЁ РАСПИСАНИЕ</string>

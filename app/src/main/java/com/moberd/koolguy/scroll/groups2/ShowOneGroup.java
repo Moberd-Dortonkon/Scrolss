@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -136,6 +137,16 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
         mapView=(MapView)view.findViewById(R.id.show_onegroup_mapview);
         textView=(TextView)view.findViewById(R.id.show_onegroup_textview);
         textView.setText("Connecting");
+        FrameLayout chat =(FrameLayout) view.findViewById(R.id.bubble_chat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),"lol",Toast.LENGTH_SHORT).show();
+                getFragmentManager().beginTransaction().replace(R.id.frames,new GroupChat()).addToBackStack(null).commit();
+            }
+        });
+        TextView textView = (TextView)view.findViewById(R.id.message_count);
+        textView.setVisibility(View.INVISIBLE);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) view.findViewById(R.id.toolbarId);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +158,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
 
         groupid=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("groupid","");
         name=view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES,Context.MODE_PRIVATE).getString("name","");
-      reference = FirebaseDatabase.getInstance().getReference("Groups").child(groupid).child("Volonteers").child(name);
+        reference = FirebaseDatabase.getInstance().getReference("Groups").child(groupid).child("Volonteers").child(name);
         /*reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -188,52 +199,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
         });
 
 
-      /* button.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               playSound(myButtonSound);
 
-               if(booleat)
-               {    Call<ResponseBody>setEat=retrofit.create(SetEat.class).setEat(group_pref.getString("leaderid",""),group_pref.getString("groupid",""),
-                       "false");
-                   setEat.enqueue(new Callback<ResponseBody>() {
-                       @Override
-                       public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                           if(response.isSuccessful()) {
-
-                           }
-                       }
-
-                       @Override
-                       public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                       }
-                   });
-                   imageView.setImageResource(R.drawable.ic_thumdown);
-               }
-               if(!booleat)
-               {
-                   Call<ResponseBody>setEat=retrofit.create(SetEat.class).setEat(group_pref.getString("leaderid",""),group_pref.getString("groupid",""),
-                           "true");
-                   setEat.enqueue(new Callback<ResponseBody>() {
-                       @Override
-                       public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                           if(response.isSuccessful()) {
-
-                           }
-                       }
-
-                       @Override
-                       public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                       }
-                   });
-                   imageView.setImageResource(R.drawable.ic_thumup);
-               }
-
-               booleat=!booleat;
-           }
-       });*/
        mapView.onCreate(savedInstanceState);
        mapView.getMapAsync(this);
        return view;

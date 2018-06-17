@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".groups2.GroupChat">
+    <android.support.v7.widget.Toolbar
+        app:title="@string/group"
+        android:elevation="8dp"
+
+        android:background="@color/colorWhite_front"
+        android:id="@+id/toolbarId"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" >
+</android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:background="#ffff">
+
+        <LinearLayout
+            android:id="@+id/chatLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_weight="0.005"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_weight="8"
+            android:background="#ffff"
+            android:id="@+id/messageEditText"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/sendMesage"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_send_message"
+            android:background="#ffff"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

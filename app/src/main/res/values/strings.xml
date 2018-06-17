@@ -69,6 +69,7 @@
     <string name="soon_work">It is your work time soon</string>
     <string name="eaten">Have you eaten?</string>
     <string name="all_grp">All Groups</string>
+    <string name="groups_not_exist">There isn't any groups yet</string>
     <string name="code">Code</string>
     <string name="no_groups">You don`t have any groups</string>
     <string name="time">Time</string>

@@ -71,9 +71,25 @@ public class ShowAllGroups extends Fragment {
         view=inflater.inflate(R.layout.fragment_my_groups, container, false);
         this.inflater = inflater;
         linearLayout = (LinearLayout)view.findViewById(R.id.my_group_layout);
+        View loading_view = inflater.inflate(R.layout.progress_view,null);
+        loading_view.setTag("Test");
+        linearLayout.addView(loading_view);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         //frameLayout.addView(inflater.inflate(R.layout.progress_view,null));
+
         ref= FirebaseDatabase.getInstance().getReference("Groups");
+        ref.getParent().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.hasChild("Groups")){noGroups();}
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -83,6 +99,7 @@ public class ShowAllGroups extends Fragment {
                 String date=dataSnapshot.child("Time").getValue(String.class);
                 Group group = new Group(date,name,key,name,description,null);
                 addGroup(group);
+
 
             }
 
@@ -115,22 +132,34 @@ public class ShowAllGroups extends Fragment {
     }
     private  void addGroup(Group g)
     {
-        final View view = inflater.inflate(R.layout.group_exist,null);
-        TextView name=(TextView)view.findViewById(R.id.group_exist_name);
-        TextView desc=(TextView)view.findViewById(R.id.group_exist_desc);
-        TextView date=(TextView)view.findViewById(R.id.group_exist_date);
+
+        final View group_view = inflater.inflate(R.layout.group_exist,null);
+        TextView name=(TextView)group_view.findViewById(R.id.group_exist_name);
+        TextView desc=(TextView)group_view.findViewById(R.id.group_exist_desc);
+        TextView date=(TextView)group_view.findViewById(R.id.group_exist_date);
         name.setText(g.getLeaderName());
         desc.setText(g.getGroupdescription());
         date.setText(g.getGroupdate());
-        view.setTag(g.getGroupid());
-        ImageButton imageButton = (ImageButton)view.findViewById(R.id.deletegroup);
+        group_view.setTag(g.getGroupid());
+        ImageButton imageButton = (ImageButton)group_view.findViewById(R.id.deletegroup);
         imageButton.setVisibility(View.GONE);
-        view.setOnClickListener(new View.OnClickListener() {
+        group_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.defineGroup((String)view.getTag());
+                listener.defineGroup((String)group_view.getTag());
             }
         });
+        linearLayout.removeView(view.findViewWithTag("Test"));
+        linearLayout.addView(group_view);
+    }
+    private void noGroups()
+    {
+        linearLayout.removeAllViews();
+        View view = inflater.inflate(R.layout.group_nogroup,null);
+        view.setTag("Test");
+        TextView text = (TextView)view.findViewById(R.id.textView3);
+        text.setTextSize(26);
+        text.setText(R.string.groups_not_exist);
         linearLayout.addView(view);
     }
 

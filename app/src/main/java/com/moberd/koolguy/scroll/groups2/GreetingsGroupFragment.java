@@ -67,8 +67,6 @@ public class GreetingsGroupFragment extends Fragment {
         name=(EditText)view.findViewById(R.id.greetingf_name);
         second_name=(EditText)view.findViewById(R.id.family);
         try {
-
-
         name.setText(name1.split(" ")[0]);
         second_name.setText(name1.split(" ")[1]);}
         catch (Exception e){}
@@ -89,8 +87,6 @@ public class GreetingsGroupFragment extends Fragment {
                 getFragmentManager().beginTransaction().replace(R.id.frames,new ChooseToDoVolonteer()).disallowAddToBackStack().commit();
             }
         });
-
-
 
 
 
