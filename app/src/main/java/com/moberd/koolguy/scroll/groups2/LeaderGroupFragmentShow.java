@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.moberd.koolguy.scroll.LeaderGroup;
 import com.moberd.koolguy.scroll.R;
@@ -52,6 +55,16 @@ public class LeaderGroupFragmentShow extends Fragment {
      //           getFragmentManager().beginTransaction().replace(R.id.frames,new MyGroups()).addToBackStack(null).commit();
      //       }
     //    });
+        FrameLayout chat =(FrameLayout) view.findViewById(R.id.bubble_chat);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity(),"lol",Toast.LENGTH_SHORT).show();
+                getFragmentManager().beginTransaction().replace(R.id.frames,new GroupChat()).addToBackStack(null).commit();
+            }
+        });
+        TextView textView = (TextView)view.findViewById(R.id.message_count);
+        textView.setVisibility(View.INVISIBLE);
         leaderGroup.setGroup(group);
         leaderGroup.setlName(groupid);
         leaderGroup.setActivity(getActivity());

@@ -7,13 +7,17 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,12 +46,14 @@ public class GroupChat extends Fragment {
     }
 
     View view;
+    long messageCount;
     EditText message;
     ImageButton sendMessage;
     LinearLayout displayMessages;
     DatabaseReference ref;
     SharedPreferences pref;
     LayoutInflater inflater;
+    boolean ScreenTouched;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,8 +61,24 @@ public class GroupChat extends Fragment {
         view= inflater.inflate(R.layout.fragment_group_chat, container, false);
         message = (EditText)view.findViewById(R.id.messageEditText);
         sendMessage=(ImageButton)view.findViewById(R.id.sendMesage);
+        ScrollView scrollView  = view.findViewById(R.id.group_chat_scroll_view);
+        messageCount=0;
         pref =view.getContext().getSharedPreferences(MainActivity.GROUP_PREFERENCES, Context.MODE_PRIVATE);
         displayMessages = (LinearLayout)view.findViewById(R.id.chatLayout);
+        displayMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScreenTouched=true;
+            }
+        });
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbarId);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
         this.inflater = inflater;
         ref = FirebaseDatabase.getInstance().getReference("Groups").child(pref.getString("groupid","")).child("Chat");
         sendMessage.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +96,9 @@ public class GroupChat extends Fragment {
                 putted.put("message",message.getText().toString());
                 putted.put("name",pref.getString("name",""));
                 putted.put("date",dateFormatted);
+                message.setText("");
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 messageRef.setValue(putted);
 
             }
@@ -81,7 +106,6 @@ public class GroupChat extends Fragment {
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
                 String message=dataSnapshot.child("message").getValue(String.class);
                 String date=dataSnapshot.child("date").getValue(String.class);
                 String name=dataSnapshot.child("name").getValue(String.class);
@@ -114,7 +138,6 @@ public class GroupChat extends Fragment {
         View messageView = inflater.inflate(R.layout.chat_message,null);
         TextView textView = (TextView)messageView.findViewById(R.id.messageText);
         TextView messageInfo=(TextView)messageView.findViewById(R.id.messageInfo);
-
         Space space = new Space(getActivity());
 
         //Toast.makeText(getActivity(),name,Toast.LENGTH_SHORT).show();
@@ -126,6 +149,14 @@ public class GroupChat extends Fragment {
             params.gravity = Gravity.RIGHT;
             params.setMargins(0,24,8,0);
             messageView.setLayoutParams(params);
+            messageView.setBackgroundResource(R.drawable.mymessages);
+            try {
+
+                if(ScreenTouched)messageView.getParent().requestChildFocus(messageView,messageView);}catch (Exception e){}
+            ScreenTouched =false;
+
+
+
 
         }
         else
@@ -136,8 +167,17 @@ public class GroupChat extends Fragment {
                 params.setMargins(8,24,0,0);
                 textView.setText(message);
                 messageView.setLayoutParams(params);
+                messageView.setBackgroundResource(R.drawable.others);
             }
-        displayMessages.addView(messageView);
+
+            messageCount++;
+            messageView.setTag(messageCount);
+            displayMessages.addView(messageView);
+        if(!ScreenTouched) messageView.getParent().requestChildFocus(messageView,messageView);
+       // if(view.findViewWithTag(messageCount).isV)messageView.getParent().requestChildFocus(messageView,messageView);
+      //  try
+       // {if(displayMessages.getY())}catch (Exception e){}
     }
+
 
 }

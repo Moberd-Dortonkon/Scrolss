@@ -15,8 +15,35 @@
         android:id="@+id/toolbarId"
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
 
+        android:layout_height="?attr/actionBarSize">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:id="@+id/bubble_chat"
+            android:layout_gravity="end">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_bubble_chat"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/message_count"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="35"/>
+            </LinearLayout>
+
+        </FrameLayout>
     </android.support.v7.widget.Toolbar>
     <FrameLayout
         android:layout_width="match_parent"

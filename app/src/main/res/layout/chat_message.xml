@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="300dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:background="@drawable/okrugkenie"
     android:orientation="vertical"
     >
   <TextView
-      android:layout_width="match_parent"
+      android:layout_width="300dp"
       android:layout_height="wrap_content"
       android:layout_weight="1.5"
       android:textSize="20dp"
-      android:textColor="#000000"
       android:gravity="center"
       android:id="@+id/messageInfo"
       android:text="Данил Нечаев 17ю08"/>
 
   <TextView
       android:id="@+id/messageText"
-      android:layout_width="match_parent"
+      android:layout_width="300dp"
       android:layout_height="wrap_content"
       android:layout_weight="4"
+      android:layout_gravity="center"
+      android:layout_marginRight="4dp"
+      android:textColor="#000000"
+      android:layout_marginLeft="4dp"
       android:text="dfgdfgdfgdfffffffffffffffffffffdfffffffffffffffffffffffffffffdddddddddddddddddddddddddddddddddddddddd"
       android:textSize="19dp" />
 </LinearLayout>

@@ -141,7 +141,7 @@ public class ShowOneGroup extends Fragment implements OnMapReadyCallback {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"lol",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),"lol",Toast.LENGTH_SHORT).show();
                 getFragmentManager().beginTransaction().replace(R.id.frames,new GroupChat()).addToBackStack(null).commit();
             }
         });
