@@ -51,6 +51,7 @@
     <string name="groups_not_exist">Еще не было создано групп</string>
     <string name="status">Выберете статус</string>
     <string name="all">ВСЁ</string>
+    <string name="yourmessage">Ваше сообщение</string>
     <string name="my_schd">МОЁ РАСПИСАНИЕ</string>
     <string name="map_short">КАРТА</string>
     <string name="extra">"Экстренные службы "</string>

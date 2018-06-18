@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="4"
-        android:background="#ffff">
+        android:background="#F0FFFF">
 
         <LinearLayout
             android:id="@+id/chatLayout"
@@ -32,14 +32,15 @@
         </LinearLayout>
     </ScrollView>
     <LinearLayout
-        android:layout_weight="0.005"
+        android:layout_weight="0.1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_weight="8"
-            android:background="#ffff"
+            android:hint="@string/yourmessage"
+            android:background="#F8F8FF"
             android:id="@+id/messageEditText"
             android:layout_height="match_parent" />
 

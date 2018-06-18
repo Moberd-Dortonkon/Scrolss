@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,20 +114,26 @@ public class GroupChat extends Fragment {
         View messageView = inflater.inflate(R.layout.chat_message,null);
         TextView textView = (TextView)messageView.findViewById(R.id.messageText);
         TextView messageInfo=(TextView)messageView.findViewById(R.id.messageInfo);
-        Toast.makeText(getActivity(),name,Toast.LENGTH_SHORT).show();
+
+        Space space = new Space(getActivity());
+
+        //Toast.makeText(getActivity(),name,Toast.LENGTH_SHORT).show();
         if(pref.getString("name","").equals(name))
         {
             textView.setText(message);
             messageInfo.setText(date);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params.gravity = Gravity.RIGHT;
+            params.setMargins(0,24,8,0);
             messageView.setLayoutParams(params);
+
         }
         else
             {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.gravity = Gravity.LEFT;
                 messageInfo.setText(name+"/"+date);
+                params.setMargins(8,24,0,0);
                 textView.setText(message);
                 messageView.setLayoutParams(params);
             }
